@@ -1,0 +1,4005 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width" name="viewport"/>
+<meta content="telephone=no" name="format-detection"/>
+<link href="kakekoi" hreflang="x-default" rel="alternate"/>
+<link href="kakekoi" hreflang="ja-JP" rel="alternate"/>
+<link href="kakekoi/en/" hreflang="en-JP" rel="alternate"/>
+<!-- production build --><script src="kakekoi/wp-content/themes/kakekoi_lp/build/index-C7M4MVln.js" type="module"></script>
+<script src="kakekoi/wp-content/themes/kakekoi_lp/build/index-B6vuNlJj.js" type="module"></script><script src="kakekoi/wp-content/themes/kakekoi_lp/build/index-JMfdnFzC.js" type="module"></script><link href="kakekoi/wp-content/themes/kakekoi_lp/build/index-CBHqatNy.css" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;family=Tajawal:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<style id="ar-toggle-style">
+  /* ==== تعريب تفاعلي: تنسيقات إضافية لا تتعارض مع تصميم الصفحة الأصلي ==== */
+  [data-ja][data-ar]{ transition: opacity .18s ease; }
+  .is-ar-fading{ opacity:0; }
+  .talk-message p.lang-ar{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif !important;
+    direction:rtl;
+    text-align:right;
+    unicode-bidi:isolate;
+    line-height:1.7;
+  }
+  .lang-toggle-wrap{
+    position:fixed;
+    top:calc(env(safe-area-inset-top,0px) + 10px);
+    right:10px;
+    z-index:1000;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(20,30,35,.72);
+    backdrop-filter:blur(6px);
+    border-radius:999px;
+    padding:4px 10px 4px 4px;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+  }
+  .lang-toggle-label{
+    color:#fff;
+    font-size:10px;
+    letter-spacing:.02em;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .lang-toggle-btn{
+    position:relative;
+    width:42px;
+    height:24px;
+    border-radius:999px;
+    background:#6b7d84;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    flex:0 0 auto;
+    transition:background .25s ease;
+  }
+  .lang-toggle-btn.is-ar{ background:#3A5E6E; }
+  .lang-toggle-knob{
+    position:absolute;
+    top:2px;
+    left:2px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.35);
+    transition:transform .25s ease;
+  }
+  .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(18px); }
+  @media (min-width:768px){
+    .lang-toggle-wrap{ top:22px; right:calc(314px + 24px); }
+  }
+
+  /* ==== إضافات هيوكا ناتسومي: تبديل الأيام + العرض الفوري ==== */
+  .kakekoi-day-tab{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    color:#cfe3ea;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:999px;
+    padding:5px 14px;
+    font-size:11px;
+    white-space:nowrap;
+    cursor:pointer;
+    flex:0 0 auto;
+    transition:background .2s ease,color .2s ease,border-color .2s ease;
+  }
+  .kakekoi-day-tab.is-active{
+    background:#E8E15D;
+    border-color:#E8E15D;
+    color:#3A5E6E;
+    font-weight:700;
+  }
+  .kakekoi-showall-btn{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    color:#fff;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;
+    padding:5px 12px;
+    font-size:10.5px;
+    white-space:nowrap;
+    cursor:pointer;
+    flex:0 0 auto;
+    transition:background .2s ease,border-color .2s ease,color .2s ease;
+  }
+  .kakekoi-showall-btn .kakekoi-showall-icon{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:rgba(255,255,255,.5);
+    flex:0 0 auto;
+    transition:background .2s ease;
+  }
+  .kakekoi-showall-btn[aria-pressed="true"]{
+    background:#E8E15D;
+    border-color:#E8E15D;
+    color:#3A5E6E;
+  }
+  .kakekoi-showall-btn[aria-pressed="true"] .kakekoi-showall-icon{
+    background:#3A5E6E;
+  }
+  #kakekoi-day-tabs{ scrollbar-width:none; -ms-overflow-style:none; }
+  #kakekoi-day-tabs::-webkit-scrollbar{ display:none; }
+  p[dir="rtl"]{ font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif; }
+  .day-panel{ width:100%; height:100%; }
+  .kakekoi-credit-wrap{
+    position:fixed;
+    left:50%;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 8px);
+    transform:translateX(-50%);
+    z-index:1000;
+    background:rgba(20,30,35,.72);
+    backdrop-filter:blur(6px);
+    border-radius:999px;
+    padding:5px 16px;
+    max-width:94vw;
+  }
+  .kakekoi-credit-text{
+    color:#fff;
+    font-size:9.5px;
+    line-height:1.5;
+    text-align:center;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+  }
+  .kakekoi-credit-text a{
+    color:#E8E15D;
+    text-decoration:underline;
+  }
+  @media (min-width:768px){
+    .kakekoi-credit-wrap{ bottom:14px; }
+  }
+</style>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<!-- This site is optimized with the Yoast SEO plugin v24.3 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>スペシャルページ | TVアニメ『透明な夜に駆ける君と、目に見えない恋をした。』</title>
+
+<meta content="ja_JP" property="og:locale"/>
+<meta content="article" property="og:type"/>
+<meta content="スペシャルページ | TVアニメ『透明な夜に駆ける君と、目に見えない恋をした。』" property="og:title">
+<meta content="https://sh-anime.shochiku.co.jp/kakekoi/special/" property="og:url">
+<meta content="TVアニメ『透明な夜に駆ける君と、目に見えない恋をした。』" property="og:site_name">
+<meta content="2026-07-06T03:57:46+00:00" property="article:modified_time"/>
+<meta content="https://sh-anime.shochiku.co.jp/kakekoi/wp-content/uploads/2026/01/og_image.png" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="image/png" property="og:image:type"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<script class="yoast-schema-graph" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://sh-anime.shochiku.co.jp/kakekoi/special/","url":"https://sh-anime.shochiku.co.jp/kakekoi/special/","name":"スペシャルページ | TVアニメ『透明な夜に駆ける君と、目に見えない恋をした。』","isPartOf":{"@id":"https://sh-anime.shochiku.co.jp/kakekoi/#website"},"datePublished":"2026-07-06T02:10:35+00:00","dateModified":"2026-07-06T03:57:46+00:00","breadcrumb":{"@id":"https://sh-anime.shochiku.co.jp/kakekoi/special/#breadcrumb"},"inLanguage":"ja","potentialAction":[{"@type":"ReadAction","target":["https://sh-anime.shochiku.co.jp/kakekoi/special/"]}]},{"@type":"BreadcrumbList","@id":"https://sh-anime.shochiku.co.jp/kakekoi/special/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"ホーム","item":"https://sh-anime.shochiku.co.jp/kakekoi/"},{"@type":"ListItem","position":2,"name":"スペシャルページ"}]},{"@type":"WebSite","@id":"https://sh-anime.shochiku.co.jp/kakekoi/#website","url":"https://sh-anime.shochiku.co.jp/kakekoi/","name":"TVアニメ『透明な夜に駆ける君と、目に見えない恋をした。』","description":"第15回GA文庫大賞《大賞》受賞のライトノベル『透明な夜に駆ける君と、目に見えない恋をした。』のアニメ化が決定。2026年7月6日より放送開始。","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://sh-anime.shochiku.co.jp/kakekoi/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"ja"}]}</script>
+<!-- / Yoast SEO plugin. -->
+
+</meta></meta></meta></head>
+<body class="wp-singular page-template-default page page-id-139 wp-embed-responsive wp-theme-kakekoi_lp page-special" x-data="scroll">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-KP5DG6RB" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<svg fill="none" hidden="" xmlns="http://www.w3.org/2000/svg">
+<symbol id="icon-arrow" viewbox="0 0 10 6">
+<path d="M9.707.707 4.8535 5.5606 0 .707.707 0l4.1465 4.1465L9 0z" fill="currentColor"></path>
+</symbol>
+<symbol id="icon-external" viewbox="0 0 18 18">
+<path d="M7.5 4.5V6H3.75v8.25H12V10.5h1.5V15a.75.75 0 0 1-.75.75H3a.75.75 0 0 1-.75-.75V5.25A.75.75 0 0 1 3 4.5zm8.25-2.25v6h-1.5l-.0001-3.4402-5.8446 5.8455-1.0606-1.0606 5.844-5.8447H9.75v-1.5z" fill="currentColor"></path>
+</symbol>
+<symbol id="icon-arrow-button" viewbox="0 0 3 5">
+<path d="M2.25 2.165 0 4.3301V0z" fill="currentColor"></path>
+</symbol>
+<symbol id="icon-play" viewbox="0 0 80 80">
+<path d="M40 0c22.0914 0 40 17.9086 40 40S62.0914 80 40 80 0 62.0914 0 40 17.9086 0 40 0m-7 54 21-14-21-14z" fill="#fff" fill-opacity=".4"></path>
+</symbol>
+<symbol id="icon-bubble" viewbox="0 0 5 7">
+<path d="M0 0c1.904 2 3.904 2 4.904 2v5C.404 4.5.404 2 0 0" fill="currentColor"></path>
+</symbol>
+</svg>
+<div class="effect-loading fixed inset-0 z-[9999] flex justify-center items-center bg-white" x-bind:class="{ 'is-active': action, 'is-complete': complete }" x-data="loading">
+<div class="effect-blur-fadein absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(132/16*1rem)] h-auto z-10" x-cloak="">
+<img alt="透明な夜に駆ける君と、目に見えない恋をした。" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png"/>
+</div>
+</div>
+<div class="lang-toggle-wrap" id="lang-toggle-wrap">
+<span class="lang-toggle-label" id="lang-toggle-label">日本語</span>
+<button aria-label="تبديل اللغة إلى العربية" class="lang-toggle-btn" id="lang-toggle-btn" type="button">
+<span class="lang-toggle-knob"></span>
+</button>
+</div>
+<div class="kakekoi-credit-wrap kakekoi-ui" id="kakekoi-credit-wrap">
+<p class="kakekoi-credit-text" dir="rtl">هذا العمل عمل موسّع ومعدَّل عليه بواسطة هيوكا ناتسومي - Hyouka Natsume — <a href="https://www.instagram.com/hyouka_ns" rel="noopener" target="_blank">@hyouka_ns</a></p>
+</div>
+
+<main>
+<div class="relative w-full h-dvh z-10 overflow-clip">
+<div class="absolute inset-0 -z-10">
+<img alt="" class="size-full object-cover object-left" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-bg.png"/>
+</div>
+<div aria-hidden="true" class="md:block hidden absolute bottom-0 left-0 w-full h-auto -z-10 opacity-10 pointer-events-none">
+<p class="flex h-auto w-full items-center justify-start font-en_serif font-light text-[calc(160/16*1rem)] leading-none text-black gap-x-10" style="--duration: 50000ms;">
+<span class="block w-fit h-auto animate-[marquee-text_var(--duration)_800ms_normal_linear_infinite] text-nowrap uppercase">Love Unseen Beneath the Clear Night Sky</span>
+<span class="block w-fit h-auto animate-[marquee-text_var(--duration)_800ms_normal_linear_infinite] text-nowrap uppercase">Love Unseen Beneath the Clear Night Sky</span>
+</p>
+</div>
+<div class="size-full md:pl-[calc(374/16*1rem)] md:pr-[calc(314/16*1rem)] md:py-11">
+<div class="flex justify-between items-center size-full gap-x-30">
+<div class="md:block hidden w-[calc(226/16*1rem)] h-auto flex-[0_0_auto]">
+<div class="w-full h-auto">
+<img alt="透明な夜に駆ける君と、目に見えない恋をした。" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png"/>
+</div>
+<div class="flex justify-center items-start w-full h-auto mt-5 md:mt-30">
+<div class="size-fit">
+<a @mouseenter="rollEnter" @mouseleave="rollLeave" aria-label="アニメ公式サイトを開く" class="link-base relative flex justify-center items-center w-full h-auto gap-x-5 py-5 px-2.5" data-enter-time="1400" data-leave-time="300" href="https://sh-anime.shochiku.co.jp/kakekoi/" x-data="hover">
+<p class="--label font-serif text-12 leading-[calc(17/12)] tracking-widest uppercase">アニメ公式サイトへ</p>
+<div class="--arrow w-[calc(5/16*1rem)] h-auto">
+<div class="--arrow-before">
+<svg class="c-image__normal" viewbox="0 0 6 6">
+<use xlink:href="#icon-arrow-button"></use>
+</svg>
+</div>
+<div class="--arrow-after">
+<svg class="c-image__normal" viewbox="0 0 6 6">
+<use xlink:href="#icon-arrow-button"></use>
+</svg>
+</div>
+</div>
+<span class="--border absolute bottom-0 left-0 w-full h-px text-black pointer-events-none"></span>
+</a>
+</div>
+</div>
+</div>
+<div class="relative size-full md:max-h-[calc(780/16*1rem)] md:p-4">
+<div class="md:block hidden absolute inset-0 -z-10 rounded-[calc((60+16)/16*1rem)]" style="box-shadow: 20px 20px 40px 0 #C1CDD4; background: linear-gradient(140deg, #FFF 0.97%, #C4D1D7 99.03%);"></div>
+<div class="size-full bg-[#A5CBD6] md:rounded-[calc(60/16*1rem)] overflow-clip">
+<div class="flex flex-col justify-start items-start size-full">
+<div class="sticky w-full h-auto md:pt-5 pb-4 bg-[#3A5E6E] z-10 flex-[0_0_auto]">
+<div class="md:block hidden w-full h-auto">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-mobile-head.png"/>
+</div>
+<div class="w-full h-auto pt-4 pl-4 pr-2">
+<div class="flex justify-between items-center w-full h-auto">
+<div class="flex justify-start items-center size-auto gap-x-2.5">
+<div class="w-2 h-auto">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-back.svg"/>
+</div>
+<p class="font-jp_sans font-medium text-15 leading-none text-white" data-ja="冬月小春" data-ar="كوهارو فويوتسكي">冬月小春</p>
+</div>
+<div class="flex justify-end items-center size-auto gap-x-2.5">
+<div class="w-6 h-auto">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-search.svg"/>
+</div>
+<div class="w-6 h-auto">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-tel.svg"/>
+</div>
+<div class="w-6 h-auto">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-menu.svg"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="kakekoi-ui w-full h-auto flex-[0_0_auto] bg-[#2C4A57] px-3 py-2 flex items-center justify-between gap-x-2 relative z-10" id="kakekoi-day-toolbar">
+<div class="flex items-center gap-x-1.5 overflow-x-auto" id="kakekoi-day-tabs">
+<button aria-pressed="true" class="kakekoi-day-tab is-active" data-ar="١٠ يوليو" data-day-btn="1" data-ja="7月10日" type="button">7月10日</button>
+<button aria-pressed="false" class="kakekoi-day-tab" data-ar="١٩ يوليو" data-day-btn="2" data-ja="7月19日" type="button">7月19日</button>
+<button aria-pressed="false" class="kakekoi-day-tab" data-ar="٢ أغسطس" data-day-btn="3" data-ja="8月2日" type="button">8月2日</button>
+</div>
+<button aria-pressed="false" class="kakekoi-showall-btn" id="kakekoi-showall-btn" type="button">
+<span class="kakekoi-showall-icon"></span>
+<span data-ar="عرض الكل دفعة واحدة" data-ja="一括表示" id="kakekoi-showall-label">一括表示</span>
+</button>
+</div>
+<div @loading:completed.window="mount" class="day-panel size-full overflow-y-scroll" data-lenis-prevent="" x-data="talk" data-day-panel="1" data-active="true">
+<div class="w-full h-auto pt-[calc(17/16*1rem)]">
+<div class="w-[calc(100%-(80*2)/16*1rem)] h-auto mx-auto py-6">
+<div class="grid place-content-center py-2 w-full h-auto bg-white/40 rounded-lg overflow-hidden">
+<p class="font-jp_sans text-10 leading-[calc(12/10)] text-[#838383] disclaimer-text" data-ja-html="※再生ボタンを押すと音声が再生されます。<br>音量をご確認のうえ、お楽しみください。" data-ar-html="※الضغط على زر التشغيل سيقوم بتشغيل الصوت.<br>يرجى التأكد من مستوى الصوت قبل الاستماع.">
+													※再生ボタンを押すと音声が再生されます。<br/>
+													音量をご確認のうえ、お楽しみください。
+												</p>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日はありがとうございました！" data-ar="شكراً لك على اليوم!">今日はありがとうございました！</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:45</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんのこと？" data-ar="على أي شيء؟">なんのこと？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:00</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="アカウント交換してくれましたし、授業の合間にもお付き合いいただきましたし" data-ar="تبادلتَ معي حسابك، ورافقتني بين الحصص أيضاً">アカウント交換してくれましたし、授業の合間にもお付き合いいただきましたし</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:02</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に気にしなくてもいいよ" data-ar="لا داعي أن تهتمي بالأمر كثيراً">別に気にしなくてもいいよ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:03</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いえいえ、いまだに空野さんの冗談がつってます" data-ar="لا لا، ما زلت نكتتك تُضنيني حتى الآن">いえいえ、いまだに空野さんの冗談がつってます</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:05</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="つってます？" data-ar="تُضنيني؟">つってます？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:05</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめんなさい。音声入力なのでうまく変換できなかったみたいなんです" data-ar="آسفة، أظن أن الإدخال الصوتي لم يحوّل الكلمة بشكل صحيح">ごめんなさい。音声入力なのでうまく変換できなかったみたいなんです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:07</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="2800">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="もしかして、ツボってます？" data-ar="هل تقصدين... تُضحكني؟">もしかして、ツボってます？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:07</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5" data-delay="1300">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうです！なんで空野さんは出るんだろう" data-ar="بالضبط! كيف خمّنتها بهذه السرعة يا سورانو؟">そうです！なんで空野さんは出るんだろう</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:09</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いや僕は手入力だから" data-ar="لا، أنا فقط أكتب بيدي">いや僕は手入力だから</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:09</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それもそうですね。空野さんの音声入力はちゃんと入力できますか？" data-ar="صحيح، معك حق. هل الإدخال الصوتي عندك يعمل بشكل جيد؟">それもそうですね。空野さんの音声入力はちゃんと入力できますか？</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:10</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ツボってますって？" data-ar="«تُضحكني؟» -تجربة-">ツボってますって？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:11</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい" data-ar="نعم">はい</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:12</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="どうやるんだろ" data-ar="كيف تُستخدم هذه الميزة أصلاً">どうやるんだろ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:13</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<div class="voice-player flex justify-start items-center size-auto gap-x-2 cursor-pointer" data-voice-src="https://sh-anime.shochiku.co.jp/kakekoi/wp-content/themes/kakekoi_lp/assets/voice/voice-sorano.wav">
+<div class="flex justify-start items-center size-auto">
+<div class="relative w-5 h-auto">
+<img alt="" class="voice-icon-play w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-play.svg"/>
+<div class="absolute inset-0 z-0">
+<img alt="" class="voice-icon-pause w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-pause.svg"/>
+</div>
+</div>
+<div class="relative w-5 h-auto">
+<img alt="" class="voice-wave-base w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-wave.svg"/>
+<div class="voice-wave-progress absolute inset-0 z-0" style="clip-path: inset(0 100% 0 0);">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-wave.svg"/>
+</div>
+</div>
+</div>
+<p class="voice-duration font-jp_sans text-10 leading-[140%] text-nowrap whitespace-nowrap">00:00</p>
+</div>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:13</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="音声が送られてきましたね" data-ar="وصلتني رسالة صوتية للتو">音声が送られてきましたね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:15</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="消していい？てか消すよ" data-ar="هل يمكنني حذفها؟ بل سأحذفها الآن">消していい？てか消すよ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:15</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<div class="voice-player flex justify-start items-center size-auto gap-x-2 cursor-pointer" data-voice-src="https://sh-anime.shochiku.co.jp/kakekoi/wp-content/themes/kakekoi_lp/assets/voice/voice-fuyutsuki.wav">
+<div class="flex justify-start items-center size-auto">
+<div class="relative w-5 h-auto">
+<img alt="" class="voice-icon-play w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-play.svg"/>
+<div class="absolute inset-0 z-0">
+<img alt="" class="voice-icon-pause w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-pause.svg"/>
+</div>
+</div>
+<div class="relative w-5 h-auto">
+<img alt="" class="voice-wave-base w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-wave.svg"/>
+<div class="voice-wave-progress absolute inset-0 z-0" style="clip-path: inset(0 100% 0 0);">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-voice-wave.svg"/>
+</div>
+</div>
+</div>
+<p class="voice-duration font-jp_sans text-10 leading-[140%] text-nowrap whitespace-nowrap">00:00</p>
+</div>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:16</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え、今の……「消さないで」って言った？" data-ar="مهلاً... هل قلت للتو «لا تحذفها»؟">え、今の……「消さないで」って言った？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:17</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="バレちゃいました" data-ar="يبدو أنني انكشفت!">バレちゃいました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:17</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんで、そんなことを" data-ar="لماذا قلت ذلك؟">なんで、そんなことを</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:18</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの声、今日初めてちゃんと聞いた気がしたので" data-ar="لأنني شعرت أن هذه أول مرة أسمع صوتك بوضوح حقاً">空野さんの声、今日初めてちゃんと聞いた気がしたので</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:19</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なくしたくなかったんです" data-ar="لم أرغب أن أفقده">なくしたくなかったんです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:19</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="2000">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そう" data-ar="...فهمت">……そう</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:20</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙りましたね" data-ar="صمتّ مجدداً">また黙りましたね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:21</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="何て返せばいいか分からなくて" data-ar="لم أعرف كيف أرد عليك">何て返せばいいか分からなくて</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:21</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="素直に「うれしい」でいいですよ" data-ar="يكفي أن تقول بصدق «أنا سعيد بذلك»">素直に「うれしい」でいいですよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:22</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……うれしい" data-ar="...أنا سعيد">……うれしい</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:23</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふっ、よくできました" data-ar="ههه، أحسنت!">ふふっ、よくできました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:23</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんだか、今日は少し思い出しちゃいました" data-ar="بصراحة، تذكّرت اليوم شيئاً ما">なんだか、今日は少し思い出しちゃいました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:24</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="何を" data-ar="ماذا تذكرتِ؟">何を</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:24</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最初に会った日のことです" data-ar="أول يوم التقينا فيه">最初に会った日のことです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:25</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="4月の、入学式の次の日でしたよね" data-ar="كان اليوم التالي لحفل الاستقبال، في إبريل، أليس كذلك؟">4月の、入学式の次の日でしたよね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:25</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="よく覚えてるね" data-ar="تتذكرين بدقة شديدة">よく覚えてるね</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:26</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="大事な日なので" data-ar="لأنه يوم مهم بالنسبة لي">大事な日なので</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:26</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="知らない校舎で、杖の音だけが頼りでした" data-ar="كان مبنى غريباً بالنسبة لي، ولم يكن لدي ما أعتمد عليه سوى صوت عصاي">知らない校舎で、杖の音だけが頼りでした</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:27</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの時、先輩に急に頼まれたんだ" data-ar="في تلك اللحظة طلبت مني إحدى الطالبات الكبيرات فجأة">あの時、先輩に急に頼まれたんだ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:28</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「目が見えない新入生のサポート、してくれない？」って" data-ar="قالت لي: «هل يمكنك مساعدة طالبة مستجدة كفيفة؟»">「目が見えない新入生のサポート、してくれない？」って</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:28</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="正直、めちゃくちゃ焦った" data-ar="بصراحة، شعرت بتوتر شديد حينها">正直、めちゃくちゃ焦った</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:29</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="焦ってるの、声だけで分かりましたよ" data-ar="كان بإمكاني معرفة توترك من نبرة صوتك فقط">焦ってるの、声だけで分かりましたよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:30</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「よ、よろしくお願いします」って、噛んでましたし" data-ar="قلت «ت-تشرفت بمعرفتك» وتلعثمت في الكلام">「よ、よろしくお願いします」って、噛んでましたし</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:30</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="噛んでない" data-ar="لم أتلعثم">噛んでない</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:31</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="噛んでました" data-ar="بل تلعثمت فعلاً">噛んでました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:31</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……噛んでたかもしれない" data-ar="...ربما تلعثمت قليلاً">……噛んでたかもしれない</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:32</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの時、空野さんの手、すごく冷たかったんです" data-ar="يدك كانت باردة جداً في تلك اللحظة">あの時、空野さんの手、すごく冷たかったんです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:33</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="緊張してたから" data-ar="كنت متوتراً جداً وقتها">緊張してたから</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:33</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="冷たい手なのに、支え方はすごく丁寧で" data-ar="مع أن يدك كانت باردة، إلا أن طريقتك في مساعدتي كانت لطيفة جداً">冷たい手なのに、支え方はすごく丁寧で</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:34</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="安心したの、今でも覚えてます" data-ar="ما زلت أتذكر شعوري بالأمان حينها">安心したの、今でも覚えてます</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:34</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そうなんだ" data-ar="...حقاً؟">……そうなんだ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:35</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="階段の前で「あと三段です」って教えてくれたことも" data-ar="وأيضاً حين قلت لي أمام الدرج «تبقّت ثلاث درجات»">階段の前で「あと三段です」って教えてくれたことも</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:36</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="覚えてますか？" data-ar="هل تتذكر ذلك؟">覚えてますか？</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:36</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="覚えてる" data-ar="أتذكر">覚えてる</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:37</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="数字で教えてくれる人、初めてだったんです" data-ar="كنت أول شخص يخبرني بالأرقام بهذه الدقة">数字で教えてくれる人、初めてだったんです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:37</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="みんな「気をつけて」しか言わないので" data-ar="فالجميع يكتفون بقول «انتبهي» فقط">みんな「気をつけて」しか言わないので</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:38</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="先輩に、具体的に言った方がいいって聞いてたから" data-ar="سمعت من الطالبة الكبيرة أنه من الأفضل أن أكون دقيقاً في الوصف">先輩に、具体的に言った方がいいって聞いてたから</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:39</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それだけだよ" data-ar="هذا كل ما في الأمر">それだけだよ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:39</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それだけでも、うれしかったんですよ" data-ar="حتى لو كان «كل ما في الأمر»، فقد كان ذلك يسعدني كثيراً">それだけでも、うれしかったんですよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:40</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="2500">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="...">……</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:41</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙らないでくださいー" data-ar="أرجوك لا تصمت مجدداً!">また黙らないでくださいー</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:42</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめん、なんて言えばいいか、今も分からなくて" data-ar="آسف، حتى الآن لا أعرف ماذا أقول">ごめん、なんて言えばいいか、今も分からなくて</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:43</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「うれしかった」でいいんですよ、いつも" data-ar="يكفي دائماً أن تقول «كنت سعيداً بذلك»">「うれしかった」でいいんですよ、いつも</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:44</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……うれしかった" data-ar="...كنت سعيداً بذلك">……うれしかった</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:45</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="からかってごめんなさい、でも本当にうれしかったんです" data-ar="آسفة إن كنت أمزح معك، لكنني كنت سعيدة حقاً">からかってごめんなさい、でも本当にうれしかったんです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:46</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="半分は分かってた" data-ar="كنت أعرف نصف ذلك">半分は分かってた</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:47</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="残りの半分は？" data-ar="وماذا عن النصف الآخر؟">残りの半分は？</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:48</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="本当に、うれしかったんだと思ってた" data-ar="ظننت أنك كنت سعيدة حقاً">本当に、うれしかったんだと思ってた</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:49</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="正解です" data-ar="إجابة صحيحة!">正解です</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:50</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの日から、もう三ヶ月か" data-ar="مرت ثلاثة أشهر منذ ذلك اليوم">あの日から、もう三ヶ月か</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:52</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="早いですね" data-ar="الوقت يمر بسرعة">早いですね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:53</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最初は敬語だらけだったのに" data-ar="في البداية كنت تتحدث معي بصيغة رسمية بحتة">最初は敬語だらけだったのに</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:54</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今も敬語だと思うけど" data-ar="ما زلت أظن أنني أتحدث بصيغة رسمية">今も敬語だと思うけど</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:55</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="さっき「なくしたくなかった」って、タメ口でしたよ" data-ar="قبل قليل قلت «لم أرغب أن أفقده» بأسلوب غير رسمي تماماً">さっき「なくしたくなかった」って、タメ口でしたよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:56</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……気づいてなかった" data-ar="...لم أنتبه لذلك">……気づいてなかった</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:57</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そっちの方が、素の空野さんって感じがして好きです" data-ar="أشعر أن هذا هو صوتك الحقيقي أكثر، وأنا أحبه هكذا">そっちの方が、素の空野さんって感じがして好きです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:58</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="3000">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="...">……</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">21:59</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙った！" data-ar="صمتّ مجدداً!">また黙った！</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:00</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="慣れてないだけ" data-ar="أنا فقط لست معتاداً على هذا">慣れてないだけ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:01</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="これから慣れてください" data-ar="إذن تعوّد من الآن فصاعداً">これから慣れてください</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:02</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="善処する" data-ar="سأبذل قصارى جهدي">善処する</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:03</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それ、また敬語っぽいですよ" data-ar="هذا يبدو رسمياً مجدداً!">それ、また敬語っぽいですよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:04</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ちがう、これは癖" data-ar="لا، هذه مجرد عادة عندي">ちがう、これは癖</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:05</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、明日も大学で会いましょうね" data-ar="ههه، أراك غداً في الجامعة إذن">ふふ、明日も大学で会いましょうね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:07</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん。おやすみ" data-ar="حسناً. تصبحين على خير">うん。おやすみ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:20</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい、そら乃さん。今日もありがとうございました" data-ar="تصبح على خير أنت أيضاً يا سورانو. وشكراً لك على اليوم مجدداً">おやすみなさい、そら乃さん。今日もありがとうございました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:21</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full h-auto py-6 px-[calc(45/16*1rem)]">
+<div class="talk-share-item w-fit h-auto mx-auto py-1 px-2 bg-black/40 rounded-lg overflow-hidden">
+<p class="font-jp_sans font-medium text-10 leading-[140%] text-white" data-ja="このコンテンツをシェアする" data-ar="شارك هذا المحتوى">このコンテンツをシェアする</p>
+</div>
+<div class="talk-share-item w-full h-auto mt-6">
+<ul class="flex justify-center items-center w-full h-auto gap-x-2">
+<li class="w-14 h-auto aspect-square bg-white rounded-full overflow-hidden">
+<a class="link grid place-content-center size-full" href="https://twitter.com/share?text=TVアニメ「透明な夜に駆ける君と、目に見えない恋をした。」好評放送中！&amp;url=https%3A%2F%2Fsh-anime.shochiku.co.jp%2Fkakekoi/special&amp;hashtags=anime_kakekoi,かけ恋" target="_blank">
+<img alt="Xでシェア" class="w-6 h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-x.svg"/>
+</a>
+</li>
+<li class="w-14 h-auto aspect-square bg-white rounded-full overflow-hidden">
+<a class="link grid place-content-center size-full" href="http://line.me/R/msg/text/?https%3A%2F%2Fsh-anime.shochiku.co.jp%2Fkakekoi/special" target="_blank">
+<img alt="LINEで送る" class="w-6 h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-line.svg"/>
+</a>
+</li>
+<li class="w-14 h-auto aspect-square bg-white rounded-full overflow-hidden">
+<a class="link grid place-content-center size-full" href="http://www.facebook.com/share.php?u=https%3A%2F%2Fsh-anime.shochiku.co.jp%2Fkakekoi/special" target="_blank">
+<img alt="Facebookでシェア" class="w-6 h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-facebook.svg"/>
+</a>
+</li>
+</ul>
+</div>
+<div class="talk-share-item w-full h-auto mt-6">
+<a class="link block w-full h-auto bg-white rounded-lg overflow-hidden" href="https://sh-anime.shochiku.co.jp/kakekoi/">
+<div class="w-full h-auto">
+<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
+</div>
+<div class="w-full h-auto py-2 text-center">
+<p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»">「かけ恋」アニメ公式サイトへ</p>
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="day-panel size-full overflow-y-scroll" data-lenis-prevent="" data-day-panel="2" style="display:none">
+<div class="w-full h-auto pb-[calc(17/16*1rem)]">
+<div class="w-full h-auto pt-[calc(17/16*1rem)]">
+<div class="date-divider w-fit h-auto mx-auto py-6">
+<div class="grid place-content-center py-1.5 px-5 w-fit h-auto mx-auto bg-black/25 rounded-full overflow-hidden">
+<p class="font-jp_sans text-10 leading-[140%] text-white tracking-wide" data-ja="7月19日" data-ar="١٩ يوليو">7月19日</p>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="雨、すごいですね" data-ar="المطر غزير جداً اليوم">雨、すごいですね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:42</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今、大学出た？" data-ar="هل خرجتِ من الجامعة الآن؟">今、大学出た？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:43</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい、傘を忘れてしまって……" data-ar="نعم، لكنني نسيت مظلتي...">はい、傘を忘れてしまって……</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:43</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え" data-ar="ماذا">え</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:44</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんは？" data-ar="وأنت يا سورانو؟">空野さんは？</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:44</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="まだ図書館" data-ar="ما زلت في المكتبة">まだ図書館</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:45</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうなんですね" data-ar="فهمت">そうなんですね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:45</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="1600">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……待ってて" data-ar="...انتظريني هناك">……待ってて</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:46</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え？" data-ar="ماذا؟">え？</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:47</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今行くから" data-ar="أنا قادم الآن">今行くから</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:47</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いいんですか？濡れちゃいますよ" data-ar="هل أنت متأكد؟ ستتبلل بالمطر">いいんですか？濡れちゃいますよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:48</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に平気" data-ar="لا بأس، لا يهمني">別に平気</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:48</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、素直じゃないですね" data-ar="فُفـ، أنت لست صريحاً مع نفسك">ふふ、素直じゃないですね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:49</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うるさい" data-ar="اسكتي">うるさい</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:49</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="待ってます" data-ar="سأنتظرك">待ってます</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:50</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5" data-delay="2600">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="傘、ありがとうございました" data-ar="شكراً لك على المظلة">傘、ありがとうございました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:15</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="着いた？" data-ar="هل وصلتِ؟">着いた？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:16</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい、無事に" data-ar="نعم، بسلام">はい、無事に</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:16</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="半分濡れてましたよね、空野さん" data-ar="كنتَ مبتلاً من نصفك تقريباً يا سورانو">半分濡れてましたよね、空野さん</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:17</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別にいい" data-ar="لا بأس بذلك">別にいい</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:17</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="私の方に傘、傾けすぎです" data-ar="كنتَ تميل المظلة نحوي أكثر من اللازم">私の方に傘、傾けすぎです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:18</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そう？" data-ar="حقاً؟">そう？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:18</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気づいてました。肩、濡れてる音がしてたので" data-ar="كنت ألاحظ ذلك. كان بإمكاني سماع صوت كتفك وهو يبتل">気づいてました。肩、濡れてる音がしてたので</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:19</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="1800">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……耳、良すぎ" data-ar="...أذناكِ حادتان جداً">……耳、良すぎ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:20</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの傘の持ち方、いつも同じなんです" data-ar="طريقتك في حمل المظلة لا تتغير أبداً يا سورانو">空野さんの傘の持ち方、いつも同じなんです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:21</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="どういうこと" data-ar="ماذا تقصدين">どういうこと</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:21</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="必ず、少し自分側が空くように持ってくれてます" data-ar="دائماً تحملها بحيث يبقى جانبك هو الأقل تغطية">必ず、少し自分側が空くように持ってくれてます</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:22</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気のせいだよ" data-ar="هذا مجرد وهم منك">気のせいだよ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:22</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="三ヶ月半、毎回同じなら気のせいじゃないですよ" data-ar="إن تكرر الأمر نفسه لثلاثة أشهر ونصف، فهذا ليس وهماً">三ヶ月半、毎回同じなら気のせいじゃないですよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:23</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="2200">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="...">……</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:24</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙りましたね" data-ar="ها أنت تصمت من جديد">また黙りましたね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:25</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に、理由とかない" data-ar="لا يوجد سبب معين لذلك">別に、理由とかない</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:25</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="理由がなくても、続けてるのはすごいと思います" data-ar="حتى لو لم يكن هناك سبب، أظن أن استمرارك على ذلك أمر رائع">理由がなくても、続けてるのはすごいと思います</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:26</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そんなことないよ" data-ar="الأمر ليس كذلك">そんなことないよ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:26</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんは、自分のこと過小評価しすぎです" data-ar="أنت تقلل من شأن نفسك كثيراً يا سورانو">空野さんは、自分のこと過小評価しすぎです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:27</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうかな" data-ar="ربما">そうかな</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:27</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日も、ありがとうございました" data-ar="شكراً لك مجدداً على اليوم">今日も、ありがとうございました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:28</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん" data-ar="على الرحب">うん</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:28</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="風邪、ひかないでくださいね" data-ar="احرص ألا تُصاب بالزكام">風邪、ひかないでくださいね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:29</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="1400">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="小春こそ" data-ar="أنتِ أيضاً يا كوهارو">小春こそ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:30</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今、名前……！" data-ar="لقد... ناديتني للتو باسمي مباشرة...!">今、名前……！</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:30</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あ" data-ar="آه">あ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:31</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、おそろいですね" data-ar="فُفـ، أصبحنا متعادلين الآن">ふふ、おそろいですね</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:31</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="1500">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……おやすみ" data-ar="...تصبحين على خير">……おやすみ</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:32</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい、そら乃さん" data-ar="تصبح على خير يا سورانو">おやすみなさい、そら乃さん</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">20:32</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full h-auto py-8"></div>
+</div>
+</div>
+<div class="day-panel size-full overflow-y-scroll" data-lenis-prevent="" data-day-panel="3" style="display:none">
+<div class="w-full h-auto pb-[calc(17/16*1rem)]">
+<div class="w-full h-auto pt-[calc(17/16*1rem)]">
+<div class="date-divider w-fit h-auto mx-auto py-6">
+<div class="grid place-content-center py-1.5 px-5 w-fit h-auto mx-auto bg-black/25 rounded-full overflow-hidden">
+<p class="font-jp_sans text-10 leading-[140%] text-white tracking-wide" data-ja="8月2日" data-ar="٢ أغسطس">8月2日</p>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="小春、今週の土曜、空いてる？" data-ar="كوهارو، هل أنتِ متفرغة يوم السبت هذا الأسبوع؟">小春、今週の土曜、空いてる？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:00</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空いてますよ、どうしたんですか？" data-ar="نعم متفرغة، ما الأمر؟">空いてますよ、どうしたんですか？</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:01</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="1800">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……夏祭り、行かない？" data-ar="...هل تريدين أن نذهب إلى مهرجان الصيف؟">……夏祭り、行かない？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:02</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="二人でですか？" data-ar="نحن الاثنان فقط؟">二人でですか？</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:02</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="だめ？" data-ar="هل هذا غير مناسب؟">だめ？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:03</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="だめじゃないです、嬉しいです" data-ar="ليس غير مناسب على الإطلاق، أنا سعيدة">だめじゃないです、嬉しいです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:03</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="よかった" data-ar="الحمد لله">よかった</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:04</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="でも私、お祭りって結構人混みが苦手で……" data-ar="لكن الحقيقة أنني لا أتحمل الزحام في المهرجانات كثيراً...">でも私、お祭りって結構人混みが苦手で……</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:05</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="大丈夫、ちゃんと隣にいるから" data-ar="لا بأس، سأكون بجانبك طوال الوقت">大丈夫、ちゃんと隣にいるから</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:05</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……はい" data-ar="...حسناً">……はい</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:06</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="花火も見えないのに、いいんでしょうか" data-ar="لن أستطيع رؤية الألعاب النارية أصلاً، فهل يليق بي أن آتي؟">花火も見えないのに、いいんでしょうか</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:07</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="見えなくても、一緒にいられるし" data-ar="حتى لو لم تريها، يمكننا أن نكون معاً">見えなくても、一緒にいられるし</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:08</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="音とか、匂いとか、伝えるから" data-ar="سأصف لكِ الأصوات والروائح أولاً بأول">音とか、匂いとか、伝えるから</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:08</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……ありがとうございます" data-ar="...شكراً جزيلاً لك">……ありがとうございます</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:09</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="敬語" data-ar="استخدمتِ صيغة الاحترام مجدداً">敬語</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:09</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あ" data-ar="آه">あ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:10</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……ありがとう" data-ar="...شكراً لك">……ありがとう</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:10</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん" data-ar="على الرحب">うん</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">19:10</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5" data-delay="3000">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日は本当に楽しかったです" data-ar="استمتعت اليوم حقاً كثيراً">今日は本当に楽しかったです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:40</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="疲れてない？" data-ar="ألستِ متعبة؟">疲れてない？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:41</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="全然。あんなに花火の音、近くで聞いたの初めてでした" data-ar="أبداً. كانت أول مرة أسمع فيها صوت الألعاب النارية من هذا القرب">全然。あんなに花火の音、近くで聞いたの初めてでした</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:42</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最後の、でかい音した奴" data-ar="خصوصاً تلك الأخيرة، ذات الصوت الضخم">最後の、でかい音した奴</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:42</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="びっくりして、思わず空野さんの袖掴んじゃいました" data-ar="أصابني الذعر فأمسكت بكم قميصك من دون أن أشعر">びっくりして、思わず空野さんの袖掴んじゃいました</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:43</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気づいてた" data-ar="لاحظت ذلك">気づいてた</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:43</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめんなさい" data-ar="آسفة">ごめんなさい</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:44</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="謝らなくていい" data-ar="لا داعي للاعتذار">謝らなくていい</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:44</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの説明、すごく分かりやすかったです" data-ar="وصفك للأشياء كان واضحاً جداً بالنسبة لي">空野さんの説明、すごく分かりやすかったです</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:45</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「今、金色が上に広がった」とか、「音の後に少し焦げた匂いがする」とか" data-ar="مثل قولك «الآن انتشر اللون الذهبي في الأعلى»، أو «هناك رائحة احتراق خفيفة بعد الصوت مباشرة»">「今、金色が上に広がった」とか、「音の後に少し焦げた匂いがする」とか</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:46</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ちゃんと伝わってた？" data-ar="هل وصلت الصورة فعلاً؟">ちゃんと伝わってた？</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:47</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい。目で見るのとは違うけど、ちゃんと綺麗でした" data-ar="نعم. مختلفة عن رؤيتها بالعين، لكنها كانت جميلة حقاً">はい。目で見るのとは違うけど、ちゃんと綺麗でした</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:47</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そう言ってもらえると、説明した甲斐がある" data-ar="حين أسمعكِ تقولين ذلك، أشعر أن وصفي لها لم يذهب هباءً">そう言ってもらえると、説明した甲斐がある</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:48</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="来年もまた、連れて行ってくれますか" data-ar="هل ستأخذني معك في العام القادم أيضاً؟">来年もまた、連れて行ってくれますか</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:49</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="1300">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="来年も、再来年も" data-ar="العام القادم، والذي بعده أيضاً">来年も、再来年も</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:49</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そんなこと言われたら、期待しちゃいますよ" data-ar="إذا قلت لي كلاماً كهذا، سأبدأ بالتعلق بالأمل">そんなこと言われたら、期待しちゃいますよ</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:50</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5" data-delay="1600">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="期待していい" data-ar="يمكنكِ أن تتعلقي به فعلاً">期待していい</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:50</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そら乃さん" data-ar="...سورانو">……そら乃さん</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:51</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ん" data-ar="نعم؟">ん</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:51</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日、誘ってくれてありがとう" data-ar="شكراً لأنك دعوتني اليوم">今日、誘ってくれてありがとう</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:52</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pr-5">
+<div class="flex justify-end items-start w-full h-auto gap-x-1">
+<div class="relative size-auto pr-1 pt-2">
+<div class="absolute top-3 right-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-[#E8E15D] -scale-x-100" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん、おやすみ、小春" data-ar="على الرحب، تصبحين على خير يا كوهارو">うん、おやすみ、小春</p>
+</div>
+<div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:52</p>
+</div>
+</div>
+</div>
+</div>
+<div class="talk-message w-full h-auto pl-5">
+<div class="flex justify-start items-start w-full h-auto gap-x-1">
+<div class="size-10 rounded-full overflow-hidden">
+<img alt="" class="size-full object-cover" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</div>
+<div class="relative size-auto pl-1 pt-2">
+<div class="absolute top-3 left-0 w-[calc(5/16*1rem)] h-auto">
+<svg class="w-full h-auto text-white" viewbox="0 0 5 7">
+<use xlink:href="#icon-bubble"></use>
+</svg>
+</div>
+<div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい" data-ar="تصبح على خير">おやすみなさい</p>
+</div>
+<div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none">22:53</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full h-auto py-8"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div id="js-overlay-container"></div>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/kakekoi/*"},{"not":{"href_matches":["/kakekoi/wp-*.php","/kakekoi/wp-admin/*","/kakekoi/wp-content/uploads/*","/kakekoi/wp-content/*","/kakekoi/wp-content/plugins/*","/kakekoi/wp-content/themes/kakekoi_lp/*","/kakekoi/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://sh-anime.shochiku.co.jp/kakekoi/wp-includes/js/wp-emoji-release.min.js?ver=6.9"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=https://sh-anime.shochiku.co.jp/kakekoi/wp-includes/js/wp-emoji-loader.min.js
+</script>
+<script>
+(function(){
+  "use strict";
+  // ==== ميزة التعريب التفاعلي ====
+  // يعتمد التبديل على قراءة data-ja / data-ar (أو data-ja-html / data-ar-html
+  // للعناصر التي تحتوي وسم <br>) وتبديل المحتوى فقط داخل العنصر النصي نفسه،
+  // بدون لمس حاويات Flex الخارجية، حتى تبقى فقاعات المحادثة (يمين/يسار) ثابتة.
+  var STORAGE_KEY = "kakekoi-lang-pref";
+  var isArabic = false;
+
+  function applyLang(ar){
+    isArabic = ar;
+
+    // 1) نصوص عادية
+    var plain = document.querySelectorAll("[data-ja][data-ar]");
+    plain.forEach(function(el){
+      el.classList.add("is-ar-fading");
+      window.setTimeout(function(){
+        var val = ar ? el.getAttribute("data-ar") : el.getAttribute("data-ja");
+        el.textContent = val;
+        if (el.closest(".talk-message")) {
+          el.classList.toggle("lang-ar", ar);
+        } else {
+          el.setAttribute("dir", ar ? "rtl" : "ltr");
+        }
+        el.classList.remove("is-ar-fading");
+      }, 90);
+    });
+
+    // 2) نصوص تحتوي HTML بسيط (وسم <br>)
+    var htmlEls = document.querySelectorAll("[data-ja-html][data-ar-html]");
+    htmlEls.forEach(function(el){
+      var val = ar ? el.getAttribute("data-ar-html") : el.getAttribute("data-ja-html");
+      el.innerHTML = val;
+      el.setAttribute("dir", ar ? "rtl" : "ltr");
+      el.style.textAlign = ar ? "right" : "";
+    });
+
+    // 3) عناصر الواجهة الخاصة بالزر نفسه
+    var btn = document.getElementById("lang-toggle-btn");
+    var label = document.getElementById("lang-toggle-label");
+    if (btn) btn.classList.toggle("is-ar", ar);
+    if (label) label.textContent = ar ? "العربية" : "日本語";
+
+    try { window.localStorage.setItem(STORAGE_KEY, ar ? "ar" : "ja"); } catch(e) {}
+  }
+
+  function init(){
+    var btn = document.getElementById("lang-toggle-btn");
+    if (!btn) return;
+    btn.addEventListener("click", function(){
+      applyLang(!isArabic);
+    });
+
+    var saved = null;
+    try { saved = window.localStorage.getItem(STORAGE_KEY); } catch(e) {}
+    if (saved === "ar") applyLang(true);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+<script>
+(function(){
+  "use strict";
+  // ==== إضافة هيوكا ناتسومي: التنقل بين أيام المحادثة + ميزة "عرض الكل دفعة واحدة" ====
+  // اليوم الأول (7月10日) يبقى كما هو تماماً، بمحرك العرض الأصلي (Alpine "talk").
+  // اليومان الثاني والثالث جديدان، ولهما محرك عرض تدريجي خاص بهما مطابق للأسلوب الأصلي.
+
+  var showAll = false; // الحالة العامة لميزة "عرض الكل دفعة واحدة"
+  var revealed = { "1": true, "2": false, "3": false };
+  var revealTimers = {}; // لتخزين مؤقتات setTimeout الجارية لكل يوم (لإلغائها عند الحاجة)
+
+  function qs(sel, ctx){ return (ctx||document).querySelector(sel); }
+  function qsa(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); }
+
+  function getReadEl(msg){
+    var spans = qsa(".text-8", msg);
+    for (var i=0;i<spans.length;i++){
+      var t = (spans[i].textContent||"").trim();
+      if (t === "既読" || t === "تمت القراءة") return spans[i];
+    }
+    return null;
+  }
+
+  function parseTimeLabel(msg){
+    var spans = qsa(".text-8", msg);
+    for (var i=0;i<spans.length;i++){
+      var t = (spans[i].textContent||"").trim();
+      var m = t.match(/^(\d{1,2}):(\d{2})$/);
+      if (m) return parseInt(m[1],10)*60+parseInt(m[2],10);
+    }
+    return null;
+  }
+
+  // ---- محرك العرض التدريجي المخصص لليوم 2 و 3 ----
+  function revealPanel(panel, instant, onDone){
+    var items = qsa(".talk-message, .date-divider", panel);
+    if (!items.length) { if (onDone) onDone(); return; }
+
+    items.forEach(function(el){
+      el.style.opacity = "0";
+      el.style.transform = "translateY(8px) scale(0.97)";
+      el.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+    });
+
+    function scrollIntoViewIfNeeded(el, useInstant){
+      requestAnimationFrame(function(){
+        var pr = panel.getBoundingClientRect();
+        var bottom = el.getBoundingClientRect().bottom - pr.top + panel.scrollTop;
+        var viewBottom = panel.scrollTop + panel.clientHeight;
+        if (bottom > viewBottom) {
+          panel.scrollTo({ top: bottom - panel.clientHeight + 16, behavior: useInstant ? "auto" : "smooth" });
+        }
+      });
+    }
+
+    function showAllNow(){
+      items.forEach(function(el){
+        el.style.transition = "none";
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+      var first = items[0];
+      var r = first ? getReadEl(first) : null;
+      if (r) r.style.opacity = "1";
+      panel.scrollTop = panel.scrollHeight;
+      if (onDone) onDone();
+    }
+
+    if (instant) { showAllNow(); return; }
+
+    var idx = 0;
+    var timerKey = panel.getAttribute("data-day-panel");
+
+    function step(){
+      if (showAll) { showAllNow(); return; }
+      if (idx >= items.length) { if (onDone) onDone(); return; }
+      var el = items[idx];
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0) scale(1)";
+      scrollIntoViewIfNeeded(el, false);
+
+      if (idx === 0) {
+        var r0 = getReadEl(el);
+        if (r0) {
+          r0.style.opacity = "0";
+          r0.style.transition = "opacity .15s ease";
+          setTimeout(function(){ r0.style.opacity = "1"; }, 1200);
+        }
+      }
+
+      var next = items[idx+1];
+      var delay = 1000;
+      if (next) {
+        var forced = next.getAttribute("data-delay");
+        if (forced) {
+          delay = parseInt(forced, 10);
+        } else {
+          var t1 = parseTimeLabel(el), t2 = parseTimeLabel(next);
+          if (t1 != null && t2 != null) {
+            var diff = t2 - t1;
+            if (diff <= 0) delay = 800;
+            else if (diff === 1) delay = 1200;
+            else if (diff === 2) delay = 1800;
+            else delay = Math.min(800 + diff * 350, 2500);
+          } else {
+            delay = 1200;
+          }
+        }
+      }
+      idx++;
+      revealTimers[timerKey] = setTimeout(step, delay);
+    }
+    revealTimers[timerKey] = setTimeout(step, 350);
+  }
+
+  // ---- إجبار اليوم الأول (المحرك الأصلي Alpine) على الظهور الفوري ----
+  function forceShowDay1(){
+    var panel = qs('.day-panel[data-day-panel="1"]');
+    if (!panel) return;
+    var items = qsa(".talk-message, .talk-share-item", panel);
+    items.forEach(function(el){
+      el.style.transition = "none";
+      el.style.opacity = "1";
+      el.style.transform = "none";
+    });
+    var first = qs(".talk-message", panel);
+    if (first) {
+      var r = getReadEl(first);
+      if (r) r.style.opacity = "1";
+    }
+    panel.scrollTop = panel.scrollHeight;
+  }
+
+  function forceShowDay1Persistently(){
+    // نكرر المحاولة لأن مكوّن Alpine الأصلي قد يعيد ضبط الشفافية إلى صفر
+    // بمجرد اكتمال شاشة التحميل (حدث loading:completed) إن لم تكتمل بعد.
+    [0, 250, 700, 1300, 2200, 3200].forEach(function(t){
+      setTimeout(forceShowDay1, t);
+    });
+  }
+
+  // ---- التبديل بين الأيام ----
+  function switchToDay(day){
+    qsa(".day-panel").forEach(function(p){
+      var isTarget = p.getAttribute("data-day-panel") === day;
+      p.style.display = isTarget ? "" : "none";
+      p.setAttribute("data-active", isTarget ? "true" : "false");
+    });
+    qsa(".kakekoi-day-tab").forEach(function(b){
+      var active = b.getAttribute("data-day-btn") === day;
+      b.classList.toggle("is-active", active);
+      b.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+
+    if (day === "1") {
+      if (showAll) forceShowDay1Persistently();
+      return;
+    }
+
+    var panel = qs('.day-panel[data-day-panel="' + day + '"]');
+    if (!panel) return;
+
+    if (!revealed[day]) {
+      revealed[day] = true;
+      revealPanel(panel, showAll);
+    } else if (showAll) {
+      revealPanel(panel, true);
+    }
+  }
+
+  // ---- زر "عرض الكل دفعة واحدة" ----
+  function onShowAllClick(){
+    showAll = !showAll;
+    var btn = document.getElementById("kakekoi-showall-btn");
+    if (btn) btn.setAttribute("aria-pressed", showAll ? "true" : "false");
+
+    if (!showAll) return; // إيقاف الوضع لا يخفي شيئاً ظهر مسبقاً، فقط يوقف الإجبار المستقبلي
+
+    var activePanel = qs('.day-panel[data-active="true"]');
+    if (!activePanel) return;
+    var dayNum = activePanel.getAttribute("data-day-panel");
+
+    if (dayNum === "1") {
+      forceShowDay1Persistently();
+    } else {
+      revealed[dayNum] = true;
+      revealPanel(activePanel, true);
+    }
+  }
+
+  function init(){
+    qsa(".kakekoi-day-tab").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        switchToDay(btn.getAttribute("data-day-btn"));
+      });
+    });
+    var showAllBtn = document.getElementById("kakekoi-showall-btn");
+    if (showAllBtn) showAllBtn.addEventListener("click", onShowAllClick);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
