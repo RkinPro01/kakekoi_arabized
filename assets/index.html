@@ -4098,28 +4098,20 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
 (function(){
   "use strict";
   // ==== إضافة هيوكا ناتسومي: التنقل بين أيام المحادثة + ميزة "عرض الكل دفعة واحدة" ====
-  // اليوم الأول (7月10日) يبقى كما هو تماماً، بمحرك العرض الأصلي (Alpine "talk").
-  // اليومان الثاني والثالث جديدان، ولهما محرك عرض تدريجي خاص بهما مطابق للأسلوب الأصلي.
+  // اليوم الأول (7月10日) كان يعمل أصلاً بمحرك Alpine المُدمج داخل ملف build المصغّر،
+  // لكن ذلك المحرك يقفل overflow على اللوحة طوال مدة العرض التدريجي (لا يُعاد فتحه إلا
+  // بعد انتهاء كل الرسائل تماماً)، فيمنع أي تمرير يدوي أثناء الكتابة، ولا يدعم فقاعة
+  // "يكتب الآن...". بما أن ذلك المنطق مُغلَق بالكامل داخل الحزمة المصغّرة (لا نقطة
+  // وصول خارجية لتعديله جزئياً)، نعترض حدث "loading:completed" قبل وصوله لمكوّن
+  // Alpine الخاص باللوحة الأولى ونمنعه من التنفيذ، ثم نُشغّل عليها نفس محرك العرض
+  // التدريجي المستخدم لليومين الثاني والثالث (revealPanel)، فيصبح سلوك الأيام الثلاثة
+  // متطابقاً تماماً: تمرير حر أثناء الظهور التدريجي + فقاعة "يكتب الآن..." أمام كل رسالة.
+  // تفعيل مشغلات الصوت (النقر على voice-player) يبقى مستقلاً تماماً ولا علاقة له
+  // بالعرض التدريجي، لذا نعيد تنفيذه يدوياً بمعزل عن أي من المحركين.
 
   var showAll = false; // الحالة العامة لميزة "عرض الكل دفعة واحدة"
-  var revealed = { "1": true, "2": false, "3": false };
+  var revealed = { "1": false, "2": false, "3": false };
   var revealTimers = {}; // لتخزين مؤقتات setTimeout الجارية لكل يوم (لإلغائها عند الحاجة)
-
-  // ---- تعطيل التمرير التلقائي المدمج أصلاً في محرك اليوم الأول (Alpine) ----
-  // المحرك الأصلي (المضمّن في ملف build المصغّر) ينهي كتابة رسائله ثم يستدعي
-  // scrollTo({top:scrollHeight}) بنفسه لينزل للأسفل تلقائياً، بمعزل تام عن حالة
-  // "عرض الكل دفعة واحدة" لدينا. لا يمكننا تعديل ذلك الملف المصغّر مباشرة، لذا
-  // نعترض استدعاء scrollTo على لوحة اليوم الأول تحديداً ونتجاهله فقط أثناء تفعيل
-  // وضع العرض الكل، حتى يبقى موضع التمرير بيد المستخدم كما طلب تماماً.
-  function suppressAutoScrollFor(panel){
-    if (!panel || panel.__kakekoiScrollPatched) return;
-    panel.__kakekoiScrollPatched = true;
-    var nativeScrollTo = panel.scrollTo.bind(panel);
-    panel.scrollTo = function(opts){
-      if (showAll) return; // نتجاهل أي نداء تمرير تلقائي أثناء "عرض الكل دفعة واحدة"
-      return nativeScrollTo(opts);
-    };
-  }
 
   function qs(sel, ctx){ return (ctx||document).querySelector(sel); }
   function qsa(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); }
@@ -4143,10 +4135,183 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
     return null;
   }
 
+  // ---- تفعيل مشغلات الصوت (voice-player) بمعزل تام عن محرك العرض التدريجي ----
+  // هذا مطابق لدالة "u" الموجودة أصلاً داخل مكوّن Alpine "talk" في الحزمة المصغّرة،
+  // لكنه هنا مستقل ولا يُشغَّل إلا مرة واحدة (نتجنب ربط نفس العنصر بمستمعين مكررين).
+  var voicePlayersInitialized = false;
+  function initVoicePlayers(){
+    if (voicePlayersInitialized) return;
+    voicePlayersInitialized = true;
+
+    var currentAudio = null;
+    var currentPlayerEl = null;
+    var currentRaf = null;
+
+    function formatTime(sec){
+      var h = Math.floor(sec/60), d = Math.floor(sec%60);
+      return String(h).padStart(2,"0") + ":" + String(d).padStart(2,"0");
+    }
+    function setPlayPauseIcon(el, playing){
+      var play = qs(".voice-icon-play", el), pause = qs(".voice-icon-pause", el);
+      if (play) play.style.opacity = playing ? "0" : "1";
+      if (pause) pause.style.opacity = playing ? "1" : "0";
+    }
+    function setWaveProgress(el, ratio){
+      var prog = qs(".voice-wave-progress", el);
+      if (prog) {
+        var pct = Math.max(0, 100 - ratio*100);
+        prog.style.clipPath = "inset(0 " + pct + "% 0 0)";
+      }
+    }
+    function resetWaveProgress(el){
+      var prog = qs(".voice-wave-progress", el);
+      if (prog) prog.style.clipPath = "inset(0 100% 0 0)";
+    }
+    function setWaveBaseOpacity(el, playing){
+      var base = qs(".voice-wave-base", el);
+      if (base) base.style.opacity = playing ? "0.2" : "1";
+    }
+    function stopVisuals(el, durationSec, ended){
+      setPlayPauseIcon(el, false);
+      if (!ended) { resetWaveProgress(el); setWaveBaseOpacity(el, false); }
+      var durEl = qs(".voice-duration", el);
+      if (durEl) durEl.textContent = formatTime(durationSec);
+    }
+
+    qsa(".voice-player").forEach(function(playerEl){
+      var src = playerEl.getAttribute("data-voice-src");
+      if (!src) return;
+      var durEl = qs(".voice-duration", playerEl);
+      setPlayPauseIcon(playerEl, false);
+      var probe = new Audio(src);
+      probe.addEventListener("loadedmetadata", function(){
+        if (durEl) durEl.textContent = formatTime(probe.duration);
+      });
+      playerEl.addEventListener("click", function(){
+        if (currentPlayerEl === playerEl && currentAudio) {
+          if (currentAudio.paused) { currentAudio.play(); setPlayPauseIcon(playerEl, true); }
+          else { currentAudio.pause(); setPlayPauseIcon(playerEl, false); }
+          return;
+        }
+        if (currentAudio && currentPlayerEl) {
+          if (currentRaf) { cancelAnimationFrame(currentRaf); currentRaf = null; }
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          stopVisuals(currentPlayerEl, currentAudio.duration || 0, false);
+        }
+        resetWaveProgress(playerEl);
+        var audio = new Audio(src);
+        currentAudio = audio;
+        currentPlayerEl = playerEl;
+        setPlayPauseIcon(playerEl, true);
+        setWaveBaseOpacity(playerEl, true);
+        var tick = function(){
+          if (!audio.paused && audio.duration) {
+            if (durEl) durEl.textContent = formatTime(audio.duration - audio.currentTime);
+            setWaveProgress(playerEl, audio.currentTime/audio.duration);
+          }
+          if (!audio.ended) currentRaf = requestAnimationFrame(tick);
+        };
+        currentRaf = requestAnimationFrame(tick);
+        audio.addEventListener("ended", function(){
+          if (currentRaf) { cancelAnimationFrame(currentRaf); currentRaf = null; }
+          setWaveProgress(playerEl, 1);
+          stopVisuals(playerEl, audio.duration, true);
+          currentAudio = null;
+          currentPlayerEl = null;
+        });
+        audio.play();
+      });
+    });
+  }
+
+  // ---- اعتراض حدث loading:completed قبل وصوله لمكوّن Alpine الخاص باللوحة الأولى ----
+  // Alpine يُسجِّل @loading:completed.window في مرحلة الفقاعة (bubble) العادية، لأن
+  // ".window" وحدها (دون ".capture") لا تفعّل خيار capture في نواة Alpine. نسجّل
+  // مستمعنا هنا بخيار capture=true، فتضمن مواصفات DOM تنفيذه أولاً قبل أي مستمع bubble
+  // بصرف النظر عن ترتيب التسجيل الزمني، ثم نستدعي stopImmediatePropagation فور دخوله
+  // لمنع وصول الحدث لمستمع Alpine كلياً، فلا تُستدعى mount() الأصلية أبداً ولا يُقفَل
+  // overflow على الإطلاق.
+  window.addEventListener("loading:completed", function(ev){
+    ev.stopImmediatePropagation();
+    initVoicePlayers();
+    var day1Panel = qs('.day-panel[data-day-panel="1"]');
+    if (day1Panel && !revealed["1"]) {
+      revealed["1"] = true;
+      revealPanel(day1Panel, showAll);
+    }
+  }, true);
+
+  // ---- مؤشر "...يكتب الآن" (typing indicator) قبل ظهور كل رسالة ----
+  // يُبنى بنفس تصميم فقاعة الرسالة (أبيض/أفاتار لليسار، أصفر لليمين) حتى لا يبدو دخيلاً.
+  function isLeftMessage(msg){
+    return /\bpl-5\b/.test(msg.className);
+  }
+
+  function buildTypingBubble(msg){
+    var left = isLeftMessage(msg);
+    var wrap = document.createElement("div");
+    wrap.className = "kakekoi-typing-bubble w-full h-auto " + (left ? "pl-5" : "pr-5");
+    wrap.style.opacity = "0";
+    wrap.style.transform = "translateY(8px) scale(0.97)";
+    wrap.style.transition = "opacity 0.2s ease, transform 0.2s ease";
+
+    var avatarHtml = "";
+    if (left) {
+      var avatarImg = qs(".size-10 img", msg);
+      var avatarSrc = avatarImg ? avatarImg.getAttribute("src") : "kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png";
+      avatarHtml = '<div class="size-10 rounded-full overflow-hidden"><img alt="" class="size-full object-cover" src="' + avatarSrc + '"/></div>';
+    }
+
+    var bubbleBg = left ? "bg-white" : "bg-[#E8E15D]";
+    var bubbleSide = left ? "left-0" : "right-0";
+    var svgClass = left ? "text-white" : "text-[#E8E15D] -scale-x-100";
+    var rowJustify = left ? "justify-start" : "justify-end";
+    var padSide = left ? "pl-1" : "pr-1";
+
+    wrap.innerHTML =
+      '<div class="flex ' + rowJustify + ' items-start w-full h-auto gap-x-1">' +
+        avatarHtml +
+        '<div class="relative size-auto ' + padSide + ' pt-2">' +
+          '<div class="absolute top-3 ' + bubbleSide + ' w-[calc(5/16*1rem)] h-auto">' +
+            '<svg class="w-full h-auto ' + svgClass + '" viewbox="0 0 5 7"><use xlink:href="#icon-bubble"></use></svg>' +
+          '</div>' +
+          '<div class="kakekoi-typing-dots size-auto ' + bubbleBg + ' py-3 px-4 rounded-lg overflow-hidden flex items-center gap-x-1">' +
+            '<span class="kakekoi-typing-dot"></span>' +
+            '<span class="kakekoi-typing-dot"></span>' +
+            '<span class="kakekoi-typing-dot"></span>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    return wrap;
+  }
+
+  function ensureTypingStyles(){
+    if (document.getElementById("kakekoi-typing-style")) return;
+    var style = document.createElement("style");
+    style.id = "kakekoi-typing-style";
+    style.textContent =
+      ".kakekoi-typing-dot{width:6px;height:6px;border-radius:9999px;background:#9a9a9a;display:inline-block;animation:kakekoi-typing-bounce 1.2s infinite ease-in-out;}" +
+      ".kakekoi-typing-dot:nth-child(1){animation-delay:0s;}" +
+      ".kakekoi-typing-dot:nth-child(2){animation-delay:0.15s;}" +
+      ".kakekoi-typing-dot:nth-child(3){animation-delay:0.3s;}" +
+      "@keyframes kakekoi-typing-bounce{0%,60%,100%{transform:translateY(0);opacity:.5;}30%{transform:translateY(-4px);opacity:1;}}";
+    document.head.appendChild(style);
+  }
+
   // ---- محرك العرض التدريجي المخصص لليوم 2 و 3 ----
   function revealPanel(panel, instant, onDone){
     var items = qsa(".talk-message, .date-divider, .talk-share-item", panel);
     if (!items.length) { if (onDone) onDone(); return; }
+
+    // إزالة أي فقاعة "يكتب الآن" يتيمة من استدعاء سابق لنفس اللوحة (مثلاً إن أعيد
+    // استدعاء revealPanel بسبب "عرض الكل دفعة واحدة" أثناء ظهور فقاعة كتابة معلّقة).
+    qsa(".kakekoi-typing-bubble", panel).forEach(function(b){
+      if (b.parentNode) b.parentNode.removeChild(b);
+    });
+
+    ensureTypingStyles();
+    var currentTypingEl = null; // فقاعة "يكتب الآن" المعروضة حالياً، إن وجدت
 
     items.forEach(function(el){
       el.style.opacity = "0";
@@ -4166,6 +4331,10 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
     }
 
     function showAllNow(){
+      if (currentTypingEl && currentTypingEl.parentNode) {
+        currentTypingEl.parentNode.removeChild(currentTypingEl);
+      }
+      currentTypingEl = null;
       items.forEach(function(el){
         el.style.transition = "none";
         el.style.opacity = "1";
@@ -4184,10 +4353,33 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
     var idx = 0;
     var timerKey = panel.getAttribute("data-day-panel");
 
-    function step(){
-      if (showAll) { showAllNow(); return; }
-      if (idx >= items.length) { if (onDone) onDone(); return; }
-      var el = items[idx];
+    function clearTypingBubble(){
+      if (currentTypingEl && currentTypingEl.parentNode) {
+        currentTypingEl.parentNode.removeChild(currentTypingEl);
+      }
+      currentTypingEl = null;
+    }
+
+    // يعرض مؤشر "يكتب الآن" أمام msgEl لمدة typingDuration، ثم يستدعي cb عند الانتهاء.
+    // showAll هنا يُتحقق منه أيضاً لضمان إلغاء المؤشر فوراً إن ضغط المستخدم "عرض الكل".
+    function showTypingThen(msgEl, typingDuration, cb){
+      if (showAll || typingDuration <= 0) { cb(); return; }
+      var bubble = buildTypingBubble(msgEl);
+      msgEl.parentNode.insertBefore(bubble, msgEl);
+      currentTypingEl = bubble;
+      scrollIntoViewIfNeeded(bubble, false);
+      requestAnimationFrame(function(){
+        bubble.style.opacity = "1";
+        bubble.style.transform = "translateY(0) scale(1)";
+      });
+      revealTimers[timerKey] = setTimeout(function(){
+        clearTypingBubble();
+        if (showAll) { showAllNow(); return; }
+        cb();
+      }, typingDuration);
+    }
+
+    function revealMessage(el){
       el.style.opacity = "1";
       el.style.transform = "translateY(0) scale(1)";
       scrollIntoViewIfNeeded(el, false);
@@ -4221,50 +4413,36 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
         }
       }
       idx++;
-      revealTimers[timerKey] = setTimeout(step, delay);
-    }
-    revealTimers[timerKey] = setTimeout(step, 350);
-  }
 
-  // ---- إجبار اليوم الأول (المحرك الأصلي Alpine) على الظهور الفوري ----
-  function forceShowDay1(){
-    var panel = qs('.day-panel[data-day-panel="1"]');
-    if (!panel) return;
-    suppressAutoScrollFor(panel);
-    var items = qsa(".talk-message, .talk-share-item", panel);
-    items.forEach(function(el){
-      el.style.transition = "none";
-      el.style.opacity = "1";
-      el.style.transform = "none";
-      el.style.pointerEvents = "";
-    });
-    var first = qs(".talk-message", panel);
-    if (first) {
-      var r = getReadEl(first);
-      if (r) r.style.opacity = "1";
+      // نخصص جزءاً من مهلة الانتظار قبل الرسالة التالية لعرض "يكتب الآن..." أمامها،
+      // فقط إن كانت الرسالة التالية رسالة حوارية حقيقية (وليست فاصل تاريخ أو مشاركة صوتية).
+      if (next && /\btalk-message\b/.test(next.className)) {
+        var typingDuration = Math.max(400, Math.min(delay * 0.6, 1800));
+        var restDelay = Math.max(150, delay - typingDuration);
+        revealTimers[timerKey] = setTimeout(function(){
+          if (showAll) { showAllNow(); return; }
+          showTypingThen(next, typingDuration, step);
+        }, restDelay);
+      } else {
+        revealTimers[timerKey] = setTimeout(step, delay);
+      }
     }
-    // لا نفرض القفز إلى أسفل المحادثة: عند "عرض الكل دفعة واحدة" تظهر كافة
-    // الرسائل فوراً وموضع التمرير يبقى بيد المستخدم بالكامل.
 
-    // ضمان بقاء المحادثة قابلة للتحريك يدوياً (سحب/تمرير) بعد عرضها دفعة واحدة،
-    // حتى لو كان محرك العرض الأصلي (Alpine) لا يزال يعتقد داخلياً أنه لم ينتهِ بعد
-    // ويحاول تجميد التمرير أثناء ذلك.
-    panel.style.overflowY = "scroll";
-    panel.style.touchAction = "pan-y";
-    panel.style.pointerEvents = "auto";
-    document.documentElement.style.overflow = "";
-    document.body.style.overflow = "";
-    if (window.lenis && typeof window.lenis.start === "function") {
-      try { window.lenis.start(); } catch(e) {}
+    function step(){
+      if (showAll) { clearTypingBubble(); showAllNow(); return; }
+      if (idx >= items.length) { if (onDone) onDone(); return; }
+      revealMessage(items[idx]);
     }
-  }
 
-  function forceShowDay1Persistently(){
-    // نكرر المحاولة لفترة أطول لأن مكوّن Alpine الأصلي قد يعيد ضبط الشفافية
-    // أو قفل التمرير أكثر من مرة بعد اكتمال شاشة التحميل (حدث loading:completed).
-    [0, 250, 700, 1300, 2200, 3200, 4200, 5200].forEach(function(t){
-      setTimeout(forceShowDay1, t);
-    });
+    var firstEl = items[0];
+    if (firstEl && /\btalk-message\b/.test(firstEl.className)) {
+      revealTimers[timerKey] = setTimeout(function(){
+        if (showAll) { showAllNow(); return; }
+        showTypingThen(firstEl, 900, step);
+      }, 350);
+    } else {
+      revealTimers[timerKey] = setTimeout(step, 350);
+    }
   }
 
   // ---- التبديل بين الأيام ----
@@ -4279,11 +4457,6 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
       b.classList.toggle("is-active", active);
       b.setAttribute("aria-pressed", active ? "true" : "false");
     });
-
-    if (day === "1") {
-      if (showAll) forceShowDay1Persistently();
-      return;
-    }
 
     var panel = qs('.day-panel[data-day-panel="' + day + '"]');
     if (!panel) return;
@@ -4308,17 +4481,11 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
     if (!activePanel) return;
     var dayNum = activePanel.getAttribute("data-day-panel");
 
-    if (dayNum === "1") {
-      forceShowDay1Persistently();
-    } else {
-      revealed[dayNum] = true;
-      revealPanel(activePanel, true);
-    }
+    revealed[dayNum] = true;
+    revealPanel(activePanel, true);
   }
 
   function init(){
-    var day1Panel = qs('.day-panel[data-day-panel="1"]');
-    if (day1Panel) suppressAutoScrollFor(day1Panel);
     qsa(".kakekoi-day-tab").forEach(function(btn){
       btn.addEventListener("click", function(){
         switchToDay(btn.getAttribute("data-day-btn"));
