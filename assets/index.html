@@ -71,6 +71,26 @@
     transition:transform .25s ease;
   }
   .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(18px); }
+  .bg-music-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:transparent;
+    border:none;
+    padding:0;
+    margin:0 2px 0 0;
+    cursor:pointer;
+    color:#fff;
+    flex:0 0 auto;
+    transition:opacity .2s ease;
+  }
+  .bg-music-btn .bg-music-icon-off{ display:none; }
+  .bg-music-btn.is-playing .bg-music-icon-on{ display:none; }
+  .bg-music-btn.is-playing .bg-music-icon-off{ display:block; }
+  .bg-music-btn:active{ opacity:.6; }
   @media (min-width:768px){
     .lang-toggle-wrap{ top:22px; right:calc(314px + 24px); }
   }
@@ -135,6 +155,43 @@
   .kakekoi-lang-gate-btn-ja{
     font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
   }
+  .kakekoi-lang-gate-music-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .kakekoi-lang-gate-music-label{
+    color:#fff;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:12px;
+    opacity:.85;
+    user-select:none;
+  }
+  .kakekoi-lang-gate-music{
+    position:relative;
+    width:42px;
+    height:24px;
+    border-radius:999px;
+    background:#6b7d84;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    flex:0 0 auto;
+    transition:background .25s ease;
+  }
+  .kakekoi-lang-gate-music.is-on{ background:#E8E15D; }
+  .kakekoi-lang-gate-music-knob{
+    position:absolute;
+    top:2px;
+    left:2px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.35);
+    transition:transform .25s ease;
+  }
+  .kakekoi-lang-gate-music.is-on .kakekoi-lang-gate-music-knob{ transform:translateX(18px); }
 
   /* ==== إضافات هيوكا ناتسومي: تبديل الأيام + العرض الفوري ==== */
   .kakekoi-day-tab{
@@ -294,6 +351,12 @@
 <button class="kakekoi-lang-gate-btn kakekoi-lang-gate-btn-ja" id="kakekoi-lang-gate-ja" type="button">日本語</button>
 <button class="kakekoi-lang-gate-btn kakekoi-lang-gate-btn-ar" id="kakekoi-lang-gate-ar" type="button">العربية</button>
 </div>
+<div class="kakekoi-lang-gate-music-row">
+<span class="kakekoi-lang-gate-music-label" data-ja="音楽" data-ar="الموسيقى" id="kakekoi-lang-gate-music-label">الموسيقى</span>
+<button aria-label="تشغيل الموسيقى" aria-pressed="false" class="kakekoi-lang-gate-music" id="kakekoi-lang-gate-music" type="button">
+<span class="kakekoi-lang-gate-music-knob"></span>
+</button>
+</div>
 </div>
 <div class="effect-loading fixed inset-0 z-[9999] flex justify-center items-center bg-white" x-bind:class="{ 'is-active': action, 'is-complete': complete }" x-data="loading">
 <div class="effect-blur-fadein absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(132/16*1rem)] h-auto z-10" x-cloak="">
@@ -301,14 +364,19 @@
 </div>
 </div>
 <div class="lang-toggle-wrap" id="lang-toggle-wrap">
+<button aria-label="تشغيل أو إيقاف الموسيقى" class="bg-music-btn" id="bg-music-btn" type="button">
+<svg class="bg-music-icon-on" fill="none" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg>
+<svg class="bg-music-icon-off" fill="none" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="2" x1="3" x2="21" y1="3" y2="21"></line></svg>
+</button>
 <span class="lang-toggle-label lang-toggle-label-ja is-current" id="lang-toggle-label-ja">日本語</span>
 <button aria-label="تبديل اللغة إلى العربية" class="lang-toggle-btn" id="lang-toggle-btn" type="button">
 <span class="lang-toggle-knob"></span>
 </button>
 <span class="lang-toggle-label lang-toggle-label-ar" id="lang-toggle-label-ar">العربية</span>
 </div>
+<audio id="kakekoi-bg-music" loop="" preload="auto" src="bg-music.mp3"></audio>
 <div class="kakekoi-credit-wrap kakekoi-ui" id="kakekoi-credit-wrap">
-<p class="kakekoi-credit-text" data-ja="この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل موسّع بواسطة هيوكا ناتسومي - Hyouka Natsume">この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です</p>
+<p class="kakekoi-credit-text" data-ja="この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل موسّع ومعدَّل عليه بواسطة هيوكا ناتسومي - Hyouka Natsume">この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です</p>
 <a class="kakekoi-credit-ig" href="https://www.instagram.com/hyouka_ns" rel="noopener" target="_blank">
 <svg class="kakekoi-credit-ig-icon" viewbox="0 0 24 24" fill="none" aria-hidden="true">
 <rect height="19" rx="6" stroke="currentColor" stroke-width="2" width="19" x="2.5" y="2.5"></rect>
@@ -3978,8 +4046,44 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
       }
     }
 
-    if (gateJa) gateJa.addEventListener("click", function(){ chooseLang(false); });
-    if (gateAr) gateAr.addEventListener("click", function(){ chooseLang(true); });
+    // ==== الموسيقى الخلفية ====
+    // مطفأة افتراضياً؛ يفعّلها الزائر بنفسه من مفتاح التمرير في شاشة اختيار اللغة،
+    // وعندها فقط تبدأ الموسيقى تلقائياً بعد اختيار اللغة. يمكن إيقافها أو
+    // إعادة تشغيلها لاحقاً من الزر بجانب مفتاح اللغة أعلى الصفحة.
+    var music = document.getElementById("kakekoi-bg-music");
+    var musicBtn = document.getElementById("bg-music-btn");
+    var gateMusicBtn = document.getElementById("kakekoi-lang-gate-music");
+    var musicWanted = false;
+    if (music) music.volume = 0.25;
+
+    function playMusic(){
+      if (!music) return;
+      var p = music.play();
+      if (p && typeof p.catch === "function") p.catch(function(){});
+      if (musicBtn) musicBtn.classList.add("is-playing");
+    }
+    function pauseMusic(){
+      if (!music) return;
+      music.pause();
+      if (musicBtn) musicBtn.classList.remove("is-playing");
+    }
+
+    if (gateMusicBtn) {
+      gateMusicBtn.addEventListener("click", function(){
+        musicWanted = !musicWanted;
+        gateMusicBtn.classList.toggle("is-on", musicWanted);
+        gateMusicBtn.setAttribute("aria-pressed", musicWanted ? "true" : "false");
+      });
+    }
+
+    if (musicBtn) {
+      musicBtn.addEventListener("click", function(){
+        if (music && music.paused) { playMusic(); } else { pauseMusic(); }
+      });
+    }
+
+    if (gateJa) gateJa.addEventListener("click", function(){ chooseLang(false); if (musicWanted) playMusic(); });
+    if (gateAr) gateAr.addEventListener("click", function(){ chooseLang(true); if (musicWanted) playMusic(); });
   }
 
   if (document.readyState === "loading") {
