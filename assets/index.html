@@ -48,7 +48,7 @@
   }
   .lang-toggle-btn{
     position:relative;
-    width:42px;
+    width:62px;
     height:24px;
     border-radius:999px;
     background:#6b7d84;
@@ -58,6 +58,7 @@
     flex:0 0 auto;
     transition:background .25s ease;
   }
+  .lang-toggle-btn.is-en{ background:#E8E15D; }
   .lang-toggle-btn.is-ar{ background:#3A5E6E; }
   .lang-toggle-knob{
     position:absolute;
@@ -70,7 +71,8 @@
     box-shadow:0 1px 3px rgba(0,0,0,.35);
     transition:transform .25s ease;
   }
-  .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(18px); }
+  .lang-toggle-btn.is-en .lang-toggle-knob{ transform:translateX(19px); }
+  .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(38px); }
   .bg-music-btn{
     display:flex;
     align-items:center;
@@ -134,6 +136,11 @@
     font-size:13px;
     opacity:.85;
   }
+  .kakekoi-lang-gate-prompt .kakekoi-lang-gate-en{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:13px;
+    opacity:.85;
+  }
   .kakekoi-lang-gate-options{
     display:flex;
     gap:14px;
@@ -154,6 +161,9 @@
   .kakekoi-lang-gate-btn:active{ transform:scale(.96); }
   .kakekoi-lang-gate-btn-ja{
     font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  }
+  .kakekoi-lang-gate-btn-en{
+    font-family:Arial,Helvetica,sans-serif;
   }
   .kakekoi-lang-gate-music-row{
     display:flex;
@@ -297,6 +307,7 @@
   .lang-toggle-label{ opacity:.55; transition:opacity .2s ease, font-weight .2s ease; }
   .lang-toggle-label.is-current{ opacity:1; font-weight:700; }
   .lang-toggle-label-ar{ font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif; }
+  .lang-toggle-label-en{ font-family:Arial,Helvetica,sans-serif; }
   @media (min-width:768px){
     .kakekoi-credit-wrap{ bottom:14px; }
     .day-panel{ padding-bottom:56px; }
@@ -349,14 +360,16 @@
 <div class="kakekoi-lang-gate" id="kakekoi-lang-gate">
 <div class="kakekoi-lang-gate-prompt">
 <p class="kakekoi-lang-gate-ar" dir="rtl">اختر اللغة للبدء</p>
+<p class="kakekoi-lang-gate-en">Choose a language to begin</p>
 <p class="kakekoi-lang-gate-ja">言語を選んでください</p>
 </div>
 <div class="kakekoi-lang-gate-options">
 <button class="kakekoi-lang-gate-btn kakekoi-lang-gate-btn-ja" id="kakekoi-lang-gate-ja" type="button">日本語</button>
+<button class="kakekoi-lang-gate-btn kakekoi-lang-gate-btn-en" id="kakekoi-lang-gate-en" type="button">English</button>
 <button class="kakekoi-lang-gate-btn kakekoi-lang-gate-btn-ar" id="kakekoi-lang-gate-ar" type="button">العربية</button>
 </div>
 <div class="kakekoi-lang-gate-music-row">
-<span class="kakekoi-lang-gate-music-label" data-ja="音楽" data-ar="الموسيقى" id="kakekoi-lang-gate-music-label">الموسيقى</span>
+<span class="kakekoi-lang-gate-music-label" data-ja="音楽" data-ar="الموسيقى" data-en="Music" id="kakekoi-lang-gate-music-label">الموسيقى</span>
 <button aria-label="تشغيل الموسيقى" aria-pressed="false" class="kakekoi-lang-gate-music" id="kakekoi-lang-gate-music" type="button">
 <span class="kakekoi-lang-gate-music-knob"></span>
 </button>
@@ -364,7 +377,7 @@
 </div>
 <div class="effect-loading fixed inset-0 z-[9999] flex justify-center items-center bg-white" x-bind:class="{ 'is-active': action, 'is-complete': complete }" x-data="loading">
 <div class="effect-blur-fadein absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(132/16*1rem)] h-auto z-10" x-cloak="">
-<img alt="透明な夜に駆ける君と、目に見えない恋をした。" class="w-full h-auto" id="kakekoi-loading-logo" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png"/>
+<img alt="透明な夜に駆ける君と、目に見えない恋をした。" class="w-full h-auto" id="kakekoi-loading-logo" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo-ar.png" data-en-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo-en.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png"/>
 </div>
 </div>
 <div class="lang-toggle-wrap" id="lang-toggle-wrap">
@@ -373,14 +386,15 @@
 <svg class="bg-music-icon-off" fill="none" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="2" x1="3" x2="21" y1="3" y2="21"></line></svg>
 </button>
 <span class="lang-toggle-label lang-toggle-label-ja is-current" id="lang-toggle-label-ja">日本語</span>
-<button aria-label="تبديل اللغة إلى العربية" class="lang-toggle-btn" id="lang-toggle-btn" type="button">
+<button aria-label="تبديل اللغة" class="lang-toggle-btn" id="lang-toggle-btn" type="button">
 <span class="lang-toggle-knob"></span>
 </button>
+<span class="lang-toggle-label lang-toggle-label-en" id="lang-toggle-label-en">English</span>
 <span class="lang-toggle-label lang-toggle-label-ar" id="lang-toggle-label-ar">العربية</span>
 </div>
 <audio id="kakekoi-bg-music" loop="" preload="auto" src="bg-music.mp3"></audio>
 <div class="kakekoi-credit-wrap kakekoi-ui" id="kakekoi-credit-wrap">
-<p class="kakekoi-credit-text" data-ja="この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل موسّع بواسطة هيوكا ناتسومي - Hyouka Natsume">この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です</p>
+<p class="kakekoi-credit-text" data-ja="この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل موسّع بواسطة هيوكا ناتسومي - Hyouka Natsume" data-en="This work is an extended/modified version by Hyouka Natsume">この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です</p>
 <a class="kakekoi-credit-ig" href="https://www.instagram.com/hyouka_ns" rel="noopener" target="_blank">
 <svg class="kakekoi-credit-ig-icon" viewbox="0 0 24 24" fill="none" aria-hidden="true">
 <rect height="19" rx="6" stroke="currentColor" stroke-width="2" width="19" x="2.5" y="2.5"></rect>
@@ -443,7 +457,7 @@
 <div class="w-2 h-auto">
 <img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-back.svg"/>
 </div>
-<p class="font-jp_sans font-medium text-15 leading-none text-white" data-ja="冬月小春" data-ar="كوهارو فويوتسكي">冬月小春</p>
+<p class="font-jp_sans font-medium text-15 leading-none text-white" data-ja="冬月小春" data-ar="كوهارو فويوتسكي" data-en="Koharu Fuyutsuki">冬月小春</p>
 </div>
 <div class="flex justify-end items-center size-auto gap-x-2.5">
 <div class="w-6 h-auto">
@@ -461,20 +475,20 @@
 </div>
 <div class="kakekoi-ui w-full h-auto flex-[0_0_auto] bg-[#2C4A57] px-3 py-2 flex items-center justify-between gap-x-2 relative z-10" id="kakekoi-day-toolbar">
 <div class="flex items-center gap-x-1.5 overflow-x-auto" id="kakekoi-day-tabs">
-<button aria-pressed="true" class="kakekoi-day-tab is-active" data-ar="١٠ يوليو" data-day-btn="1" data-ja="7月10日" type="button">7月10日</button>
-<button aria-pressed="false" class="kakekoi-day-tab" data-ar="١٩ يوليو" data-day-btn="2" data-ja="7月19日" type="button">7月19日</button>
-<button aria-pressed="false" class="kakekoi-day-tab" data-ar="٢ أغسطس" data-day-btn="3" data-ja="8月2日" type="button">8月2日</button>
+<button aria-pressed="true" class="kakekoi-day-tab is-active" data-ar="١٠ يوليو" data-day-btn="1" data-ja="7月10日" data-en="Jul 10" type="button">7月10日</button>
+<button aria-pressed="false" class="kakekoi-day-tab" data-ar="١٩ يوليو" data-day-btn="2" data-ja="7月19日" data-en="Jul 19" type="button">7月19日</button>
+<button aria-pressed="false" class="kakekoi-day-tab" data-ar="٢ أغسطس" data-day-btn="3" data-ja="8月2日" data-en="Aug 2" type="button">8月2日</button>
 </div>
 <button aria-pressed="false" class="kakekoi-showall-btn" id="kakekoi-showall-btn" type="button">
 <span class="kakekoi-showall-icon"></span>
-<span data-ar="عرض الكل دفعة واحدة" data-ja="一括表示" id="kakekoi-showall-label">一括表示</span>
+<span data-ar="عرض الكل دفعة واحدة" data-ja="一括表示" data-en="Show all at once" id="kakekoi-showall-label">一括表示</span>
 </button>
 </div>
 <div @loading:completed.window="mount" class="day-panel size-full overflow-y-scroll" data-lenis-prevent="" x-data="talk" data-day-panel="1" data-active="true">
 <div class="w-full h-auto pt-[calc(17/16*1rem)]">
 <div class="w-[calc(100%-(80*2)/16*1rem)] h-auto mx-auto py-6">
 <div class="grid place-content-center py-2 w-full h-auto bg-white/40 rounded-lg overflow-hidden">
-<p class="font-jp_sans text-10 leading-[calc(12/10)] text-[#838383] disclaimer-text" data-ja-html="※再生ボタンを押すと音声が再生されます。<br>音量をご確認のうえ、お楽しみください。" data-ar-html="※الضغط على زر التشغيل سيقوم بتشغيل الصوت.<br>يرجى التأكد من مستوى الصوت قبل الاستماع.">
+<p class="font-jp_sans text-10 leading-[calc(12/10)] text-[#838383] disclaimer-text" data-ja-html="※再生ボタンを押すと音声が再生されます。<br>音量をご確認のうえ、お楽しみください。" data-ar-html="※الضغط على زر التشغيل سيقوم بتشغيل الصوت.<br>يرجى التأكد من مستوى الصوت قبل الاستماع." data-en-html="※Pressing the play button will play audio.<br>Please check your volume before listening.">
 													※再生ボタンを押すと音声が再生されます。<br/>
 													音量をご確認のうえ、お楽しみください。
 												</p>
@@ -492,10 +506,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日はありがとうございました！" data-ar="شكراً لك على اليوم!">今日はありがとうございました！</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日はありがとうございました！" data-ar="شكراً لك على اليوم!" data-en="Thank you so much for today!">今日はありがとうございました！</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:45</p>
 </div>
 </div>
@@ -510,10 +524,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんのこと？" data-ar="على أي شيء؟">なんのこと？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんのこと？" data-ar="على أي شيء؟" data-en="For what?">なんのこと？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:00</p>
 </div>
 </div>
@@ -531,10 +545,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="アカウント交換してくれましたし、授業の合間にもお付き合いいただきましたし" data-ar="تبادلتَ معي حسابك، ورافقتني بين الحصص أيضاً">アカウント交換してくれましたし、授業の合間にもお付き合いいただきましたし</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="アカウント交換してくれましたし、授業の合間にもお付き合いいただきましたし" data-ar="تبادلتَ معي حسابك، ورافقتني بين الحصص أيضاً" data-en="You exchanged contacts with me, and even kept me company between classes">アカウント交換してくれましたし、授業の合間にもお付き合いいただきましたし</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:02</p>
 </div>
 </div>
@@ -549,10 +563,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に気にしなくてもいいよ" data-ar="لا داعي أن تهتمي بالأمر كثيراً">別に気にしなくてもいいよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に気にしなくてもいいよ" data-ar="لا داعي أن تهتمي بالأمر كثيراً" data-en="You don't have to worry about that">別に気にしなくてもいいよ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:03</p>
 </div>
 </div>
@@ -570,10 +584,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いえいえ、いまだに空野さんの冗談がつってます" data-ar="لا لا، ما زلت نكتتك تُضنيني حتى الآن">いえいえ、いまだに空野さんの冗談がつってます</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いえいえ、いまだに空野さんの冗談がつってます" data-ar="لا لا، ما زلت نكتتك تُضنيني حتى الآن" data-en="No no, your jokes still crack me up, even now">いえいえ、いまだに空野さんの冗談がつってます</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:05</p>
 </div>
 </div>
@@ -588,10 +602,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="つってます？" data-ar="تُضنيني؟">つってます？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="つってます？" data-ar="تُضنيني؟" data-en="Crack you up?">つってます？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:05</p>
 </div>
 </div>
@@ -609,10 +623,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめんなさい。音声入力なのでうまく変換できなかったみたいなんです" data-ar="آسفة، أظن أن الإدخال الصوتي لم يحوّل الكلمة بشكل صحيح">ごめんなさい。音声入力なのでうまく変換できなかったみたいなんです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめんなさい。音声入力なのでうまく変換できなかったみたいなんです" data-ar="آسفة، أظن أن الإدخال الصوتي لم يحوّل الكلمة بشكل صحيح" data-en="Sorry, voice input must have picked the wrong word">ごめんなさい。音声入力なのでうまく変換できなかったみたいなんです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:07</p>
 </div>
 </div>
@@ -627,10 +641,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="もしかして、ツボってます？" data-ar="هل تقصدين... تُضحكني؟">もしかして、ツボってます？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="もしかして、ツボってます？" data-ar="هل تقصدين... تُضحكني؟" data-en="Wait, did you mean... they make you laugh?">もしかして、ツボってます？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:07</p>
 </div>
 </div>
@@ -648,10 +662,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうです！なんで空野さんは出るんだろう" data-ar="بالضبط! كيف خمّنتها بهذه السرعة يا سورانو؟">そうです！なんで空野さんは出るんだろう</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうです！なんで空野さんは出るんだろう" data-ar="بالضبط! كيف خمّنتها بهذه السرعة يا سورانو؟" data-en="Exactly! How did you guess that so fast, Sorano-san?">そうです！なんで空野さんは出るんだろう</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:09</p>
 </div>
 </div>
@@ -666,10 +680,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いや僕は手入力だから" data-ar="لا، أنا فقط أكتب بيدي">いや僕は手入力だから</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いや僕は手入力だから" data-ar="لا، أنا فقط أكتب بيدي" data-en="Well, I type by hand">いや僕は手入力だから</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:09</p>
 </div>
 </div>
@@ -687,10 +701,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それもそうですね。空野さんの音声入力はちゃんと入力できますか？" data-ar="صحيح، معك حق. هل الإدخال الصوتي عندك يعمل بشكل جيد؟">それもそうですね。空野さんの音声入力はちゃんと入力できますか？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それもそうですね。空野さんの音声入力はちゃんと入力できますか？" data-ar="صحيح، معك حق. هل الإدخال الصوتي عندك يعمل بشكل جيد؟" data-en="Right, of course. Does your voice input work properly, Sorano-san?">それもそうですね。空野さんの音声入力はちゃんと入力できますか？</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:10</p>
 </div>
 </div>
@@ -705,10 +719,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ツボってますって？" data-ar="«تُضحكني؟» -تجربة-">ツボってますって？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ツボってますって？" data-ar="«تُضحكني؟» -تجربة-" data-en="&quot;Crack you up&quot;? -testing-">ツボってますって？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:11</p>
 </div>
 </div>
@@ -726,10 +740,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい" data-ar="نعم">はい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい" data-ar="نعم" data-en="Yes">はい</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:12</p>
 </div>
 </div>
@@ -744,10 +758,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="どうやるんだろ" data-ar="كيف تُستخدم هذه الميزة أصلاً">どうやるんだろ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="どうやるんだろ" data-ar="كيف تُستخدم هذه الميزة أصلاً" data-en="How does this even work">どうやるんだろ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:13</p>
 </div>
 </div>
@@ -781,7 +795,7 @@
 </div>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:13</p>
 </div>
 </div>
@@ -799,10 +813,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="音声が送られてきましたね" data-ar="وصلتني رسالة صوتية للتو">音声が送られてきましたね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="音声が送られてきましたね" data-ar="وصلتني رسالة صوتية للتو" data-en="A voice message just came through">音声が送られてきましたね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:15</p>
 </div>
 </div>
@@ -817,10 +831,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="消していい？てか消すよ" data-ar="هل يمكنني حذفها؟ بل سأحذفها الآن">消していい？てか消すよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="消していい？てか消すよ" data-ar="هل يمكنني حذفها؟ بل سأحذفها الآن" data-en="Can I delete it? Actually, I'm deleting it now">消していい？てか消すよ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:15</p>
 </div>
 </div>
@@ -857,7 +871,7 @@
 </div>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:16</p>
 </div>
 </div>
@@ -872,10 +886,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え、今の……「消さないで」って言った？" data-ar="مهلاً... هل قلت للتو «لا تحذفها»؟">え、今の……「消さないで」って言った？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え、今の……「消さないで」って言った？" data-ar="مهلاً... هل قلت للتو «لا تحذفها»؟" data-en="Wait, just now... did you say &quot;don't delete it&quot;?">え、今の……「消さないで」って言った？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:17</p>
 </div>
 </div>
@@ -893,10 +907,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="バレちゃいました" data-ar="يبدو أنني انكشفت!">バレちゃいました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="バレちゃいました" data-ar="يبدو أنني انكشفت!" data-en="Looks like I got caught">バレちゃいました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:17</p>
 </div>
 </div>
@@ -911,10 +925,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんで、そんなことを" data-ar="لماذا قلت ذلك؟">なんで、そんなことを</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんで、そんなことを" data-ar="لماذا قلت ذلك؟" data-en="Why would you say that">なんで、そんなことを</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:18</p>
 </div>
 </div>
@@ -932,10 +946,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの声、今日初めてちゃんと聞いた気がしたので" data-ar="لأنني شعرت أن هذه أول مرة أسمع صوتك بوضوح حقاً">空野さんの声、今日初めてちゃんと聞いた気がしたので</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの声、今日初めてちゃんと聞いた気がしたので" data-ar="لأنني شعرت أن هذه أول مرة أسمع صوتك بوضوح حقاً" data-en="I felt like it was the first time I'd really heard your voice today">空野さんの声、今日初めてちゃんと聞いた気がしたので</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:19</p>
 </div>
 </div>
@@ -953,10 +967,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なくしたくなかったんです" data-ar="لم أرغب أن أفقده">なくしたくなかったんです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なくしたくなかったんです" data-ar="لم أرغب أن أفقده" data-en="I didn't want to lose it">なくしたくなかったんです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:19</p>
 </div>
 </div>
@@ -971,10 +985,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そう" data-ar="...فهمت">……そう</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そう" data-ar="...فهمت" data-en="...I see">……そう</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:20</p>
 </div>
 </div>
@@ -992,10 +1006,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙りましたね" data-ar="صمتّ مجدداً">また黙りましたね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙りましたね" data-ar="صمتّ مجدداً" data-en="You went quiet again">また黙りましたね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:21</p>
 </div>
 </div>
@@ -1010,10 +1024,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="何て返せばいいか分からなくて" data-ar="لم أعرف كيف أرد عليك">何て返せばいいか分からなくて</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="何て返せばいいか分からなくて" data-ar="لم أعرف كيف أرد عليك" data-en="I didn't know how to respond">何て返せばいいか分からなくて</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:21</p>
 </div>
 </div>
@@ -1031,10 +1045,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="素直に「うれしい」でいいですよ" data-ar="يكفي أن تقول بصدق «أنا سعيد بذلك»">素直に「うれしい」でいいですよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="素直に「うれしい」でいいですよ" data-ar="يكفي أن تقول بصدق «أنا سعيد بذلك»" data-en="It's fine to just say &quot;I'm happy&quot; honestly">素直に「うれしい」でいいですよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:22</p>
 </div>
 </div>
@@ -1049,10 +1063,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……うれしい" data-ar="...أنا سعيد">……うれしい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……うれしい" data-ar="...أنا سعيد" data-en="...I'm happy">……うれしい</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:23</p>
 </div>
 </div>
@@ -1070,10 +1084,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふっ、よくできました" data-ar="ههه، أحسنت!">ふふっ、よくできました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふっ、よくできました" data-ar="ههه، أحسنت!" data-en="Hehe, well done">ふふっ、よくできました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:23</p>
 </div>
 </div>
@@ -1091,10 +1105,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんだか、今日は少し思い出しちゃいました" data-ar="بصراحة، تذكّرت اليوم شيئاً ما">なんだか、今日は少し思い出しちゃいました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="なんだか、今日は少し思い出しちゃいました" data-ar="بصراحة، تذكّرت اليوم شيئاً ما" data-en="For some reason, I remembered something today">なんだか、今日は少し思い出しちゃいました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:24</p>
 </div>
 </div>
@@ -1109,10 +1123,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="何を" data-ar="ماذا تذكرتِ؟">何を</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="何を" data-ar="ماذا تذكرتِ؟" data-en="What did you remember?">何を</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:24</p>
 </div>
 </div>
@@ -1130,10 +1144,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最初に会った日のことです" data-ar="أول يوم التقينا فيه">最初に会った日のことです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最初に会った日のことです" data-ar="أول يوم التقينا فيه" data-en="The day we first met">最初に会った日のことです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:25</p>
 </div>
 </div>
@@ -1151,10 +1165,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="4月の、入学式の次の日でしたよね" data-ar="كان اليوم التالي لحفل الاستقبال، في إبريل، أليس كذلك؟">4月の、入学式の次の日でしたよね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="4月の、入学式の次の日でしたよね" data-ar="كان اليوم التالي لحفل الاستقبال، في إبريل، أليس كذلك؟" data-en="It was the day after the entrance ceremony, in April, right?">4月の、入学式の次の日でしたよね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:25</p>
 </div>
 </div>
@@ -1169,10 +1183,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="よく覚えてるね" data-ar="تتذكرين بدقة شديدة">よく覚えてるね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="よく覚えてるね" data-ar="تتذكرين بدقة شديدة" data-en="You remember it so well">よく覚えてるね</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:26</p>
 </div>
 </div>
@@ -1190,10 +1204,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="大事な日なので" data-ar="لأنه يوم مهم بالنسبة لي">大事な日なので</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="大事な日なので" data-ar="لأنه يوم مهم بالنسبة لي" data-en="Because it's an important day to me">大事な日なので</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:26</p>
 </div>
 </div>
@@ -1211,10 +1225,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="知らない校舎で、杖の音だけが頼りでした" data-ar="كان مبنى غريباً بالنسبة لي، ولم يكن لدي ما أعتمد عليه سوى صوت عصاي">知らない校舎で、杖の音だけが頼りでした</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="知らない校舎で、杖の音だけが頼りでした" data-ar="كان مبنى غريباً بالنسبة لي، ولم يكن لدي ما أعتمد عليه سوى صوت عصاي" data-en="An unfamiliar building, and all I had to rely on was the sound of my cane">知らない校舎で、杖の音だけが頼りでした</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:27</p>
 </div>
 </div>
@@ -1229,10 +1243,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの時、先輩に急に頼まれたんだ" data-ar="في تلك اللحظة طلبت مني إحدى الطالبات الكبيرات فجأة">あの時、先輩に急に頼まれたんだ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの時、先輩に急に頼まれたんだ" data-ar="في تلك اللحظة طلبت مني إحدى الطالبات الكبيرات فجأة" data-en="That's when a senior suddenly asked me for a favor">あの時、先輩に急に頼まれたんだ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:28</p>
 </div>
 </div>
@@ -1247,10 +1261,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「目が見えない新入生のサポート、してくれない？」って" data-ar="قالت لي: «هل يمكنك مساعدة طالبة مستجدة كفيفة؟»">「目が見えない新入生のサポート、してくれない？」って</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「目が見えない新入生のサポート、してくれない？」って" data-ar="قالت لي: «هل يمكنك مساعدة طالبة مستجدة كفيفة؟»" data-en="She said, &quot;Could you help support a new student who's visually impaired?&quot;">「目が見えない新入生のサポート、してくれない？」って</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:28</p>
 </div>
 </div>
@@ -1265,10 +1279,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="正直、めちゃくちゃ焦った" data-ar="بصراحة، شعرت بتوتر شديد حينها">正直、めちゃくちゃ焦った</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="正直、めちゃくちゃ焦った" data-ar="بصراحة، شعرت بتوتر شديد حينها" data-en="Honestly, I panicked so much">正直、めちゃくちゃ焦った</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:29</p>
 </div>
 </div>
@@ -1286,10 +1300,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="焦ってるの、声だけで分かりましたよ" data-ar="كان بإمكاني معرفة توترك من نبرة صوتك فقط">焦ってるの、声だけで分かりましたよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="焦ってるの、声だけで分かりましたよ" data-ar="كان بإمكاني معرفة توترك من نبرة صوتك فقط" data-en="I could tell you were panicking just from your voice">焦ってるの、声だけで分かりましたよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:30</p>
 </div>
 </div>
@@ -1307,10 +1321,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「よ、よろしくお願いします」って、噛んでましたし" data-ar="قلت «ت-تشرفت بمعرفتك» وتلعثمت في الكلام">「よ、よろしくお願いします」って、噛んでましたし</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「よ、よろしくお願いします」って、噛んでましたし" data-ar="قلت «ت-تشرفت بمعرفتك» وتلعثمت في الكلام" data-en="You said &quot;N-nice to meet you&quot; and stumbled over the words">「よ、よろしくお願いします」って、噛んでましたし</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:30</p>
 </div>
 </div>
@@ -1325,10 +1339,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="噛んでない" data-ar="لم أتلعثم">噛んでない</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="噛んでない" data-ar="لم أتلعثم" data-en="I didn't stumble">噛んでない</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:31</p>
 </div>
 </div>
@@ -1346,10 +1360,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="噛んでました" data-ar="بل تلعثمت فعلاً">噛んでました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="噛んでました" data-ar="بل تلعثمت فعلاً" data-en="You did stumble">噛んでました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:31</p>
 </div>
 </div>
@@ -1364,10 +1378,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……噛んでたかもしれない" data-ar="...ربما تلعثمت قليلاً">……噛んでたかもしれない</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……噛んでたかもしれない" data-ar="...ربما تلعثمت قليلاً" data-en="...maybe I stumbled a little">……噛んでたかもしれない</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:32</p>
 </div>
 </div>
@@ -1385,10 +1399,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの時、空野さんの手、すごく冷たかったんです" data-ar="يدك كانت باردة جداً في تلك اللحظة">あの時、空野さんの手、すごく冷たかったんです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの時、空野さんの手、すごく冷たかったんです" data-ar="يدك كانت باردة جداً في تلك اللحظة" data-en="Your hand was so cold back then, Sorano-san">あの時、空野さんの手、すごく冷たかったんです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:33</p>
 </div>
 </div>
@@ -1403,10 +1417,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="緊張してたから" data-ar="كنت متوتراً جداً وقتها">緊張してたから</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="緊張してたから" data-ar="كنت متوتراً جداً وقتها" data-en="Because I was really nervous">緊張してたから</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:33</p>
 </div>
 </div>
@@ -1424,10 +1438,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="冷たい手なのに、支え方はすごく丁寧で" data-ar="مع أن يدك كانت باردة، إلا أن طريقتك في مساعدتي كانت لطيفة جداً">冷たい手なのに、支え方はすごく丁寧で</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="冷たい手なのに、支え方はすごく丁寧で" data-ar="مع أن يدك كانت باردة، إلا أن طريقتك في مساعدتي كانت لطيفة جداً" data-en="Even though your hand was cold, the way you supported me was so gentle">冷たい手なのに、支え方はすごく丁寧で</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:34</p>
 </div>
 </div>
@@ -1445,10 +1459,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="安心したの、今でも覚えてます" data-ar="ما زلت أتذكر شعوري بالأمان حينها">安心したの、今でも覚えてます</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="安心したの、今でも覚えてます" data-ar="ما زلت أتذكر شعوري بالأمان حينها" data-en="I still remember how safe I felt, even now">安心したの、今でも覚えてます</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:34</p>
 </div>
 </div>
@@ -1463,10 +1477,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そうなんだ" data-ar="...حقاً؟">……そうなんだ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そうなんだ" data-ar="...حقاً؟" data-en="...is that right">……そうなんだ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:35</p>
 </div>
 </div>
@@ -1484,10 +1498,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="階段の前で「あと三段です」って教えてくれたことも" data-ar="وأيضاً حين قلت لي أمام الدرج «تبقّت ثلاث درجات»">階段の前で「あと三段です」って教えてくれたことも</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="階段の前で「あと三段です」って教えてくれたことも" data-ar="وأيضاً حين قلت لي أمام الدرج «تبقّت ثلاث درجات»" data-en="And also when you told me in front of the stairs, &quot;three more steps&quot;">階段の前で「あと三段です」って教えてくれたことも</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:36</p>
 </div>
 </div>
@@ -1505,10 +1519,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="覚えてますか？" data-ar="هل تتذكر ذلك؟">覚えてますか？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="覚えてますか？" data-ar="هل تتذكر ذلك؟" data-en="Do you remember that?">覚えてますか？</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:36</p>
 </div>
 </div>
@@ -1523,10 +1537,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="覚えてる" data-ar="أتذكر">覚えてる</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="覚えてる" data-ar="أتذكر" data-en="I remember">覚えてる</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:37</p>
 </div>
 </div>
@@ -1544,10 +1558,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="数字で教えてくれる人、初めてだったんです" data-ar="كنت أول شخص يخبرني بالأرقام بهذه الدقة">数字で教えてくれる人、初めてだったんです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="数字で教えてくれる人、初めてだったんです" data-ar="كنت أول شخص يخبرني بالأرقام بهذه الدقة" data-en="You were the first person to ever tell me with actual numbers">数字で教えてくれる人、初めてだったんです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:37</p>
 </div>
 </div>
@@ -1565,10 +1579,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="みんな「気をつけて」しか言わないので" data-ar="فالجميع يكتفون بقول «انتبهي» فقط">みんな「気をつけて」しか言わないので</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="みんな「気をつけて」しか言わないので" data-ar="فالجميع يكتفون بقول «انتبهي» فقط" data-en="Everyone else just says &quot;be careful&quot;">みんな「気をつけて」しか言わないので</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:38</p>
 </div>
 </div>
@@ -1583,10 +1597,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="先輩に、具体的に言った方がいいって聞いてたから" data-ar="سمعت من الطالبة الكبيرة أنه من الأفضل أن أكون دقيقاً في الوصف">先輩に、具体的に言った方がいいって聞いてたから</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="先輩に、具体的に言った方がいいって聞いてたから" data-ar="سمعت من الطالبة الكبيرة أنه من الأفضل أن أكون دقيقاً في الوصف" data-en="I'd heard it's better to be specific, from that senior">先輩に、具体的に言った方がいいって聞いてたから</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:39</p>
 </div>
 </div>
@@ -1601,10 +1615,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それだけだよ" data-ar="هذا كل ما في الأمر">それだけだよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それだけだよ" data-ar="هذا كل ما في الأمر" data-en="That's all it was">それだけだよ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:39</p>
 </div>
 </div>
@@ -1622,10 +1636,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それだけでも、うれしかったんですよ" data-ar="حتى لو كان «كل ما في الأمر»، فقد كان ذلك يسعدني كثيراً">それだけでも、うれしかったんですよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それだけでも、うれしかったんですよ" data-ar="حتى لو كان «كل ما في الأمر»، فقد كان ذلك يسعدني كثيراً" data-en="Even if that's &quot;all it was,&quot; it still made me really happy">それだけでも、うれしかったんですよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:40</p>
 </div>
 </div>
@@ -1640,10 +1654,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="...">……</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="..." data-en="...">……</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:41</p>
 </div>
 </div>
@@ -1661,10 +1675,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙らないでくださいー" data-ar="أرجوك لا تصمت مجدداً!">また黙らないでくださいー</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙らないでくださいー" data-ar="أرجوك لا تصمت مجدداً!" data-en="Please don't go quiet on me again!">また黙らないでくださいー</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:42</p>
 </div>
 </div>
@@ -1679,10 +1693,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめん、なんて言えばいいか、今も分からなくて" data-ar="آسف، حتى الآن لا أعرف ماذا أقول">ごめん、なんて言えばいいか、今も分からなくて</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめん、なんて言えばいいか、今も分からなくて" data-ar="آسف، حتى الآن لا أعرف ماذا أقول" data-en="Sorry, I still don't know what to say, even now">ごめん、なんて言えばいいか、今も分からなくて</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:43</p>
 </div>
 </div>
@@ -1700,10 +1714,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「うれしかった」でいいんですよ、いつも" data-ar="يكفي دائماً أن تقول «كنت سعيداً بذلك»">「うれしかった」でいいんですよ、いつも</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「うれしかった」でいいんですよ、いつも" data-ar="يكفي دائماً أن تقول «كنت سعيداً بذلك»" data-en="It's always fine to just say &quot;I was happy&quot;">「うれしかった」でいいんですよ、いつも</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:44</p>
 </div>
 </div>
@@ -1718,10 +1732,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……うれしかった" data-ar="...كنت سعيداً بذلك">……うれしかった</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……うれしかった" data-ar="...كنت سعيداً بذلك" data-en="...I was happy">……うれしかった</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:45</p>
 </div>
 </div>
@@ -1739,10 +1753,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="からかってごめんなさい、でも本当にうれしかったんです" data-ar="آسفة إن كنت أمزح معك، لكنني كنت سعيدة حقاً">からかってごめんなさい、でも本当にうれしかったんです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="からかってごめんなさい、でも本当にうれしかったんです" data-ar="آسفة إن كنت أمزح معك، لكنني كنت سعيدة حقاً" data-en="Sorry for teasing you, but I really was happy">からかってごめんなさい、でも本当にうれしかったんです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:46</p>
 </div>
 </div>
@@ -1757,10 +1771,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="半分は分かってた" data-ar="كنت أعرف نصف ذلك">半分は分かってた</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="半分は分かってた" data-ar="كنت أعرف نصف ذلك" data-en="I half-knew that already">半分は分かってた</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:47</p>
 </div>
 </div>
@@ -1778,10 +1792,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="残りの半分は？" data-ar="وماذا عن النصف الآخر؟">残りの半分は？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="残りの半分は？" data-ar="وماذا عن النصف الآخر؟" data-en="And the other half?">残りの半分は？</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:48</p>
 </div>
 </div>
@@ -1796,10 +1810,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="本当に、うれしかったんだと思ってた" data-ar="ظننت أنك كنت سعيدة حقاً">本当に、うれしかったんだと思ってた</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="本当に、うれしかったんだと思ってた" data-ar="ظننت أنك كنت سعيدة حقاً" data-en="I really did think you were happy">本当に、うれしかったんだと思ってた</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:49</p>
 </div>
 </div>
@@ -1817,10 +1831,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="正解です" data-ar="إجابة صحيحة!">正解です</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="正解です" data-ar="إجابة صحيحة!" data-en="Correct answer!">正解です</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:50</p>
 </div>
 </div>
@@ -1835,10 +1849,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの日から、もう三ヶ月か" data-ar="مرت ثلاثة أشهر منذ ذلك اليوم">あの日から、もう三ヶ月か</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あの日から、もう三ヶ月か" data-ar="مرت ثلاثة أشهر منذ ذلك اليوم" data-en="Three months already, since that day">あの日から、もう三ヶ月か</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:52</p>
 </div>
 </div>
@@ -1856,10 +1870,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="早いですね" data-ar="الوقت يمر بسرعة">早いですね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="早いですね" data-ar="الوقت يمر بسرعة" data-en="Time really flies">早いですね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:53</p>
 </div>
 </div>
@@ -1877,10 +1891,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最初は敬語だらけだったのに" data-ar="في البداية كنت تتحدث معي بصيغة رسمية بحتة">最初は敬語だらけだったのに</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最初は敬語だらけだったのに" data-ar="في البداية كنت تتحدث معي بصيغة رسمية بحتة" data-en="At first you only ever spoke formally to me">最初は敬語だらけだったのに</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:54</p>
 </div>
 </div>
@@ -1895,10 +1909,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今も敬語だと思うけど" data-ar="ما زلت أظن أنني أتحدث بصيغة رسمية">今も敬語だと思うけど</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今も敬語だと思うけど" data-ar="ما زلت أظن أنني أتحدث بصيغة رسمية" data-en="I think I still speak formally now">今も敬語だと思うけど</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:55</p>
 </div>
 </div>
@@ -1916,10 +1930,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="さっき「なくしたくなかった」って、タメ口でしたよ" data-ar="قبل قليل قلت «لم أرغب أن أفقده» بأسلوب غير رسمي تماماً">さっき「なくしたくなかった」って、タメ口でしたよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="さっき「なくしたくなかった」って、タメ口でしたよ" data-ar="قبل قليل قلت «لم أرغب أن أفقده» بأسلوب غير رسمي تماماً" data-en="A moment ago you said &quot;I didn't want to lose it&quot; - that was totally casual">さっき「なくしたくなかった」って、タメ口でしたよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:56</p>
 </div>
 </div>
@@ -1934,10 +1948,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……気づいてなかった" data-ar="...لم أنتبه لذلك">……気づいてなかった</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……気づいてなかった" data-ar="...لم أنتبه لذلك" data-en="...I didn't even notice">……気づいてなかった</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:57</p>
 </div>
 </div>
@@ -1955,10 +1969,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そっちの方が、素の空野さんって感じがして好きです" data-ar="أشعر أن هذا هو صوتك الحقيقي أكثر، وأنا أحبه هكذا">そっちの方が、素の空野さんって感じがして好きです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そっちの方が、素の空野さんって感じがして好きです" data-ar="أشعر أن هذا هو صوتك الحقيقي أكثر، وأنا أحبه هكذا" data-en="I like that side of you more - it feels like the real Sorano-san">そっちの方が、素の空野さんって感じがして好きです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:58</p>
 </div>
 </div>
@@ -1973,10 +1987,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="...">……</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="..." data-en="...">……</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">21:59</p>
 </div>
 </div>
@@ -1994,10 +2008,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙った！" data-ar="صمتّ مجدداً!">また黙った！</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙った！" data-ar="صمتّ مجدداً!" data-en="You went quiet again!">また黙った！</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:00</p>
 </div>
 </div>
@@ -2012,10 +2026,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="慣れてないだけ" data-ar="أنا فقط لست معتاداً على هذا">慣れてないだけ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="慣れてないだけ" data-ar="أنا فقط لست معتاداً على هذا" data-en="I'm just not used to this">慣れてないだけ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:01</p>
 </div>
 </div>
@@ -2033,10 +2047,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="これから慣れてください" data-ar="إذن تعوّد من الآن فصاعداً">これから慣れてください</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="これから慣れてください" data-ar="إذن تعوّد من الآن فصاعداً" data-en="Then get used to it, starting now">これから慣れてください</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:02</p>
 </div>
 </div>
@@ -2051,10 +2065,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="善処する" data-ar="سأبذل قصارى جهدي">善処する</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="善処する" data-ar="سأبذل قصارى جهدي" data-en="I'll try my best">善処する</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:03</p>
 </div>
 </div>
@@ -2072,10 +2086,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それ、また敬語っぽいですよ" data-ar="هذا يبدو رسمياً مجدداً!">それ、また敬語っぽいですよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="それ、また敬語っぽいですよ" data-ar="هذا يبدو رسمياً مجدداً!" data-en="That sounded formal again">それ、また敬語っぽいですよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:04</p>
 </div>
 </div>
@@ -2090,10 +2104,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ちがう、これは癖" data-ar="لا، هذه مجرد عادة عندي">ちがう、これは癖</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ちがう、これは癖" data-ar="لا، هذه مجرد عادة عندي" data-en="No it didn't, that's just a habit of mine">ちがう、これは癖</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:05</p>
 </div>
 </div>
@@ -2111,10 +2125,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、明日も大学で会いましょうね" data-ar="ههه، أراك غداً في الجامعة إذن">ふふ、明日も大学で会いましょうね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、明日も大学で会いましょうね" data-ar="ههه، أراك غداً في الجامعة إذن" data-en="Hehe, let's meet at the university again tomorrow, okay?">ふふ、明日も大学で会いましょうね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:07</p>
 </div>
 </div>
@@ -2129,10 +2143,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん。おやすみ" data-ar="حسناً. تصبحين على خير">うん。おやすみ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん。おやすみ" data-ar="حسناً. تصبحين على خير" data-en="Yeah. Goodnight">うん。おやすみ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:20</p>
 </div>
 </div>
@@ -2150,10 +2164,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい、そら乃さん。今日もありがとうございました" data-ar="تصبح على خير أنت أيضاً يا سورانو. وشكراً لك على اليوم مجدداً">おやすみなさい、そら乃さん。今日もありがとうございました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい、そら乃さん。今日もありがとうございました" data-ar="تصبح على خير أنت أيضاً يا سورانو. وشكراً لك على اليوم مجدداً" data-en="Goodnight, Sorano. Thank you again for today">おやすみなさい、そら乃さん。今日もありがとうございました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:21</p>
 </div>
 </div>
@@ -2162,7 +2176,7 @@
 </div>
 <div class="w-full h-auto py-6 px-[calc(45/16*1rem)]">
 <div class="talk-share-item w-fit h-auto mx-auto py-1 px-2 bg-black/40 rounded-lg overflow-hidden">
-<p class="font-jp_sans font-medium text-10 leading-[140%] text-white" data-ja="このコンテンツをシェアする" data-ar="شارك هذا المحتوى">このコンテンツをシェアする</p>
+<p class="font-jp_sans font-medium text-10 leading-[140%] text-white" data-ja="このコンテンツをシェアする" data-ar="شارك هذا المحتوى" data-en="Share this content">このコンテンツをシェアする</p>
 </div>
 <div class="talk-share-item w-full h-auto mt-6">
 <ul class="flex justify-center items-center w-full h-auto gap-x-2">
@@ -2186,10 +2200,10 @@
 <div class="talk-share-item w-full h-auto mt-6">
 <a class="link block w-full h-auto bg-white rounded-lg overflow-hidden" href="https://sh-anime.shochiku.co.jp/kakekoi/">
 <div class="w-full h-auto">
-<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-1" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
+<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-1" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" data-en-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-en.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
 </div>
 <div class="w-full h-auto py-2 text-center">
-<p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»">「かけ恋」アニメ公式サイトへ</p>
+<p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»" data-en="Go to the &quot;Kakekoi&quot; official anime site">「かけ恋」アニメ公式サイトへ</p>
 </div>
 </a>
 </div>
@@ -2200,7 +2214,7 @@
 <div class="w-full h-auto pt-[calc(17/16*1rem)]">
 <div class="date-divider w-fit h-auto mx-auto py-6">
 <div class="grid place-content-center py-1.5 px-5 w-fit h-auto mx-auto bg-black/25 rounded-full overflow-hidden">
-<p class="font-jp_sans text-10 leading-[140%] text-white tracking-wide" data-ja="7月19日" data-ar="١٩ يوليو">7月19日</p>
+<p class="font-jp_sans text-10 leading-[140%] text-white tracking-wide" data-ja="7月19日" data-ar="١٩ يوليو" data-en="Jul 19">7月19日</p>
 </div>
 </div>
 </div>
@@ -2216,10 +2230,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="雨、すごいですね" data-ar="المطر غزير جداً اليوم">雨、すごいですね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="雨、すごいですね" data-ar="المطر غزير جداً اليوم" data-en="The rain is really coming down">雨、すごいですね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:42</p>
 </div>
 </div>
@@ -2234,10 +2248,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今、大学出た？" data-ar="هل خرجتِ من الجامعة الآن؟">今、大学出た？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今、大学出た？" data-ar="هل خرجتِ من الجامعة الآن؟" data-en="Did you just leave the university?">今、大学出た？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:43</p>
 </div>
 </div>
@@ -2255,10 +2269,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい、傘を忘れてしまって……" data-ar="نعم، لكنني نسيت مظلتي...">はい、傘を忘れてしまって……</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい、傘を忘れてしまって……" data-ar="نعم، لكنني نسيت مظلتي..." data-en="Yes, but I forgot my umbrella...">はい、傘を忘れてしまって……</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:43</p>
 </div>
 </div>
@@ -2273,10 +2287,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え" data-ar="ماذا">え</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え" data-ar="ماذا" data-en="What">え</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:44</p>
 </div>
 </div>
@@ -2294,10 +2308,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんは？" data-ar="وأنت يا سورانو؟">空野さんは？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんは？" data-ar="وأنت يا سورانو؟" data-en="What about you, Sorano-san?">空野さんは？</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:44</p>
 </div>
 </div>
@@ -2312,10 +2326,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="まだ図書館" data-ar="ما زلت في المكتبة">まだ図書館</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="まだ図書館" data-ar="ما زلت في المكتبة" data-en="Still at the library">まだ図書館</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:45</p>
 </div>
 </div>
@@ -2333,10 +2347,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうなんですね" data-ar="فهمت">そうなんですね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうなんですね" data-ar="فهمت" data-en="I see">そうなんですね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:45</p>
 </div>
 </div>
@@ -2351,10 +2365,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……待ってて" data-ar="...انتظريني هناك">……待ってて</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……待ってて" data-ar="...انتظريني هناك" data-en="...wait there">……待ってて</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:46</p>
 </div>
 </div>
@@ -2372,10 +2386,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え？" data-ar="ماذا؟">え？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="え？" data-ar="ماذا؟" data-en="Huh?">え？</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:47</p>
 </div>
 </div>
@@ -2390,10 +2404,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今行くから" data-ar="أنا قادم الآن">今行くから</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今行くから" data-ar="أنا قادم الآن" data-en="I'm coming now">今行くから</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:47</p>
 </div>
 </div>
@@ -2411,10 +2425,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いいんですか？濡れちゃいますよ" data-ar="هل أنت متأكد؟ ستتبلل بالمطر">いいんですか？濡れちゃいますよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="いいんですか？濡れちゃいますよ" data-ar="هل أنت متأكد؟ ستتبلل بالمطر" data-en="Are you sure? You'll get soaked">いいんですか？濡れちゃいますよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:48</p>
 </div>
 </div>
@@ -2429,10 +2443,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に平気" data-ar="لا بأس، لا يهمني">別に平気</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に平気" data-ar="لا بأس، لا يهمني" data-en="It's fine, I don't mind">別に平気</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:48</p>
 </div>
 </div>
@@ -2450,10 +2464,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、素直じゃないですね" data-ar="فُفـ، أنت لست صريحاً مع نفسك">ふふ、素直じゃないですね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、素直じゃないですね" data-ar="فُفـ، أنت لست صريحاً مع نفسك" data-en="Hehe, you're not being honest with yourself">ふふ、素直じゃないですね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:49</p>
 </div>
 </div>
@@ -2468,10 +2482,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うるさい" data-ar="اسكتي">うるさい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うるさい" data-ar="اسكتي" data-en="Quiet">うるさい</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:49</p>
 </div>
 </div>
@@ -2489,10 +2503,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="待ってます" data-ar="سأنتظرك">待ってます</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="待ってます" data-ar="سأنتظرك" data-en="I'll be waiting">待ってます</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:50</p>
 </div>
 </div>
@@ -2510,10 +2524,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="傘、ありがとうございました" data-ar="شكراً لك على المظلة">傘、ありがとうございました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="傘、ありがとうございました" data-ar="شكراً لك على المظلة" data-en="Thank you for the umbrella">傘、ありがとうございました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:15</p>
 </div>
 </div>
@@ -2528,10 +2542,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="着いた？" data-ar="هل وصلتِ؟">着いた？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="着いた？" data-ar="هل وصلتِ؟" data-en="Did you make it home?">着いた？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:16</p>
 </div>
 </div>
@@ -2549,10 +2563,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい、無事に" data-ar="نعم، بسلام">はい、無事に</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい、無事に" data-ar="نعم، بسلام" data-en="Yes, safely">はい、無事に</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:16</p>
 </div>
 </div>
@@ -2570,10 +2584,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="半分濡れてましたよね、空野さん" data-ar="كنتَ مبتلاً من نصفك تقريباً يا سورانو">半分濡れてましたよね、空野さん</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="半分濡れてましたよね、空野さん" data-ar="كنتَ مبتلاً من نصفك تقريباً يا سورانو" data-en="You were half-soaked, Sorano-san">半分濡れてましたよね、空野さん</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:17</p>
 </div>
 </div>
@@ -2588,10 +2602,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別にいい" data-ar="لا بأس بذلك">別にいい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別にいい" data-ar="لا بأس بذلك" data-en="It's fine, I didn't mind">別にいい</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:17</p>
 </div>
 </div>
@@ -2609,10 +2623,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="私の方に傘、傾けすぎです" data-ar="كنتَ تميل المظلة نحوي أكثر من اللازم">私の方に傘、傾けすぎです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="私の方に傘、傾けすぎです" data-ar="كنتَ تميل المظلة نحوي أكثر من اللازم" data-en="You tilted the umbrella too far toward my side">私の方に傘、傾けすぎです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:18</p>
 </div>
 </div>
@@ -2627,10 +2641,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そう？" data-ar="حقاً؟">そう？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そう？" data-ar="حقاً؟" data-en="Really?">そう？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:18</p>
 </div>
 </div>
@@ -2648,10 +2662,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気づいてました。肩、濡れてる音がしてたので" data-ar="كنت ألاحظ ذلك. كان بإمكاني سماع صوت كتفك وهو يبتل">気づいてました。肩、濡れてる音がしてたので</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気づいてました。肩、濡れてる音がしてたので" data-ar="كنت ألاحظ ذلك. كان بإمكاني سماع صوت كتفك وهو يبتل" data-en="I noticed. I could hear your shoulder getting wet">気づいてました。肩、濡れてる音がしてたので</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:19</p>
 </div>
 </div>
@@ -2666,10 +2680,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……耳、良すぎ" data-ar="...أذناكِ حادتان جداً">……耳、良すぎ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……耳、良すぎ" data-ar="...أذناكِ حادتان جداً" data-en="...your ears are too sharp">……耳、良すぎ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:20</p>
 </div>
 </div>
@@ -2687,10 +2701,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの傘の持ち方、いつも同じなんです" data-ar="طريقتك في حمل المظلة لا تتغير أبداً يا سورانو">空野さんの傘の持ち方、いつも同じなんです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの傘の持ち方、いつも同じなんです" data-ar="طريقتك في حمل المظلة لا تتغير أبداً يا سورانو" data-en="The way you hold an umbrella never changes, Sorano-san">空野さんの傘の持ち方、いつも同じなんです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:21</p>
 </div>
 </div>
@@ -2705,10 +2719,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="どういうこと" data-ar="ماذا تقصدين">どういうこと</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="どういうこと" data-ar="ماذا تقصدين" data-en="What do you mean">どういうこと</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:21</p>
 </div>
 </div>
@@ -2726,10 +2740,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="必ず、少し自分側が空くように持ってくれてます" data-ar="دائماً تحملها بحيث يبقى جانبك هو الأقل تغطية">必ず、少し自分側が空くように持ってくれてます</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="必ず、少し自分側が空くように持ってくれてます" data-ar="دائماً تحملها بحيث يبقى جانبك هو الأقل تغطية" data-en="You always hold it so that your own side is a little more open">必ず、少し自分側が空くように持ってくれてます</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:22</p>
 </div>
 </div>
@@ -2744,10 +2758,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気のせいだよ" data-ar="هذا مجرد وهم منك">気のせいだよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気のせいだよ" data-ar="هذا مجرد وهم منك" data-en="You're imagining things">気のせいだよ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:22</p>
 </div>
 </div>
@@ -2765,10 +2779,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="三ヶ月半、毎回同じなら気のせいじゃないですよ" data-ar="إن تكرر الأمر نفسه لثلاثة أشهر ونصف، فهذا ليس وهماً">三ヶ月半、毎回同じなら気のせいじゃないですよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="三ヶ月半、毎回同じなら気のせいじゃないですよ" data-ar="إن تكرر الأمر نفسه لثلاثة أشهر ونصف، فهذا ليس وهماً" data-en="If it's happened the same way every time for three and a half months, that's not just my imagination">三ヶ月半、毎回同じなら気のせいじゃないですよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:23</p>
 </div>
 </div>
@@ -2783,10 +2797,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="...">……</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……" data-ar="..." data-en="...">……</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:24</p>
 </div>
 </div>
@@ -2804,10 +2818,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙りましたね" data-ar="ها أنت تصمت من جديد">また黙りましたね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="また黙りましたね" data-ar="ها أنت تصمت من جديد" data-en="There you go, going quiet again">また黙りましたね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:25</p>
 </div>
 </div>
@@ -2822,10 +2836,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に、理由とかない" data-ar="لا يوجد سبب معين لذلك">別に、理由とかない</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="別に、理由とかない" data-ar="لا يوجد سبب معين لذلك" data-en="There's no particular reason for it">別に、理由とかない</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:25</p>
 </div>
 </div>
@@ -2843,10 +2857,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="理由がなくても、続けてるのはすごいと思います" data-ar="حتى لو لم يكن هناك سبب، أظن أن استمرارك على ذلك أمر رائع">理由がなくても、続けてるのはすごいと思います</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="理由がなくても、続けてるのはすごいと思います" data-ar="حتى لو لم يكن هناك سبب، أظن أن استمرارك على ذلك أمر رائع" data-en="Even without a reason, I think it's amazing that you've kept it up">理由がなくても、続けてるのはすごいと思います</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:26</p>
 </div>
 </div>
@@ -2861,10 +2875,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そんなことないよ" data-ar="الأمر ليس كذلك">そんなことないよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そんなことないよ" data-ar="الأمر ليس كذلك" data-en="It's really not like that">そんなことないよ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:26</p>
 </div>
 </div>
@@ -2882,10 +2896,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんは、自分のこと過小評価しすぎです" data-ar="أنت تقلل من شأن نفسك كثيراً يا سورانو">空野さんは、自分のこと過小評価しすぎです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんは、自分のこと過小評価しすぎです" data-ar="أنت تقلل من شأن نفسك كثيراً يا سورانو" data-en="You underestimate yourself far too much, Sorano-san">空野さんは、自分のこと過小評価しすぎです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:27</p>
 </div>
 </div>
@@ -2900,10 +2914,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうかな" data-ar="ربما">そうかな</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そうかな" data-ar="ربما" data-en="Maybe">そうかな</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:27</p>
 </div>
 </div>
@@ -2921,10 +2935,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日も、ありがとうございました" data-ar="شكراً لك مجدداً على اليوم">今日も、ありがとうございました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日も、ありがとうございました" data-ar="شكراً لك مجدداً على اليوم" data-en="Thank you again for today">今日も、ありがとうございました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:28</p>
 </div>
 </div>
@@ -2939,10 +2953,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん" data-ar="على الرحب">うん</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん" data-ar="على الرحب" data-en="Sure">うん</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:28</p>
 </div>
 </div>
@@ -2960,10 +2974,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="風邪、ひかないでくださいね" data-ar="احرص ألا تُصاب بالزكام">風邪、ひかないでくださいね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="風邪、ひかないでくださいね" data-ar="احرص ألا تُصاب بالزكام" data-en="Please don't catch a cold">風邪、ひかないでくださいね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:29</p>
 </div>
 </div>
@@ -2978,10 +2992,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="小春こそ" data-ar="أنتِ أيضاً يا كوهارو">小春こそ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="小春こそ" data-ar="أنتِ أيضاً يا كوهارو" data-en="You too, Koharu">小春こそ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:30</p>
 </div>
 </div>
@@ -2999,10 +3013,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今、名前……！" data-ar="لقد... ناديتني للتو باسمي مباشرة...!">今、名前……！</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今、名前……！" data-ar="لقد... ناديتني للتو باسمي مباشرة...!" data-en="You just said my name...!">今、名前……！</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:30</p>
 </div>
 </div>
@@ -3017,10 +3031,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あ" data-ar="آه">あ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あ" data-ar="آه" data-en="Oh">あ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:31</p>
 </div>
 </div>
@@ -3038,10 +3052,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、おそろいですね" data-ar="فُفـ، أصبحنا متعادلين الآن">ふふ、おそろいですね</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ふふ、おそろいですね" data-ar="فُفـ، أصبحنا متعادلين الآن" data-en="Hehe, now we're even">ふふ、おそろいですね</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:31</p>
 </div>
 </div>
@@ -3056,10 +3070,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……おやすみ" data-ar="...تصبحين على خير">……おやすみ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……おやすみ" data-ar="...تصبحين على خير" data-en="...goodnight">……おやすみ</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:32</p>
 </div>
 </div>
@@ -3077,10 +3091,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい、そら乃さん" data-ar="تصبح على خير يا سورانو">おやすみなさい、そら乃さん</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい、そら乃さん" data-ar="تصبح على خير يا سورانو" data-en="Goodnight, Sorano">おやすみなさい、そら乃さん</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">20:32</p>
 </div>
 </div>
@@ -3088,7 +3102,7 @@
 </div>
 <div class="w-full h-auto py-6 px-[calc(45/16*1rem)]">
 <div class="talk-share-item w-fit h-auto mx-auto py-1 px-2 bg-black/40 rounded-lg overflow-hidden">
-<p class="font-jp_sans font-medium text-10 leading-[140%] text-white" data-ja="このコンテンツをシェアする" data-ar="شارك هذا المحتوى">このコンテンツをシェアする</p>
+<p class="font-jp_sans font-medium text-10 leading-[140%] text-white" data-ja="このコンテンツをシェアする" data-ar="شارك هذا المحتوى" data-en="Share this content">このコンテンツをシェアする</p>
 </div>
 <div class="talk-share-item w-full h-auto mt-6">
 <ul class="flex justify-center items-center w-full h-auto gap-x-2">
@@ -3112,10 +3126,10 @@
 <div class="talk-share-item w-full h-auto mt-6">
 <a class="link block w-full h-auto bg-white rounded-lg overflow-hidden" href="https://sh-anime.shochiku.co.jp/kakekoi/">
 <div class="w-full h-auto">
-<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-2" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
+<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-2" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" data-en-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-en.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
 </div>
 <div class="w-full h-auto py-2 text-center">
-<p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»">「かけ恋」アニメ公式サイトへ</p>
+<p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»" data-en="Go to the &quot;Kakekoi&quot; official anime site">「かけ恋」アニメ公式サイトへ</p>
 </div>
 </a>
 </div>
@@ -3128,7 +3142,7 @@
 <div class="w-full h-auto pt-[calc(17/16*1rem)]">
 <div class="date-divider w-fit h-auto mx-auto py-6">
 <div class="grid place-content-center py-1.5 px-5 w-fit h-auto mx-auto bg-black/25 rounded-full overflow-hidden">
-<p class="font-jp_sans text-10 leading-[140%] text-white tracking-wide" data-ja="8月2日" data-ar="٢ أغسطس">8月2日</p>
+<p class="font-jp_sans text-10 leading-[140%] text-white tracking-wide" data-ja="8月2日" data-ar="٢ أغسطس" data-en="Aug 2">8月2日</p>
 </div>
 </div>
 </div>
@@ -3141,10 +3155,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="小春、今週の土曜、空いてる？" data-ar="كوهارو، هل أنتِ متفرغة يوم السبت هذا الأسبوع؟">小春、今週の土曜、空いてる？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="小春、今週の土曜、空いてる？" data-ar="كوهارو، هل أنتِ متفرغة يوم السبت هذا الأسبوع؟" data-en="Koharu, are you free this Saturday?">小春、今週の土曜、空いてる？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:00</p>
 </div>
 </div>
@@ -3162,10 +3176,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空いてますよ、どうしたんですか？" data-ar="نعم متفرغة، ما الأمر؟">空いてますよ、どうしたんですか？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空いてますよ、どうしたんですか？" data-ar="نعم متفرغة، ما الأمر؟" data-en="I'm free, what's going on?">空いてますよ、どうしたんですか？</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:01</p>
 </div>
 </div>
@@ -3180,10 +3194,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……夏祭り、行かない？" data-ar="...هل تريدين أن نذهب إلى مهرجان الصيف؟">……夏祭り、行かない？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……夏祭り、行かない？" data-ar="...هل تريدين أن نذهب إلى مهرجان الصيف؟" data-en="...want to go to the summer festival?">……夏祭り、行かない？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:02</p>
 </div>
 </div>
@@ -3201,10 +3215,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="二人でですか？" data-ar="نحن الاثنان فقط؟">二人でですか？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="二人でですか？" data-ar="نحن الاثنان فقط؟" data-en="Just the two of us?">二人でですか？</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:02</p>
 </div>
 </div>
@@ -3219,10 +3233,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="だめ？" data-ar="هل هذا غير مناسب؟">だめ？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="だめ？" data-ar="هل هذا غير مناسب؟" data-en="Is that no good?">だめ？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:03</p>
 </div>
 </div>
@@ -3240,10 +3254,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="だめじゃないです、嬉しいです" data-ar="ليس غير مناسب على الإطلاق، أنا سعيدة">だめじゃないです、嬉しいです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="だめじゃないです、嬉しいです" data-ar="ليس غير مناسب على الإطلاق، أنا سعيدة" data-en="It's not no good, I'm happy">だめじゃないです、嬉しいです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:03</p>
 </div>
 </div>
@@ -3258,10 +3272,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="よかった" data-ar="الحمد لله">よかった</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="よかった" data-ar="الحمد لله" data-en="Good">よかった</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:04</p>
 </div>
 </div>
@@ -3279,10 +3293,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="でも私、お祭りって結構人混みが苦手で……" data-ar="لكن الحقيقة أنني لا أتحمل الزحام في المهرجانات كثيراً...">でも私、お祭りって結構人混みが苦手で……</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="でも私、お祭りって結構人混みが苦手で……" data-ar="لكن الحقيقة أنني لا أتحمل الزحام في المهرجانات كثيراً..." data-en="But I'm honestly not great with crowds at festivals...">でも私、お祭りって結構人混みが苦手で……</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:05</p>
 </div>
 </div>
@@ -3297,10 +3311,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="大丈夫、ちゃんと隣にいるから" data-ar="لا بأس، سأكون بجانبك طوال الوقت">大丈夫、ちゃんと隣にいるから</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="大丈夫、ちゃんと隣にいるから" data-ar="لا بأس، سأكون بجانبك طوال الوقت" data-en="It's fine, I'll stay right beside you the whole time">大丈夫、ちゃんと隣にいるから</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:05</p>
 </div>
 </div>
@@ -3318,10 +3332,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……はい" data-ar="...حسناً">……はい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……はい" data-ar="...حسناً" data-en="...okay">……はい</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:06</p>
 </div>
 </div>
@@ -3339,10 +3353,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="花火も見えないのに、いいんでしょうか" data-ar="لن أستطيع رؤية الألعاب النارية أصلاً، فهل يليق بي أن آتي؟">花火も見えないのに、いいんでしょうか</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="花火も見えないのに、いいんでしょうか" data-ar="لن أستطيع رؤية الألعاب النارية أصلاً، فهل يليق بي أن آتي؟" data-en="I won't even be able to see the fireworks, is that really okay with you?">花火も見えないのに、いいんでしょうか</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:07</p>
 </div>
 </div>
@@ -3357,10 +3371,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="見えなくても、一緒にいられるし" data-ar="حتى لو لم تريها، يمكننا أن نكون معاً">見えなくても、一緒にいられるし</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="見えなくても、一緒にいられるし" data-ar="حتى لو لم تريها، يمكننا أن نكون معاً" data-en="Even if you can't see them, we can still be together">見えなくても、一緒にいられるし</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:08</p>
 </div>
 </div>
@@ -3375,10 +3389,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="音とか、匂いとか、伝えるから" data-ar="سأصف لكِ الأصوات والروائح أولاً بأول">音とか、匂いとか、伝えるから</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="音とか、匂いとか、伝えるから" data-ar="سأصف لكِ الأصوات والروائح أولاً بأول" data-en="I'll describe the sounds and the smells for you">音とか、匂いとか、伝えるから</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:08</p>
 </div>
 </div>
@@ -3396,10 +3410,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……ありがとうございます" data-ar="...شكراً جزيلاً لك">……ありがとうございます</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……ありがとうございます" data-ar="...شكراً جزيلاً لك" data-en="...thank you very much">……ありがとうございます</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:09</p>
 </div>
 </div>
@@ -3414,10 +3428,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="敬語" data-ar="استخدمتِ صيغة الاحترام مجدداً">敬語</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="敬語" data-ar="استخدمتِ صيغة الاحترام مجدداً" data-en="Formal again">敬語</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:09</p>
 </div>
 </div>
@@ -3435,10 +3449,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あ" data-ar="آه">あ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="あ" data-ar="آه" data-en="Oh">あ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:10</p>
 </div>
 </div>
@@ -3456,10 +3470,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……ありがとう" data-ar="...شكراً لك">……ありがとう</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……ありがとう" data-ar="...شكراً لك" data-en="...thank you">……ありがとう</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:10</p>
 </div>
 </div>
@@ -3474,10 +3488,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん" data-ar="على الرحب">うん</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん" data-ar="على الرحب" data-en="Sure">うん</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">19:10</p>
 </div>
 </div>
@@ -3495,10 +3509,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日は本当に楽しかったです" data-ar="استمتعت اليوم حقاً كثيراً">今日は本当に楽しかったです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日は本当に楽しかったです" data-ar="استمتعت اليوم حقاً كثيراً" data-en="I really had so much fun today">今日は本当に楽しかったです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:40</p>
 </div>
 </div>
@@ -3513,10 +3527,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="疲れてない？" data-ar="ألستِ متعبة؟">疲れてない？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="疲れてない？" data-ar="ألستِ متعبة؟" data-en="Are you tired?">疲れてない？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:41</p>
 </div>
 </div>
@@ -3534,10 +3548,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="全然。あんなに花火の音、近くで聞いたの初めてでした" data-ar="أبداً. كانت أول مرة أسمع فيها صوت الألعاب النارية من هذا القرب">全然。あんなに花火の音、近くで聞いたの初めてでした</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="全然。あんなに花火の音、近くで聞いたの初めてでした" data-ar="أبداً. كانت أول مرة أسمع فيها صوت الألعاب النارية من هذا القرب" data-en="Not at all. That was the first time I'd ever heard fireworks that close">全然。あんなに花火の音、近くで聞いたの初めてでした</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:42</p>
 </div>
 </div>
@@ -3552,10 +3566,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最後の、でかい音した奴" data-ar="خصوصاً تلك الأخيرة، ذات الصوت الضخم">最後の、でかい音した奴</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="最後の、でかい音した奴" data-ar="خصوصاً تلك الأخيرة، ذات الصوت الضخم" data-en="Especially that last one, the huge one">最後の、でかい音した奴</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:42</p>
 </div>
 </div>
@@ -3573,10 +3587,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="びっくりして、思わず空野さんの袖掴んじゃいました" data-ar="أصابني الذعر فأمسكت بكم قميصك من دون أن أشعر">びっくりして、思わず空野さんの袖掴んじゃいました</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="びっくりして、思わず空野さんの袖掴んじゃいました" data-ar="أصابني الذعر فأمسكت بكم قميصك من دون أن أشعر" data-en="I got so startled I grabbed onto your sleeve without even thinking">びっくりして、思わず空野さんの袖掴んじゃいました</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:43</p>
 </div>
 </div>
@@ -3591,10 +3605,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気づいてた" data-ar="لاحظت ذلك">気づいてた</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="気づいてた" data-ar="لاحظت ذلك" data-en="I noticed">気づいてた</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:43</p>
 </div>
 </div>
@@ -3612,10 +3626,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめんなさい" data-ar="آسفة">ごめんなさい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ごめんなさい" data-ar="آسفة" data-en="I'm sorry">ごめんなさい</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:44</p>
 </div>
 </div>
@@ -3630,10 +3644,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="謝らなくていい" data-ar="لا داعي للاعتذار">謝らなくていい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="謝らなくていい" data-ar="لا داعي للاعتذار" data-en="No need to apologize">謝らなくていい</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:44</p>
 </div>
 </div>
@@ -3651,10 +3665,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの説明、すごく分かりやすかったです" data-ar="وصفك للأشياء كان واضحاً جداً بالنسبة لي">空野さんの説明、すごく分かりやすかったです</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="空野さんの説明、すごく分かりやすかったです" data-ar="وصفك للأشياء كان واضحاً جداً بالنسبة لي" data-en="Your descriptions were so easy to picture">空野さんの説明、すごく分かりやすかったです</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:45</p>
 </div>
 </div>
@@ -3672,10 +3686,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「今、金色が上に広がった」とか、「音の後に少し焦げた匂いがする」とか" data-ar="مثل قولك «الآن انتشر اللون الذهبي في الأعلى»، أو «هناك رائحة احتراق خفيفة بعد الصوت مباشرة»">「今、金色が上に広がった」とか、「音の後に少し焦げた匂いがする」とか</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="「今、金色が上に広がった」とか、「音の後に少し焦げた匂いがする」とか" data-ar="مثل قولك «الآن انتشر اللون الذهبي في الأعلى»، أو «هناك رائحة احتراق خفيفة بعد الصوت مباشرة»" data-en="Like when you said, &quot;the gold just spread out above,&quot; or &quot;there's a faint burnt smell right after the sound&quot;">「今、金色が上に広がった」とか、「音の後に少し焦げた匂いがする」とか</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:46</p>
 </div>
 </div>
@@ -3690,10 +3704,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ちゃんと伝わってた？" data-ar="هل وصلت الصورة فعلاً؟">ちゃんと伝わってた？</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ちゃんと伝わってた？" data-ar="هل وصلت الصورة فعلاً؟" data-en="Did it really come across?">ちゃんと伝わってた？</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:47</p>
 </div>
 </div>
@@ -3711,10 +3725,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい。目で見るのとは違うけど、ちゃんと綺麗でした" data-ar="نعم. مختلفة عن رؤيتها بالعين، لكنها كانت جميلة حقاً">はい。目で見るのとは違うけど、ちゃんと綺麗でした</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="はい。目で見るのとは違うけど、ちゃんと綺麗でした" data-ar="نعم. مختلفة عن رؤيتها بالعين، لكنها كانت جميلة حقاً" data-en="Yes. It's different from seeing it with your own eyes, but it really was beautiful">はい。目で見るのとは違うけど、ちゃんと綺麗でした</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:47</p>
 </div>
 </div>
@@ -3729,10 +3743,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そう言ってもらえると、説明した甲斐がある" data-ar="حين أسمعكِ تقولين ذلك، أشعر أن وصفي لها لم يذهب هباءً">そう言ってもらえると、説明した甲斐がある</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そう言ってもらえると、説明した甲斐がある" data-ar="حين أسمعكِ تقولين ذلك، أشعر أن وصفي لها لم يذهب هباءً" data-en="Hearing you say that makes it worth describing">そう言ってもらえると、説明した甲斐がある</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:48</p>
 </div>
 </div>
@@ -3750,10 +3764,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="来年もまた、連れて行ってくれますか" data-ar="هل ستأخذني معك في العام القادم أيضاً؟">来年もまた、連れて行ってくれますか</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="来年もまた、連れて行ってくれますか" data-ar="هل ستأخذني معك في العام القادم أيضاً؟" data-en="Will you take me again next year?">来年もまた、連れて行ってくれますか</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:49</p>
 </div>
 </div>
@@ -3768,10 +3782,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="来年も、再来年も" data-ar="العام القادم، والذي بعده أيضاً">来年も、再来年も</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="来年も、再来年も" data-ar="العام القادم، والذي بعده أيضاً" data-en="Next year, and the year after that too">来年も、再来年も</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:49</p>
 </div>
 </div>
@@ -3789,10 +3803,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そんなこと言われたら、期待しちゃいますよ" data-ar="إذا قلت لي كلاماً كهذا، سأبدأ بالتعلق بالأمل">そんなこと言われたら、期待しちゃいますよ</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="そんなこと言われたら、期待しちゃいますよ" data-ar="إذا قلت لي كلاماً كهذا، سأبدأ بالتعلق بالأمل" data-en="If you say things like that, I'll actually start hoping for it">そんなこと言われたら、期待しちゃいますよ</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:50</p>
 </div>
 </div>
@@ -3807,10 +3821,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="期待していい" data-ar="يمكنكِ أن تتعلقي به فعلاً">期待していい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="期待していい" data-ar="يمكنكِ أن تتعلقي به فعلاً" data-en="It's fine to hope for it">期待していい</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:50</p>
 </div>
 </div>
@@ -3828,10 +3842,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そら乃さん" data-ar="...سورانو">……そら乃さん</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="……そら乃さん" data-ar="...سورانو" data-en="...Sorano">……そら乃さん</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:51</p>
 </div>
 </div>
@@ -3846,10 +3860,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ん" data-ar="نعم؟">ん</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="ん" data-ar="نعم؟" data-en="Hm?">ん</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:51</p>
 </div>
 </div>
@@ -3867,10 +3881,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日、誘ってくれてありがとう" data-ar="شكراً لأنك دعوتني اليوم">今日、誘ってくれてありがとう</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="今日、誘ってくれてありがとう" data-ar="شكراً لأنك دعوتني اليوم" data-en="Thanks for inviting me today">今日、誘ってくれてありがとう</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:52</p>
 </div>
 </div>
@@ -3885,10 +3899,10 @@
 </svg>
 </div>
 <div class="size-auto bg-[#E8E15D] py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん、おやすみ、小春" data-ar="على الرحب، تصبحين على خير يا كوهارو">うん、おやすみ、小春</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="うん、おやすみ、小春" data-ar="على الرحب، تصبحين على خير يا كوهارو" data-en="Sure, goodnight, Koharu">うん、おやすみ、小春</p>
 </div>
 <div class="flex justify-start items-center w-full h-auto mt-1 pl-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:52</p>
 </div>
 </div>
@@ -3906,10 +3920,10 @@
 </svg>
 </div>
 <div class="size-auto bg-white py-2 px-4 rounded-lg overflow-hidden text-justify max-w-[calc(205/16*1rem)]">
-<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい" data-ar="تصبح على خير">おやすみなさい</p>
+<p class="font-jp_sans font-medium text-14 leading-[140%]" data-ja="おやすみなさい" data-ar="تصبح على خير" data-en="Goodnight">おやすみなさい</p>
 </div>
 <div class="flex justify-end items-center w-full h-auto mt-1 pr-2 gap-x-2">
-<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة">既読</p>
+<p class="font-jp_sans text-8 leading-none" data-ja="既読" data-ar="تمت القراءة" data-en="Read">既読</p>
 <p class="font-jp_sans text-8 leading-none">22:53</p>
 </div>
 </div>
@@ -3917,7 +3931,7 @@
 </div>
 <div class="w-full h-auto py-6 px-[calc(45/16*1rem)]">
 <div class="talk-share-item w-fit h-auto mx-auto py-1 px-2 bg-black/40 rounded-lg overflow-hidden">
-<p class="font-jp_sans font-medium text-10 leading-[140%] text-white" data-ja="このコンテンツをシェアする" data-ar="شارك هذا المحتوى">このコンテンツをシェアする</p>
+<p class="font-jp_sans font-medium text-10 leading-[140%] text-white" data-ja="このコンテンツをシェアする" data-ar="شارك هذا المحتوى" data-en="Share this content">このコンテンツをシェアする</p>
 </div>
 <div class="talk-share-item w-full h-auto mt-6">
 <ul class="flex justify-center items-center w-full h-auto gap-x-2">
@@ -3941,10 +3955,10 @@
 <div class="talk-share-item w-full h-auto mt-6">
 <a class="link block w-full h-auto bg-white rounded-lg overflow-hidden" href="https://sh-anime.shochiku.co.jp/kakekoi/">
 <div class="w-full h-auto">
-<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-3" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
+<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-3" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" data-en-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-en.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
 </div>
 <div class="w-full h-auto py-2 text-center">
-<p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»">「かけ恋」アニメ公式サイトへ</p>
+<p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»" data-en="Go to the &quot;Kakekoi&quot; official anime site">「かけ恋」アニメ公式サイトへ</p>
 </div>
 </a>
 </div>
@@ -3974,27 +3988,35 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
 <script>
 (function(){
   "use strict";
-  // ==== ميزة التعريب التفاعلي ====
-  // يعتمد التبديل على قراءة data-ja / data-ar (أو data-ja-html / data-ar-html
+  // ==== ميزة التعريب التفاعلي (يابانية / إنجليزية / عربية) ====
+  // يعتمد التبديل على قراءة data-ja / data-en / data-ar (أو data-ja-html / data-en-html / data-ar-html
   // للعناصر التي تحتوي وسم <br>) وتبديل المحتوى فقط داخل العنصر النصي نفسه،
   // بدون لمس حاويات Flex الخارجية، حتى تبقى فقاعات المحادثة (يمين/يسار) ثابتة.
+  // ملاحظة: العناصر التي لا تملك بعد نسخة data-en مخصصة (أغلبها فقاعات الحوار)
+  // تعرض تلقائياً نصها الياباني الأصلي عند اختيار الإنجليزية، إلى أن تُضاف
+  // ترجمتها لاحقاً بنفس النمط (data-en="...").
   var STORAGE_KEY = "kakekoi-lang-pref";
-  var isArabic = false;
+  var LANGS = ["ja", "en", "ar"];
+  var currentLang = "ja";
 
-  function applyLang(ar){
-    isArabic = ar;
+  function applyLang(lang){
+    if (LANGS.indexOf(lang) === -1) lang = "ja";
+    currentLang = lang;
+    var ar = lang === "ar";
+    var isRtl = ar; // العربية فقط هي اتجاه RTL؛ الإنجليزية والعربية كلاهما LTR في هذا السياق
 
     // 1) نصوص عادية
     var plain = document.querySelectorAll("[data-ja][data-ar]");
     plain.forEach(function(el){
       el.classList.add("is-ar-fading");
       window.setTimeout(function(){
-        var val = ar ? el.getAttribute("data-ar") : el.getAttribute("data-ja");
+        var val = el.getAttribute("data-" + lang);
+        if (val === null) val = el.getAttribute("data-ja"); // احتياط: نص ياباني أصلي عند غياب ترجمة إنجليزية بعد
         el.textContent = val;
         if (el.closest(".talk-message")) {
           el.classList.toggle("lang-ar", ar);
         } else {
-          el.setAttribute("dir", ar ? "rtl" : "ltr");
+          el.setAttribute("dir", isRtl ? "rtl" : "ltr");
         }
         el.classList.remove("is-ar-fading");
       }, 90);
@@ -4003,46 +4025,58 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
     // 2) نصوص تحتوي HTML بسيط (وسم <br>)
     var htmlEls = document.querySelectorAll("[data-ja-html][data-ar-html]");
     htmlEls.forEach(function(el){
-      var val = ar ? el.getAttribute("data-ar-html") : el.getAttribute("data-ja-html");
+      var val = el.getAttribute("data-" + lang + "-html");
+      if (val === null) val = el.getAttribute("data-ja-html"); // احتياط: نفس منطق الفقرة أعلاه
       el.innerHTML = val;
-      el.setAttribute("dir", ar ? "rtl" : "ltr");
-      el.style.textAlign = ar ? "right" : "";
+      el.setAttribute("dir", isRtl ? "rtl" : "ltr");
+      el.style.textAlign = isRtl ? "right" : "";
     });
 
-    // 3) عناصر الواجهة الخاصة بالزر نفسه (تسمية يابانية ثابتة يسار المفتاح، وتسمية عربية ثابتة يمينه)
+    // 3) عناصر الواجهة الخاصة بالزر نفسه (تسمية يابانية يسار المفتاح، إنجليزية وسطه، عربية يمينه)
     var btn = document.getElementById("lang-toggle-btn");
     var labelJa = document.getElementById("lang-toggle-label-ja");
+    var labelEn = document.getElementById("lang-toggle-label-en");
     var labelAr = document.getElementById("lang-toggle-label-ar");
-    if (btn) btn.classList.toggle("is-ar", ar);
-    if (labelJa) labelJa.classList.toggle("is-current", !ar);
+    if (btn) {
+      btn.classList.toggle("is-en", lang === "en");
+      btn.classList.toggle("is-ar", ar);
+      var nextLang = LANGS[(LANGS.indexOf(lang) + 1) % LANGS.length];
+      var nextLabel = nextLang === "ja" ? "اليابانية" : (nextLang === "en" ? "الإنجليزية" : "العربية");
+      btn.setAttribute("aria-label", "تبديل اللغة إلى " + nextLabel);
+    }
+    if (labelJa) labelJa.classList.toggle("is-current", lang === "ja");
+    if (labelEn) labelEn.classList.toggle("is-current", lang === "en");
     if (labelAr) labelAr.classList.toggle("is-current", ar);
 
-    // 4) الصور التي لها نسخة عربية مخصصة (شعار شاشة التحميل، بانر الموقع الرسمي)
+    // 4) الصور التي لها نسخة مخصصة (شعار شاشة التحميل، بانر الموقع الرسمي)
     var swappableImgs = document.querySelectorAll("[data-ja-src][data-ar-src]");
     swappableImgs.forEach(function(img){
-      var wanted = ar ? img.getAttribute("data-ar-src") : img.getAttribute("data-ja-src");
+      var wanted = img.getAttribute("data-" + lang + "-src");
+      if (wanted === null) wanted = img.getAttribute("data-ja-src"); // احتياط لحين توفر صورة إنجليزية مخصصة
       if (wanted && img.getAttribute("src") !== wanted) img.setAttribute("src", wanted);
     });
 
-    try { window.localStorage.setItem(STORAGE_KEY, ar ? "ar" : "ja"); } catch(e) {}
+    try { window.localStorage.setItem(STORAGE_KEY, lang); } catch(e) {}
   }
 
   function init(){
     var btn = document.getElementById("lang-toggle-btn");
     if (btn) {
       btn.addEventListener("click", function(){
-        applyLang(!isArabic);
+        var nextLang = LANGS[(LANGS.indexOf(currentLang) + 1) % LANGS.length];
+        applyLang(nextLang);
       });
     }
 
     // شاشة اختيار اللغة قبل بدء الواجهة: لا يتم اختيار أي لغة تلقائياً،
-    // بل ينتظر الموقع اختيار المستخدم الفعلي بالضغط على أحد الخيارين.
+    // بل ينتظر الموقع اختيار المستخدم الفعلي بالضغط على أحد الخيارات الثلاثة.
     var gate = document.getElementById("kakekoi-lang-gate");
     var gateJa = document.getElementById("kakekoi-lang-gate-ja");
+    var gateEn = document.getElementById("kakekoi-lang-gate-en");
     var gateAr = document.getElementById("kakekoi-lang-gate-ar");
 
-    function chooseLang(ar){
-      applyLang(ar);
+    function chooseLang(lang){
+      applyLang(lang);
       document.body.classList.add("kakekoi-lang-chosen");
       if (gate) {
         gate.classList.add("is-hidden");
@@ -4086,8 +4120,9 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
       });
     }
 
-    if (gateJa) gateJa.addEventListener("click", function(){ chooseLang(false); if (musicWanted) playMusic(); });
-    if (gateAr) gateAr.addEventListener("click", function(){ chooseLang(true); if (musicWanted) playMusic(); });
+    if (gateJa) gateJa.addEventListener("click", function(){ chooseLang("ja"); if (musicWanted) playMusic(); });
+    if (gateEn) gateEn.addEventListener("click", function(){ chooseLang("en"); if (musicWanted) playMusic(); });
+    if (gateAr) gateAr.addEventListener("click", function(){ chooseLang("ar"); if (musicWanted) playMusic(); });
   }
 
   if (document.readyState === "loading") {
