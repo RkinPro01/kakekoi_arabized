@@ -75,6 +75,67 @@
     .lang-toggle-wrap{ top:22px; right:calc(314px + 24px); }
   }
 
+  /* الزر الصغير في الزاوية لا يظهر إلا بعد اختيار اللغة من شاشة البداية،
+     ويبقى بعدها في مكانه داخل المحادثة كما هو تماماً. */
+  .lang-toggle-wrap{ display:none; }
+  body.kakekoi-lang-chosen .lang-toggle-wrap{ display:flex; }
+
+  /* ==== شاشة اختيار اللغة قبل بدء الواجهة ==== */
+  .kakekoi-lang-gate{
+    position:fixed;
+    inset:0;
+    z-index:10500;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:calc(28/16*1rem);
+    background:#3A5E6E;
+    padding:24px;
+    text-align:center;
+    transition:opacity .4s ease;
+  }
+  .kakekoi-lang-gate.is-hidden{
+    opacity:0;
+    pointer-events:none;
+  }
+  .kakekoi-lang-gate-prompt{
+    color:#fff;
+    line-height:1.6;
+  }
+  .kakekoi-lang-gate-prompt p{ margin:0; font-size:15px; }
+  .kakekoi-lang-gate-prompt .kakekoi-lang-gate-ar{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .kakekoi-lang-gate-prompt .kakekoi-lang-gate-ja{
+    font-size:13px;
+    opacity:.85;
+  }
+  .kakekoi-lang-gate-options{
+    display:flex;
+    gap:14px;
+  }
+  .kakekoi-lang-gate-btn{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    color:#3A5E6E;
+    background:#E8E15D;
+    border:none;
+    border-radius:999px;
+    padding:11px 26px;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+    transition:transform .15s ease,opacity .15s ease;
+  }
+  .kakekoi-lang-gate-btn:active{ transform:scale(.96); }
+  .kakekoi-lang-gate-btn-ja{
+    font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+  }
+
   /* ==== إضافات هيوكا ناتسومي: تبديل الأيام + العرض الفوري ==== */
   .kakekoi-day-tab{
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
@@ -144,7 +205,7 @@
     background:rgba(20,30,35,.72);
     backdrop-filter:blur(6px);
     border-radius:14px;
-    padding:7px 18px 8px;
+    padding:5px 18px 6px;
     width:max-content;
     max-width:min(420px,96vw);
     display:flex;
@@ -224,6 +285,16 @@
 <path d="M0 0c1.904 2 3.904 2 4.904 2v5C.404 4.5.404 2 0 0" fill="currentColor"></path>
 </symbol>
 </svg>
+<div class="kakekoi-lang-gate" id="kakekoi-lang-gate">
+<div class="kakekoi-lang-gate-prompt">
+<p class="kakekoi-lang-gate-ar" dir="rtl">اختر اللغة للبدء</p>
+<p class="kakekoi-lang-gate-ja">言語を選んでください</p>
+</div>
+<div class="kakekoi-lang-gate-options">
+<button class="kakekoi-lang-gate-btn kakekoi-lang-gate-btn-ja" id="kakekoi-lang-gate-ja" type="button">日本語</button>
+<button class="kakekoi-lang-gate-btn kakekoi-lang-gate-btn-ar" id="kakekoi-lang-gate-ar" type="button">العربية</button>
+</div>
+</div>
 <div class="effect-loading fixed inset-0 z-[9999] flex justify-center items-center bg-white" x-bind:class="{ 'is-active': action, 'is-complete': complete }" x-data="loading">
 <div class="effect-blur-fadein absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(132/16*1rem)] h-auto z-10" x-cloak="">
 <img alt="透明な夜に駆ける君と、目に見えない恋をした。" class="w-full h-auto" id="kakekoi-loading-logo" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png"/>
@@ -237,7 +308,7 @@
 <span class="lang-toggle-label lang-toggle-label-ar" id="lang-toggle-label-ar">العربية</span>
 </div>
 <div class="kakekoi-credit-wrap kakekoi-ui" id="kakekoi-credit-wrap">
-<p class="kakekoi-credit-text" data-ja="この作品はヒョウカ・ナツミ（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل عمل موسّع ومعدَّل عليه بواسطة هيوكا ناتسومي - Hyouka Natsume">この作品はヒョウカ・ナツミ（Hyouka Natsume）による拡張・改変版です</p>
+<p class="kakekoi-credit-text" data-ja="この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل موسّع ومعدَّل عليه بواسطة هيوكا ناتسومي - Hyouka Natsume">この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です</p>
 <a class="kakekoi-credit-ig" href="https://www.instagram.com/hyouka_ns" rel="noopener" target="_blank">
 <svg class="kakekoi-credit-ig-icon" viewbox="0 0 24 24" fill="none" aria-hidden="true">
 <rect height="19" rx="6" stroke="currentColor" stroke-width="2" width="19" x="2.5" y="2.5"></rect>
@@ -3886,14 +3957,29 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
 
   function init(){
     var btn = document.getElementById("lang-toggle-btn");
-    if (!btn) return;
-    btn.addEventListener("click", function(){
-      applyLang(!isArabic);
-    });
+    if (btn) {
+      btn.addEventListener("click", function(){
+        applyLang(!isArabic);
+      });
+    }
 
-    var saved = null;
-    try { saved = window.localStorage.getItem(STORAGE_KEY); } catch(e) {}
-    if (saved === "ar") applyLang(true);
+    // شاشة اختيار اللغة قبل بدء الواجهة: لا يتم اختيار أي لغة تلقائياً،
+    // بل ينتظر الموقع اختيار المستخدم الفعلي بالضغط على أحد الخيارين.
+    var gate = document.getElementById("kakekoi-lang-gate");
+    var gateJa = document.getElementById("kakekoi-lang-gate-ja");
+    var gateAr = document.getElementById("kakekoi-lang-gate-ar");
+
+    function chooseLang(ar){
+      applyLang(ar);
+      document.body.classList.add("kakekoi-lang-chosen");
+      if (gate) {
+        gate.classList.add("is-hidden");
+        gate.addEventListener("transitionend", function(){ gate.remove(); }, { once: true });
+      }
+    }
+
+    if (gateJa) gateJa.addEventListener("click", function(){ chooseLang(false); });
+    if (gateAr) gateAr.addEventListener("click", function(){ chooseLang(true); });
   }
 
   if (document.readyState === "loading") {
