@@ -401,9 +401,11 @@
     width:max-content;
     max-width:min(420px,96vw);
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     align-items:center;
-    gap:4px;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
   }
   .kakekoi-credit-text{
     color:#fff;
@@ -413,6 +415,8 @@
     white-space:normal;
     word-break:break-word;
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    margin:0;
+    flex:0 0 auto;
   }
   .kakekoi-credit-ig{
     display:flex;
@@ -423,6 +427,7 @@
     font-size:10.5px;
     line-height:1;
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    flex:0 0 auto;
   }
   .kakekoi-credit-ig-icon{
     width:11px;
@@ -446,6 +451,8 @@
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
     font-size:10px;
     opacity:.9;
+    flex:0 0 auto;
+    white-space:nowrap;
   }
   .kakekoi-disclaimer-link:active{ opacity:.6; }
   .talk-disclaimer-item{
@@ -1002,14 +1009,6 @@
 <audio id="kakekoi-bg-music" loop="" preload="auto" src="bg-music.mp3"></audio>
 <div class="kakekoi-credit-wrap kakekoi-ui" id="kakekoi-credit-wrap">
 <p class="kakekoi-credit-text" data-ja="この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل موسّع بواسطة هيوكا ناتسومي - Hyouka Natsume" data-en="This work is an extended/modified version by Hyouka Natsume">この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です</p>
-<a class="kakekoi-credit-ig" href="https://www.instagram.com/hyouka_ns" rel="noopener" target="_blank">
-<svg class="kakekoi-credit-ig-icon" viewbox="0 0 24 24" fill="none" aria-hidden="true">
-<rect height="19" rx="6" stroke="currentColor" stroke-width="2" width="19" x="2.5" y="2.5"></rect>
-<circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="2"></circle>
-<circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"></circle>
-</svg>
-<span>@hyouka_ns</span>
-</a>
 <a class="kakekoi-disclaimer-link" href="disclaimer.html" target="_blank" rel="noopener" data-ja="إخلاء المسؤولية" data-ar="إخلاء المسؤولية" data-en="Disclaimer">إخلاء المسؤولية</a>
 </div>
 
