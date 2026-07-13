@@ -73,6 +73,8 @@
   }
   .lang-toggle-btn.is-en .lang-toggle-knob{ transform:translateX(15px); }
   .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(30px); }
+  .lang-toggle-label{ cursor:pointer; }
+  .lang-toggle-label:hover{ opacity:.85; }
   .bg-music-btn{
     display:flex;
     align-items:center;
@@ -93,8 +95,25 @@
   .bg-music-btn.is-playing .bg-music-icon-on{ display:none; }
   .bg-music-btn.is-playing .bg-music-icon-off{ display:block; }
   .bg-music-btn:active{ opacity:.6; }
+  /* على الحاسوب والتاب: الشريط ينتقل ليصبح بجانب المحادثة من جهة اليسار، ويكبر حجمه.
+     على الهاتف يبقى كما هو تماماً (الإعدادات الأساسية أعلاه دون تغيير). */
   @media (min-width:768px){
-    .lang-toggle-wrap{ top:22px; right:calc(314px + 24px); }
+    .lang-toggle-wrap{
+      top:50%;
+      left:calc(((374 - 226) / 16 * 1rem) / 2 - 33px);
+      right:auto;
+      transform:translateY(-50%);
+      flex-direction:column;
+      gap:10px;
+      padding:16px 14px;
+      border-radius:24px;
+    }
+    .lang-toggle-label{ font-size:15px; }
+    .lang-toggle-btn{ width:64px; height:26px; }
+    .lang-toggle-btn .lang-toggle-knob{ width:22px; height:22px; }
+    .lang-toggle-btn.is-en .lang-toggle-knob{ transform:translateX(20px); }
+    .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(40px); }
+    .bg-music-btn{ width:26px; height:26px; margin:0 0 2px 0; }
   }
 
   /* الزر الصغير في الزاوية لا يظهر إلا بعد اختيار اللغة من شاشة البداية،
@@ -202,6 +221,23 @@
     transition:transform .25s ease;
   }
   .kakekoi-lang-gate-music.is-on .kakekoi-lang-gate-music-knob{ transform:translateX(18px); }
+  .kakekoi-lang-gate-tip{
+    color:#fff;
+    opacity:.75;
+    font-size:11.5px;
+    line-height:1.6;
+    max-width:280px;
+    margin:0;
+  }
+  .kakekoi-lang-gate-tip .kakekoi-lang-gate-ar{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-weight:600;
+    font-size:12.5px;
+    margin-bottom:2px;
+  }
+  .kakekoi-lang-gate-tip .kakekoi-lang-gate-en{
+    font-family:Arial,Helvetica,sans-serif;
+  }
 
   /* ==== إضافات هيوكا ناتسومي: تبديل الأيام + العرض الفوري ==== */
   .kakekoi-day-tab{
@@ -637,6 +673,11 @@
 <button aria-label="تشغيل الموسيقى" aria-pressed="false" class="kakekoi-lang-gate-music" id="kakekoi-lang-gate-music" type="button">
 <span class="kakekoi-lang-gate-music-knob"></span>
 </button>
+</div>
+<div class="kakekoi-lang-gate-tip">
+<p class="kakekoi-lang-gate-ar" dir="rtl">يمكنك عرض معلومات الشخصية بالضغط على اسمها أو أيقونتها الخاصة</p>
+<p class="kakekoi-lang-gate-en">You can view a character's info by tapping their name or icon</p>
+<p class="kakekoi-lang-gate-ja">キャラクターの名前やアイコンをタップすると詳細が見られます</p>
 </div>
 </div>
 <div class="effect-loading fixed inset-0 z-[9999] flex justify-center items-center bg-white" x-bind:class="{ 'is-active': action, 'is-complete': complete }" x-data="loading">
@@ -4337,6 +4378,14 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
         applyLang(nextLang);
       });
     }
+
+    // الضغط على اسم أي لغة في الشريط ينقل إليها مباشرة دون الحاجة للتنقل بالترتيب
+    var labelJaBtn = document.getElementById("lang-toggle-label-ja");
+    var labelEnBtn = document.getElementById("lang-toggle-label-en");
+    var labelArBtn = document.getElementById("lang-toggle-label-ar");
+    if (labelJaBtn) labelJaBtn.addEventListener("click", function(){ applyLang("ja"); });
+    if (labelEnBtn) labelEnBtn.addEventListener("click", function(){ applyLang("en"); });
+    if (labelArBtn) labelArBtn.addEventListener("click", function(){ applyLang("ar"); });
 
     // شاشة اختيار اللغة قبل بدء الواجهة: لا يتم اختيار أي لغة تلقائياً،
     // بل ينتظر الموقع اختيار المستخدم الفعلي بالضغط على أحد الخيارات الثلاثة.
