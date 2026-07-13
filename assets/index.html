@@ -31,25 +31,25 @@
     z-index:10000;
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:4px;
     background:rgba(20,30,35,.72);
     backdrop-filter:blur(6px);
     border-radius:999px;
-    padding:4px 10px 4px 4px;
+    padding:3px 8px 3px 3px;
     box-shadow:0 4px 14px rgba(0,0,0,.25);
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
   }
   .lang-toggle-label{
     color:#fff;
-    font-size:10px;
+    font-size:9px;
     letter-spacing:.02em;
     user-select:none;
     white-space:nowrap;
   }
   .lang-toggle-btn{
     position:relative;
-    width:62px;
-    height:24px;
+    width:50px;
+    height:20px;
     border-radius:999px;
     background:#6b7d84;
     border:none;
@@ -64,21 +64,21 @@
     position:absolute;
     top:2px;
     left:2px;
-    width:20px;
-    height:20px;
+    width:16px;
+    height:16px;
     border-radius:50%;
     background:#fff;
     box-shadow:0 1px 3px rgba(0,0,0,.35);
     transition:transform .25s ease;
   }
-  .lang-toggle-btn.is-en .lang-toggle-knob{ transform:translateX(19px); }
-  .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(38px); }
+  .lang-toggle-btn.is-en .lang-toggle-knob{ transform:translateX(15px); }
+  .lang-toggle-btn.is-ar .lang-toggle-knob{ transform:translateX(30px); }
   .bg-music-btn{
     display:flex;
     align-items:center;
     justify-content:center;
-    width:24px;
-    height:24px;
+    width:20px;
+    height:20px;
     border-radius:50%;
     background:transparent;
     border:none;
@@ -382,8 +382,8 @@
 </div>
 <div class="lang-toggle-wrap" id="lang-toggle-wrap">
 <button aria-label="تشغيل أو إيقاف الموسيقى" class="bg-music-btn" id="bg-music-btn" type="button">
-<svg class="bg-music-icon-on" fill="none" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg>
-<svg class="bg-music-icon-off" fill="none" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="2" x1="3" x2="21" y1="3" y2="21"></line></svg>
+<svg class="bg-music-icon-on" fill="none" height="15" viewBox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle></svg>
+<svg class="bg-music-icon-off" fill="none" height="15" viewBox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="2" x1="3" x2="21" y1="3" y2="21"></line></svg>
 </button>
 <span class="lang-toggle-label lang-toggle-label-ja is-current" id="lang-toggle-label-ja">日本語</span>
 <button aria-label="تبديل اللغة" class="lang-toggle-btn" id="lang-toggle-btn" type="button">
