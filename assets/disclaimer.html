@@ -44,19 +44,6 @@
     width:100%;
     min-height:100dvh;
   }
-  @media (min-width:768px){
-    .disc-page{ align-items:center; padding:44px 24px; }
-    .disc-frame-outer{
-      width:min(560px,92vw);
-      min-height:0;
-      max-height:calc(780/16*1rem);
-      height:88vh;
-      padding:16px;
-      border-radius:calc((60+16)/16*1rem);
-      box-shadow:20px 20px 40px 0 #C1CDD4;
-      background:linear-gradient(140deg,#FFF 0.97%,#C4D1D7 99.03%);
-    }
-  }
   .disc-frame{
     position:relative;
     width:100%;
@@ -67,8 +54,147 @@
     display:flex;
     flex-direction:column;
   }
+
+  /* ==== سطح المكتب والتاب (768px+): تصميم واسع بعمود جانبي، بلا أي إطار هاتف ==== */
   @media (min-width:768px){
-    .disc-frame{ min-height:0; border-radius:calc(60/16*1rem); }
+    body{ background:#E4ECEE; }
+    .disc-bg{ display:none; }
+    .disc-page{ display:block; min-height:100dvh; }
+    .disc-frame-outer{ width:100%; min-height:100dvh; }
+    .disc-frame{
+      width:100%;
+      min-height:100dvh;
+      background:transparent;
+      overflow:visible;
+    }
+
+    .disc-header{
+      position:sticky;
+      top:0;
+      background:#3A5E6E;
+      padding:0;
+      height:64px;
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      z-index:20;
+      box-shadow:0 1px 0 rgba(0,0,0,.06);
+    }
+    .disc-header-inner{
+      grid-column:2;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .disc-back{
+      width:36px; height:36px;
+      border-radius:50%;
+      transition:background .15s ease;
+    }
+    .disc-back:hover{ background:rgba(255,255,255,.12); }
+    .disc-back svg{ width:10px; height:17px; }
+    .disc-header-title{ font-size:16.5px; }
+
+    .disc-langbar{
+      position:sticky;
+      top:64px;
+      background:#2C4A57;
+      padding:0;
+      height:42px;
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      z-index:19;
+    }
+    .disc-langbar-inner{
+      grid-column:2;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .disc-lang-label{ font-size:12px; }
+
+    .disc-desktop-shell{
+      max-width:none;
+      width:100%;
+      margin:0;
+      padding:40px clamp(24px,4vw,64px) 90px;
+      display:grid;
+      grid-template-columns:320px minmax(0,1fr);
+      gap:40px;
+      align-items:start;
+    }
+
+    .disc-scroll{
+      display:contents;
+      padding:0;
+      overflow:visible;
+    }
+
+    /* عمود جانبي ثابت (يحل محل صندوق الفهرس القديم على الحاسوب فقط) */
+    .disc-desktop-side{
+      grid-column:1;
+      position:sticky;
+      top:130px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      max-height:calc(100dvh - 160px);
+    }
+    .disc-desktop-card{
+      background:#F4F8F9;
+      border-radius:16px;
+      padding:20px 20px 22px;
+      box-shadow:0 2px 10px rgba(10,16,18,.06);
+    }
+    .disc-badge{ margin-bottom:14px; }
+    .disc-title{ font-size:23px; margin:0 0 8px; }
+    .disc-sub{ font-size:13.5px; margin:0; }
+
+    .disc-toc{
+      margin-bottom:0;
+      padding:16px 16px 18px;
+      overflow-y:auto;
+      flex:1 1 auto;
+      min-height:0;
+    }
+    .disc-toc-title{ font-size:12px; margin:0 0 12px; position:sticky; top:0; background:#fff; padding-bottom:4px; }
+    .disc-toc-list{ grid-template-columns:1fr; gap:2px; }
+    .disc-toc-link{
+      font-size:12.5px;
+      padding:7px 8px;
+      border-radius:8px;
+      transition:background .12s ease;
+    }
+    .disc-toc-link:hover{ background:rgba(58,94,110,.07); }
+    .disc-toc-link.is-active{ background:rgba(232,225,93,.28); }
+    .disc-toc-link.is-active .disc-toc-num{ color:#3A5E6E; }
+
+    .disc-home-btn{
+      margin-top:0;
+      width:auto;
+      justify-content:center;
+    }
+    .disc-home-btn-desktop{ display:flex; }
+
+    /* عمود المحتوى الرئيسي: بطاقة واحدة عريضة بدل صندوق الهاتف الضيق */
+    .disc-desktop-main{ grid-column:2; min-width:0; }
+    .disc-card{
+      padding:44px 56px 56px;
+      border-radius:20px;
+      box-shadow:0 4px 24px rgba(10,16,18,.07);
+    }
+
+    .disc-section{ margin-bottom:30px; scroll-margin-top:130px; }
+    .disc-section-title{ font-size:16px; }
+    .disc-section-icon{ width:30px; height:30px; border-radius:9px; }
+    .disc-section-icon svg{ width:15px; height:15px; }
+    .disc-text{ font-size:14.5px; line-height:2; max-width:none; }
+    .disc-list li{ font-size:14px; line-height:1.95; max-width:none; }
+    .disc-divider{ margin:30px 0; }
+    .disc-linkbox{ max-width:640px; padding:13px 16px; }
+    .disc-quotebox{ max-width:none; }
+    .disc-footnote{ text-align:start; max-width:none; }
   }
 
   /* ==== الشريط العلوي ==== */
@@ -82,9 +208,6 @@
     position:sticky;
     top:0;
     z-index:5;
-  }
-  @media (min-width:768px){
-    .disc-header{ padding:22px 26px 18px; }
   }
   .disc-back{
     display:flex;
@@ -173,9 +296,6 @@
     padding:22px 18px calc(40px + env(safe-area-inset-bottom,0px));
     scroll-behavior:smooth;
   }
-  @media (min-width:768px){
-    .disc-scroll{ padding:28px 30px 40px; }
-  }
 
   /* ==== بطاقة المحتوى ==== */
   .disc-card{
@@ -184,7 +304,6 @@
     padding:22px 18px;
     box-shadow:0 2px 10px rgba(10,16,18,.06);
   }
-  @media (min-width:768px){ .disc-card{ padding:30px 32px; } }
 
   .disc-badge{
     display:inline-flex;
@@ -353,6 +472,7 @@
   .disc-home-btn:active{ opacity:.75; }
   .disc-home-btn svg{ width:12px; height:12px; }
   [dir="rtl"] .disc-home-btn svg{ transform:scaleX(-1); }
+  .disc-home-btn-desktop{ display:none; }
 
   [data-ja][data-ar][data-en]{ transition:opacity .18s ease; }
   .is-fading{ opacity:0; }
@@ -518,26 +638,32 @@
 <div class="disc-frame">
 
 <div class="disc-header">
+<div class="disc-header-inner">
 <button class="disc-back" id="disc-back-btn" type="button" aria-label="رجوع">
 <svg viewBox="0 0 9 15" fill="none"><path fill="currentColor" d="M8.0605.707 1.4141 7.3535 8.0606 14l-.707.707L0 7.3535 7.3535 0z"/></svg>
 </button>
 <p class="disc-header-title lang-ar" id="disc-header-title" data-ja="免責事項" data-ar="إخلاء المسؤولية" data-en="Disclaimer">إخلاء المسؤولية</p>
 </div>
+</div>
 
 <div class="disc-langbar">
+<div class="disc-langbar-inner">
 <span class="disc-lang-label is-current" data-lang="ja" id="disc-lang-label-ja">日本語</span>
 <button class="disc-lang-btn" id="disc-lang-btn" type="button" aria-label="تبديل اللغة"><span class="disc-lang-knob"></span></button>
 <span class="disc-lang-label" data-lang="en" id="disc-lang-label-en">English</span>
 <span class="disc-lang-label" data-lang="ar" id="disc-lang-label-ar">العربية</span>
 </div>
+</div>
 
 <div class="disc-scroll">
-<div class="disc-card">
-
+<div class="disc-desktop-shell">
+<div class="disc-desktop-side">
+<div class="disc-desktop-card">
 <span class="disc-badge lang-ar" id="disc-badge" data-ja="ファンによる非公式ページ" data-ar="عمل غير رسمي من إعداد أحد المعجبين" data-en="Unofficial fan-made page">عمل غير رسمي من إعداد أحد المعجبين</span>
 
 <h1 class="disc-title lang-ar" id="disc-title" data-ja="免責事項とクレジット表記" data-ar="إخلاء المسؤولية وبيان الملكية" data-en="Disclaimer &amp; Ownership Notice">إخلاء المسؤولية وبيان الملكية</h1>
 <p class="disc-sub lang-ar" id="disc-sub" data-ja="このページをご覧いただく前に、必ずお読みください" data-ar="يرجى قراءة هذه الصفحة بعناية قبل متابعة استخدام الموقع" data-en="Please read this page carefully before continuing to use the site">يرجى قراءة هذه الصفحة بعناية قبل متابعة استخدام الموقع</p>
+</div>
 
 <div class="disc-toc">
 <p class="disc-toc-title lang-ar" data-ja="目次（クリックで移動）" data-ar="فهرس المحتويات (اضغط للانتقال)" data-en="Table of contents (tap to jump)">فهرس المحتويات (اضغط للانتقال)</p>
@@ -566,6 +692,15 @@
 <a class="disc-toc-link lang-ar" href="#s22" data-ja="このサイトのアドレス" data-ar="عنوان هذا الموقع" data-en="This site's address"><span class="disc-toc-num">22.</span><span>عنوان هذا الموقع</span></a>
 </div>
 </div>
+
+<a class="disc-home-btn disc-home-btn-desktop" href="index.html">
+<svg viewBox="0 0 9 15" fill="none"><path fill="currentColor" d="M8.0605.707 1.4141 7.3535 8.0606 14l-.707.707L0 7.3535 7.3535 0z"/></svg>
+<span class="lang-ar" data-ja="トップページへ戻る" data-ar="العودة إلى الصفحة الرئيسية" data-en="Back to the homepage">العودة إلى الصفحة الرئيسية</span>
+</a>
+</div>
+
+<div class="disc-desktop-main">
+<div class="disc-card">
 
 <div class="disc-section" id="s01">
 <div class="disc-section-head">
@@ -904,6 +1039,8 @@
 </div>
 </div>
 </div>
+</div>
+</div>
 
 <script>
 (function(){
@@ -975,6 +1112,24 @@
         if (window.history.length > 1) { window.history.back(); }
         else { window.location.href = "index.html"; }
       });
+    }
+
+    if (window.matchMedia && window.matchMedia("(min-width:768px)").matches && "IntersectionObserver" in window) {
+      var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".disc-toc-link"));
+      var sections = tocLinks.map(function(a){
+        return document.getElementById(a.getAttribute("href").slice(1));
+      });
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          var i = sections.indexOf(entry.target);
+          if (i === -1) return;
+          if (entry.isIntersecting) {
+            tocLinks.forEach(function(a){ a.classList.remove("is-active"); });
+            tocLinks[i].classList.add("is-active");
+          }
+        });
+      }, { rootMargin: "-140px 0px -70% 0px", threshold: 0 });
+      sections.forEach(function(s){ if (s) observer.observe(s); });
     }
   }
 
