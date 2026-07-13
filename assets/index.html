@@ -496,15 +496,18 @@
   .kakekoi-char-card-cutout{
     position:absolute;
     bottom:0;
-    inset-inline-start:50%;
+    inset-inline-start:40%;
     transform:translateX(-50%);
-    height:96%;
+    height:88%;
     width:auto;
     max-width:none;
     object-fit:contain;
     object-position:bottom center;
     filter:drop-shadow(0 14px 18px rgba(10,16,18,.35));
     z-index:2;
+  }
+  @media (min-width:768px){
+    .kakekoi-char-card-cutout{ inset-inline-start:36%; height:92%; }
   }
   .kakekoi-char-card-image::before{
     content:"";
@@ -536,6 +539,72 @@
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
     text-transform:none;
     letter-spacing:0;
+  }
+  /* ==== بطاقة الهوية الجامعية الصغيرة (student ID) فوق صورة الشخصية ==== */
+  .kakekoi-char-card-idbox{
+    position:absolute;
+    bottom:14px;
+    inset-inline-end:-6px;
+    z-index:5;
+    width:132px;
+    transform:rotate(-8deg);
+    transform-origin:bottom center;
+    filter:drop-shadow(0 10px 16px rgba(8,14,16,.45));
+    transition:transform .25s ease;
+  }
+  .kakekoi-char-card-idbox:hover,
+  .kakekoi-char-card-idbox:focus-within{
+    transform:rotate(-3deg) translateY(-3px) scale(1.03);
+  }
+  .kakekoi-char-card-idframe{
+    position:relative;
+    display:block;
+    padding:5px 5px 14px;
+    background:#F4F8F9;
+    border-radius:7px;
+    border:1px solid rgba(20,32,36,.08);
+  }
+  .kakekoi-char-card-idframe::before{
+    /* دبّوس/مشبك صغير بلون الموقع المميز أعلى البطاقة، كأنها مثبّتة يدوياً */
+    content:"";
+    position:absolute;
+    top:-7px;
+    inset-inline-start:50%;
+    transform:translateX(-50%);
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:#E8E15D;
+    box-shadow:0 2px 4px rgba(0,0,0,.35), inset 0 -2px 3px rgba(0,0,0,.15);
+  }
+  .kakekoi-char-card-id{
+    display:block;
+    width:100%;
+    height:auto;
+    border-radius:3px;
+    aspect-ratio:1018/642;
+    object-fit:cover;
+  }
+  .kakekoi-char-card-idcaption{
+    position:absolute;
+    bottom:2px;
+    inset-inline-start:0;
+    width:100%;
+    text-align:center;
+    font-size:8.5px;
+    letter-spacing:.06em;
+    color:#6D8189;
+    font-family:Arial,Helvetica,sans-serif;
+    text-transform:uppercase;
+  }
+  .kakekoi-char-card-idcaption[dir="rtl"]{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    text-transform:none;
+    letter-spacing:0;
+    font-size:9.5px;
+  }
+  @media (min-width:768px){
+    .kakekoi-char-card-idbox{ width:158px; bottom:18px; inset-inline-end:2px; }
   }
   .kakekoi-char-card-body{
     padding:16px 20px calc(22px + env(safe-area-inset-bottom,0px));
@@ -4871,6 +4940,12 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
 <img alt="" class="kakekoi-char-card-bg" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-koharu-bg.png"/>
 <img alt="冬月小春" class="kakekoi-char-card-cutout" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-koharu-cutout.png"/>
 <p class="kakekoi-char-card-role" data-ja="CHARACTER" data-ar="بطاقة الشخصية" data-en="CHARACTER">CHARACTER</p>
+<div class="kakekoi-char-card-idbox">
+<div class="kakekoi-char-card-idframe">
+<img alt="بطاقة الهوية الجامعية لكوهارو" class="kakekoi-char-card-id" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/student-id-koharu-PLACEHOLDER.png"/>
+<span class="kakekoi-char-card-idcaption" data-ja="学生証" data-ar="الهوية الجامعية" data-en="Student ID">学生証</span>
+</div>
+</div>
 </div>
 <div class="kakekoi-char-card-body">
 <div class="kakekoi-char-card-namerow">
@@ -4897,6 +4972,12 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
 <img alt="" class="kakekoi-char-card-bg" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-kakeru-bg.png"/>
 <img alt="空野かける" class="kakekoi-char-card-cutout" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-kakeru-cutout.png"/>
 <p class="kakekoi-char-card-role" data-ja="CHARACTER" data-ar="بطاقة الشخصية" data-en="CHARACTER">CHARACTER</p>
+<div class="kakekoi-char-card-idbox">
+<div class="kakekoi-char-card-idframe">
+<img alt="بطاقة الهوية الجامعية لكاكيرو" class="kakekoi-char-card-id" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/student-id-kakeru-PLACEHOLDER.png"/>
+<span class="kakekoi-char-card-idcaption" data-ja="学生証" data-ar="الهوية الجامعية" data-en="Student ID">学生証</span>
+</div>
+</div>
 </div>
 <div class="kakekoi-char-card-body">
 <div class="kakekoi-char-card-namerow">
