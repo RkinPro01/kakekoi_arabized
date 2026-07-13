@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="telephone=no" name="format-detection"/>
+<title>إخلاء المسؤولية | Disclaimer | 免責事項</title>
+<meta name="robots" content="noindex, follow"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet"/>
+<style>
+  *,*:before,*:after{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:#EEF4F5;
+    font-family:Arial,Helvetica,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100dvh;
+  }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  /* ==== خلفية الصفحة (نفس خلفية الموقع الرئيسي) ==== */
+  .disc-bg{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    overflow:hidden;
+    background:#EEF4F5;
+  }
+  .disc-bg img{ width:100%; height:100%; object-fit:cover; object-position:left; }
+
+  /* ==== الإطار الخارجي: على الحاسوب/التاب يتحوّل لمحاكاة إطار الهاتف كما في الرئيسية ==== */
+  .disc-page{
+    width:100%;
+    min-height:100dvh;
+    display:flex;
+    align-items:stretch;
+    justify-content:center;
+  }
+  .disc-frame-outer{
+    position:relative;
+    width:100%;
+    min-height:100dvh;
+  }
+  @media (min-width:768px){
+    .disc-page{ align-items:center; padding:44px 24px; }
+    .disc-frame-outer{
+      width:min(560px,92vw);
+      min-height:0;
+      max-height:calc(780/16*1rem);
+      height:88vh;
+      padding:16px;
+      border-radius:calc((60+16)/16*1rem);
+      box-shadow:20px 20px 40px 0 #C1CDD4;
+      background:linear-gradient(140deg,#FFF 0.97%,#C4D1D7 99.03%);
+    }
+  }
+  .disc-frame{
+    position:relative;
+    width:100%;
+    height:100%;
+    min-height:100dvh;
+    background:#A5CBD6;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+  @media (min-width:768px){
+    .disc-frame{ min-height:0; border-radius:calc(60/16*1rem); }
+  }
+
+  /* ==== الشريط العلوي ==== */
+  .disc-header{
+    flex:0 0 auto;
+    background:#3A5E6E;
+    padding:calc(env(safe-area-inset-top,0px) + 16px) 18px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    position:sticky;
+    top:0;
+    z-index:5;
+  }
+  @media (min-width:768px){
+    .disc-header{ padding:22px 26px 18px; }
+  }
+  .disc-back{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;
+    height:30px;
+    flex:0 0 auto;
+    border:none;
+    background:transparent;
+    padding:0;
+    cursor:pointer;
+    color:#fff;
+  }
+  .disc-back svg{ width:9px; height:15px; }
+  [dir="rtl"] .disc-back svg{ transform:scaleX(-1); }
+  .disc-header-title{
+    color:#fff;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:15px;
+    font-weight:700;
+    line-height:1.3;
+    margin:0;
+  }
+  .disc-header-title.lang-en,
+  .disc-header-title.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-header-title.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+
+  /* ==== شريط تبديل اللغة (نفس مكوّن الرئيسية) ==== */
+  .disc-langbar{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    background:#2C4A57;
+    padding:9px 10px;
+    position:sticky;
+    top:0;
+    z-index:4;
+  }
+  .disc-lang-label{
+    color:#fff;
+    font-size:11px;
+    opacity:.55;
+    cursor:pointer;
+    user-select:none;
+    white-space:nowrap;
+    transition:opacity .2s ease,font-weight .2s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .disc-lang-label.is-current{ opacity:1; font-weight:700; }
+  .disc-lang-label[data-lang="ar"]{ font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif; }
+  .disc-lang-btn{
+    position:relative;
+    width:50px;
+    height:20px;
+    border-radius:999px;
+    background:#6b7d84;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    flex:0 0 auto;
+    margin:0 2px;
+    transition:background .25s ease;
+  }
+  .disc-lang-btn.is-en{ background:#E8E15D; }
+  .disc-lang-btn.is-ar{ background:#3A5E6E; }
+  .disc-lang-knob{
+    position:absolute;
+    top:2px; left:2px;
+    width:16px; height:16px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.35);
+    transition:transform .25s ease;
+  }
+  .disc-lang-btn.is-en .disc-lang-knob{ transform:translateX(15px); }
+  .disc-lang-btn.is-ar .disc-lang-knob{ transform:translateX(30px); }
+
+  /* ==== منطقة المحتوى القابلة للتمرير ==== */
+  .disc-scroll{
+    flex:1 1 auto;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    padding:22px 18px calc(40px + env(safe-area-inset-bottom,0px));
+    scroll-behavior:smooth;
+  }
+  @media (min-width:768px){
+    .disc-scroll{ padding:28px 30px 40px; }
+  }
+
+  /* ==== بطاقة المحتوى ==== */
+  .disc-card{
+    background:#F4F8F9;
+    border-radius:18px;
+    padding:22px 18px;
+    box-shadow:0 2px 10px rgba(10,16,18,.06);
+  }
+  @media (min-width:768px){ .disc-card{ padding:30px 32px; } }
+
+  .disc-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:#E8E15D;
+    color:#3A5E6E;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.02em;
+    padding:5px 13px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+  .disc-badge.lang-en,
+  .disc-badge.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-badge.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+
+  .disc-title{
+    color:#1E2A2E;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:19px;
+    font-weight:700;
+    line-height:1.5;
+    margin:0 0 6px;
+  }
+  .disc-title.lang-en,
+  .disc-title.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-title.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; font-weight:900; }
+
+  .disc-sub{
+    color:#6D8189;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:12.5px;
+    line-height:1.7;
+    margin:0 0 22px;
+  }
+  .disc-sub.lang-en,
+  .disc-sub.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-sub.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+
+  .disc-section{ margin-bottom:20px; scroll-margin-top:14px; }
+  .disc-section:last-child{ margin-bottom:0; }
+
+  .disc-section-head{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:8px;
+  }
+  .disc-section-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:26px; height:26px;
+    flex:0 0 auto;
+    border-radius:8px;
+    background:rgba(58,94,110,.1);
+    color:#3A5E6E;
+  }
+  .disc-section-icon svg{ width:13px; height:13px; }
+  .disc-section-title{
+    color:#1E2A2E;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-weight:700;
+    font-size:14px;
+    margin:0;
+  }
+  .disc-section-title.lang-en,
+  .disc-section-title.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-section-title.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+
+  .disc-text{
+    color:#3A4A50;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:13.5px;
+    line-height:1.9;
+    margin:0;
+    text-align:justify;
+  }
+  .disc-text.lang-en,
+  .disc-text.lang-ja{ font-family:Arial,Helvetica,sans-serif; text-align:start; }
+  .disc-text.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+  .disc-text + .disc-text{ margin-top:10px; }
+  .disc-text b{ color:#1E2A2E; }
+
+  .disc-linkbox{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fff;
+    border:1px solid rgba(58,94,110,.16);
+    border-radius:12px;
+    padding:11px 14px;
+    margin-top:10px;
+  }
+  .disc-linkbox-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:30px; height:30px;
+    flex:0 0 auto;
+    border-radius:50%;
+    background:#3A5E6E;
+    color:#fff;
+  }
+  .disc-linkbox-icon svg{ width:13px; height:13px; }
+  .disc-linkbox-body{ min-width:0; flex:1 1 auto; }
+  .disc-linkbox-label{
+    color:#6D8189;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:10px;
+    margin:0 0 2px;
+  }
+  .disc-linkbox-label.lang-en,
+  .disc-linkbox-label.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-linkbox a{
+    color:#3A5E6E;
+    font-weight:700;
+    font-size:12.5px;
+    text-decoration:none;
+    word-break:break-all;
+  }
+  .disc-linkbox a:active{ opacity:.65; }
+
+  .disc-divider{
+    height:1px;
+    background:rgba(58,94,110,.14);
+    margin:22px 0;
+    border:none;
+  }
+
+  .disc-footnote{
+    margin-top:26px;
+    text-align:center;
+    color:#8A9AA0;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:10.5px;
+    line-height:1.7;
+  }
+  .disc-footnote.lang-en,
+  .disc-footnote.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-footnote.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+
+  .disc-home-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    margin-top:24px;
+    background:#3A5E6E;
+    color:#fff;
+    text-decoration:none;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding:13px 18px;
+    border-radius:999px;
+    transition:opacity .15s ease;
+  }
+  #disc-home-btn-text.lang-en,
+  #disc-home-btn-text.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  #disc-home-btn-text.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+  .disc-home-btn:active{ opacity:.75; }
+  .disc-home-btn svg{ width:12px; height:12px; }
+  [dir="rtl"] .disc-home-btn svg{ transform:scaleX(-1); }
+
+  [data-ja][data-ar][data-en]{ transition:opacity .18s ease; }
+  .is-fading{ opacity:0; }
+
+  /* ==== أرقام البنود وقائمة المحتويات ==== */
+  .disc-toc{
+    background:#fff;
+    border:1px solid rgba(58,94,110,.14);
+    border-radius:14px;
+    padding:14px 16px;
+    margin-bottom:24px;
+  }
+  .disc-toc-title{
+    color:#3A5E6E;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:.02em;
+    margin:0 0 8px;
+  }
+  .disc-toc-title.lang-en,
+  .disc-toc-title.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-toc-title.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+  .disc-toc-list{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:5px;
+  }
+  @media (min-width:520px){
+    .disc-toc-list{ grid-template-columns:1fr 1fr; }
+  }
+  .disc-toc-link{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    color:#3A4A50;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:11.5px;
+    text-decoration:none;
+    line-height:1.5;
+  }
+  .disc-toc-link.lang-en,
+  .disc-toc-link.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-toc-link.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+  .disc-toc-num{ color:#E8A93F; font-weight:700; flex:0 0 auto; }
+  .disc-toc-link:active{ opacity:.6; }
+
+  .disc-num-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:26px;
+    height:26px;
+    padding:0 4px;
+    flex:0 0 auto;
+    border-radius:8px;
+    background:#3A5E6E;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    font-weight:700;
+    font-size:12px;
+  }
+  .disc-section-title-wrap{ min-width:0; flex:1 1 auto; }
+  .disc-section-eyebrow{
+    display:block;
+    color:#8FA3AA;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:9px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    margin-bottom:1px;
+  }
+
+  .disc-list{
+    margin:10px 0 0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .disc-list li{
+    position:relative;
+    color:#3A4A50;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:13px;
+    line-height:1.8;
+    padding-inline-start:18px;
+    text-align:justify;
+  }
+  .disc-list li.lang-en,
+  .disc-list li.lang-ja{ font-family:Arial,Helvetica,sans-serif; text-align:start; }
+  .disc-list li.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+  .disc-list li:before{
+    content:"";
+    position:absolute;
+    inset-inline-start:0;
+    top:8px;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#E8E15D;
+    border:1.5px solid #3A5E6E;
+  }
+
+  .disc-subhead{
+    color:#3A5E6E;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    margin:14px 0 4px;
+  }
+  .disc-subhead.lang-en,
+  .disc-subhead.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-subhead.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+
+  .disc-quotebox{
+    background:rgba(58,94,110,.06);
+    border-inline-start:3px solid #3A5E6E;
+    border-radius:4px;
+    padding:10px 14px;
+    margin:12px 0;
+  }
+  .disc-quotebox p{
+    color:#3A4A50;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:12.5px;
+    line-height:1.8;
+    margin:0;
+    font-style:italic;
+  }
+  .disc-quotebox p.lang-en,
+  .disc-quotebox p.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-quotebox p.lang-ja{ font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif; }
+
+  .disc-meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:16px;
+  }
+  .disc-meta-pill{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    background:rgba(58,94,110,.08);
+    color:#3A5E6E;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:10.5px;
+    font-weight:700;
+    padding:5px 11px;
+    border-radius:999px;
+  }
+  .disc-meta-pill.lang-en,
+  .disc-meta-pill.lang-ja{ font-family:Arial,Helvetica,sans-serif; }
+  .disc-meta-pill svg{ width:11px; height:11px; }
+</style>
+</head>
+<body>
+
+<div class="disc-page">
+<div class="disc-frame-outer">
+<div class="disc-frame">
+
+<div class="disc-header">
+<button class="disc-back" id="disc-back-btn" type="button" aria-label="رجوع">
+<svg viewBox="0 0 9 15" fill="none"><path fill="currentColor" d="M8.0605.707 1.4141 7.3535 8.0606 14l-.707.707L0 7.3535 7.3535 0z"/></svg>
+</button>
+<p class="disc-header-title lang-ar" id="disc-header-title" data-ja="免責事項" data-ar="إخلاء المسؤولية" data-en="Disclaimer">إخلاء المسؤولية</p>
+</div>
+
+<div class="disc-langbar">
+<span class="disc-lang-label is-current" data-lang="ja" id="disc-lang-label-ja">日本語</span>
+<button class="disc-lang-btn" id="disc-lang-btn" type="button" aria-label="تبديل اللغة"><span class="disc-lang-knob"></span></button>
+<span class="disc-lang-label" data-lang="en" id="disc-lang-label-en">English</span>
+<span class="disc-lang-label" data-lang="ar" id="disc-lang-label-ar">العربية</span>
+</div>
+
+<div class="disc-scroll">
+<div class="disc-card">
+
+<span class="disc-badge lang-ar" id="disc-badge" data-ja="ファンによる非公式ページ" data-ar="عمل غير رسمي من إعداد أحد المعجبين" data-en="Unofficial fan-made page">عمل غير رسمي من إعداد أحد المعجبين</span>
+
+<h1 class="disc-title lang-ar" id="disc-title" data-ja="免責事項とクレジット表記" data-ar="إخلاء المسؤولية وبيان الملكية" data-en="Disclaimer &amp; Ownership Notice">إخلاء المسؤولية وبيان الملكية</h1>
+<p class="disc-sub lang-ar" id="disc-sub" data-ja="このページをご覧いただく前に、必ずお読みください" data-ar="يرجى قراءة هذه الصفحة بعناية قبل متابعة استخدام الموقع" data-en="Please read this page carefully before continuing to use the site">يرجى قراءة هذه الصفحة بعناية قبل متابعة استخدام الموقع</p>
+
+<div class="disc-toc">
+<p class="disc-toc-title lang-ar" data-ja="目次（クリックで移動）" data-ar="فهرس المحتويات (اضغط للانتقال)" data-en="Table of contents (tap to jump)">فهرس المحتويات (اضغط للانتقال)</p>
+<div class="disc-toc-list">
+<a class="disc-toc-link lang-ar" href="#s01" data-ja="原著作権について" data-ar="الحقوق الأصلية محفوظة للشركة" data-en="Original rights belong to the company"><span class="disc-toc-num">01.</span><span>الحقوق الأصلية محفوظة للشركة</span></a>
+<a class="disc-toc-link lang-ar" href="#s02" data-ja="このページについて" data-ar="طبيعة هذا العمل" data-en="Nature of this work"><span class="disc-toc-num">02.</span><span>طبيعة هذا العمل</span></a>
+<a class="disc-toc-link lang-ar" href="#s03" data-ja="利用目的" data-ar="الغرض من الاستخدام" data-en="Purpose of use"><span class="disc-toc-num">03.</span><span>الغرض من الاستخدام</span></a>
+<a class="disc-toc-link lang-ar" href="#s04" data-ja="素材の引用と使用範囲について" data-ar="نطاق استخدام المواد والاقتباس منها" data-en="Scope of material usage and quotation"><span class="disc-toc-num">04.</span><span>نطاق استخدام المواد والاقتباس منها</span></a>
+<a class="disc-toc-link lang-ar" href="#s05" data-ja="翻訳について" data-ar="بخصوص طبيعة الترجمة والتعديلات اللغوية" data-en="Regarding the nature of the translation"><span class="disc-toc-num">05.</span><span>بخصوص طبيعة الترجمة والتعديلات اللغوية</span></a>
+<a class="disc-toc-link lang-ar" href="#s06" data-ja="知的財産権と商標の保護" data-ar="حماية الملكية الفكرية والعلامات التجارية" data-en="Intellectual property and trademark protection"><span class="disc-toc-num">06.</span><span>حماية الملكية الفكرية والعلامات التجارية</span></a>
+<a class="disc-toc-link lang-ar" href="#s07" data-ja="公式団体との非提携" data-ar="عدم الانتساب لأي جهة رسمية" data-en="No affiliation with any official entity"><span class="disc-toc-num">07.</span><span>عدم الانتساب لأي جهة رسمية</span></a>
+<a class="disc-toc-link lang-ar" href="#s08" data-ja="サイト利用規約" data-ar="شروط عامة لاستخدام الموقع" data-en="General terms of site use"><span class="disc-toc-num">08.</span><span>شروط عامة لاستخدام الموقع</span></a>
+<a class="disc-toc-link lang-ar" href="#s09" data-ja="損害に関する免責" data-ar="إخلاء المسؤولية عن الأضرار" data-en="Disclaimer of liability for damages"><span class="disc-toc-num">09.</span><span>إخلاء المسؤولية عن الأضرار</span></a>
+<a class="disc-toc-link lang-ar" href="#s10" data-ja="情報の正確性" data-ar="دقة المعلومات وتحديثها" data-en="Accuracy and updating of information"><span class="disc-toc-num">10.</span><span>دقة المعلومات وتحديثها</span></a>
+<a class="disc-toc-link lang-ar" href="#s11" data-ja="プライバシーとクッキー" data-ar="الخصوصية وملفات تعريف الارتباط" data-en="Privacy and cookies"><span class="disc-toc-num">11.</span><span>الخصوصية وملفات تعريف الارتباط</span></a>
+<a class="disc-toc-link lang-ar" href="#s12" data-ja="本ページの今後の変更" data-ar="التعديلات المستقبلية على هذه الصفحة" data-en="Future changes to this page"><span class="disc-toc-num">12.</span><span>التعديلات المستقبلية على هذه الصفحة</span></a>
+<a class="disc-toc-link lang-ar" href="#s13" data-ja="ホスティング基盤について" data-ar="بنية الاستضافة التقنية" data-en="Technical hosting infrastructure"><span class="disc-toc-num">13.</span><span>بنية الاستضافة التقنية</span></a>
+<a class="disc-toc-link lang-ar" href="#s14" data-ja="許可・禁止される利用" data-ar="الاستخدامات المسموحة والممنوعة" data-en="Permitted and prohibited uses"><span class="disc-toc-num">14.</span><span>الاستخدامات المسموحة والممنوعة</span></a>
+<a class="disc-toc-link lang-ar" href="#s15" data-ja="削除要請への対応手続き" data-ar="إجراءات إزالة المحتوى بناءً على طلب رسمي" data-en="Content removal procedures upon official request"><span class="disc-toc-num">15.</span><span>إجراءات إزالة المحتوى بناءً على طلب رسمي</span></a>
+<a class="disc-toc-link lang-ar" href="#s16" data-ja="コンテンツの対象年齢" data-ar="الفئة العمرية للمحتوى" data-en="Content age appropriateness"><span class="disc-toc-num">16.</span><span>الفئة العمرية للمحتوى</span></a>
+<a class="disc-toc-link lang-ar" href="#s17" data-ja="準拠法に関する注記" data-ar="ملاحظة عامة حول الإطار القانوني" data-en="General note on the legal framework"><span class="disc-toc-num">17.</span><span>ملاحظة عامة حول الإطار القانوني</span></a>
+<a class="disc-toc-link lang-ar" href="#s18" data-ja="謝辞" data-ar="شكر وتقدير" data-en="Acknowledgements"><span class="disc-toc-num">18.</span><span>شكر وتقدير</span></a>
+<a class="disc-toc-link lang-ar" href="#s19" data-ja="用語の定義" data-ar="تعريفات المصطلحات المستخدمة في هذه الصفحة" data-en="Definitions of terms used on this page"><span class="disc-toc-num">19.</span><span>تعريفات المصطلحات المستخدمة في هذه الصفحة</span></a>
+<a class="disc-toc-link lang-ar" href="#s20" data-ja="結び" data-ar="كلمة ختامية" data-en="Closing note"><span class="disc-toc-num">20.</span><span>كلمة ختامية</span></a>
+<!-- تم إزالة رابط التواصل من الفهرس -->
+<a class="disc-toc-link lang-ar" href="#s22" data-ja="このサイトのアドレス" data-ar="عنوان هذا الموقع" data-en="This site's address"><span class="disc-toc-num">22.</span><span>عنوان هذا الموقع</span></a>
+</div>
+</div>
+
+<div class="disc-section" id="s01">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M7 8h10M7 12h10M7 16h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="原著作権について" data-ar="الحقوق الأصلية محفوظة للشركة" data-en="Original rights belong to the company">الحقوق الأصلية محفوظة للشركة</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本サイトで使用されているキャラクター、ロゴ、画像、文章、音声、映像など、TVアニメ「透明な夜に駆ける君と、目に見えない恋をした。」（「かけ恋」）に関するすべての原素材の著作権および知的財産権は、株式会社松竹および同作品の権利者に帰属します。" data-ar="جميع الشخصيات والشعارات والصور والنصوص والمواد الصوتية والمرئية الأصلية الخاصة بأنمي «透明な夜に駆ける君と、目に見えない恋をした。」(かけ恋 / Kakekoi)، محفوظة الحقوق والملكية الفكرية الخاصة بها لشركة Shochiku Co., Ltd. وأصحاب الحقوق الأصليين للعمل، وذلك عبر الموقع الرسمي للشركة." data-en="All characters, logos, images, text, audio, and video materials belonging to the TV anime &quot;You Who Run Through the Clear Night, I Fell in Love I Couldn't See&quot; (&quot;Kakekoi&quot;) are copyrighted and remain the intellectual property of Shochiku Co., Ltd. and the original rights holders of the work.">جميع الشخصيات والشعارات والصور والنصوص والمواد الصوتية والمرئية الأصلية الخاصة بأنمي «透明な夜に駆ける君と、目に見えない恋をした。」(かけ恋 / Kakekoi)، محفوظة الحقوق والملكية الفكرية الخاصة بها لشركة Shochiku Co., Ltd. وأصحاب الحقوق الأصليين للعمل، وذلك عبر الموقع الرسمي للشركة.</p>
+<div class="disc-linkbox">
+<span class="disc-linkbox-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M10 14a5 5 0 0 0 7.07 0l2.83-2.83a5 5 0 0 0-7.07-7.07l-1.5 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 10a5 5 0 0 0-7.07 0L4.1 12.83a5 5 0 0 0 7.07 7.07l1.5-1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+<div class="disc-linkbox-body">
+<p class="disc-linkbox-label lang-ar" data-ja="公式サイト" data-ar="الموقع الرسمي الأصلي" data-en="Original official site">الموقع الرسمي الأصلي</p>
+<a href="https://sh-anime.shochiku.co.jp/kakekoi/special/" target="_blank" rel="noopener">sh-anime.shochiku.co.jp/kakekoi/special</a>
+</div>
+</div>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s02">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.4 5.9.86-4.25 4.15 1 5.9L12 16.4l-5.25 2.9 1-5.9L3.5 9.26l5.9-.86z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="このページについて" data-ar="طبيعة هذا العمل" data-en="Nature of this work">طبيعة هذا العمل</p>
+</div>
+<p class="disc-text lang-ar" data-ja="このサイトは、上記公式サイトのコンテンツを基に、個人（Hyouka Natsume）が非公式に拡張・改変したファンメイドのページです。原作の一部素材を引用・使用しつつ、アラビア語への翻訳、UIの一部変更、新機能の追加、ユーザー体験向上のための独自素材の制作を行っています。" data-ar="هذا الموقع هو نسخة موسّعة ومعدّلة بشكل غير رسمي بواسطتي شخصياً (هيوكا ناتسومي)، اعتماداً على محتوى الموقع الرسمي المذكور أعلاه. جرى الاقتباس من بعض المواد الأصلية واستخدامها، مع إضافة ترجمة كاملة إلى اللغة العربية، وتعديل بعض عناصر الواجهة، وزيادة بعض المزايا الجديدة، وصنع بعض المواد الخاصة، بهدف تحسين تجربة المستخدمين الناطقين بالعربية." data-en="This site is an unofficial, personally-made (by Hyouka Natsume) extended and modified version based on the content of the official site linked above. Some original materials have been quoted and used, alongside a full Arabic translation, some interface modifications, additional features, and some custom-made materials, aiming to improve the experience for Arabic-speaking users.">هذا الموقع هو نسخة موسّعة ومعدّلة بشكل غير رسمي بواسطتي شخصياً (هيوكا ناتسومي)، اعتماداً على محتوى الموقع الرسمي المذكور أعلاه. جرى الاقتباس من بعض المواد الأصلية واستخدامها، مع إضافة ترجمة كاملة إلى اللغة العربية، وتعديل بعض عناصر الواجهة، وزيادة بعض المزايا الجديدة، وصنع بعض المواد الخاصة، بهدف تحسين تجربة المستخدمين الناطقين بالعربية.</p>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s03">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.5-9.5-9C1 8.2 2.6 5 6 5c2 0 3.4 1.1 4.2 2.3C11 6.1 12.4 5 14.4 5c3.4 0 5 3.2 3.5 7-2 4.5-9.5 9-9.5 9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="利用目的" data-ar="الغرض من الاستخدام" data-en="Purpose of use">الغرض من الاستخدام</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本サイトは営利を目的とせず、個人的な興味・娯楽・暇つぶしの範囲内で、一般の方が自由に閲覧できる形で公開しています。広告収入やその他の商業的利益は一切発生していません。" data-ar="صُنع هذا العمل للاستخدام الشخصي العام فقط، بدافع الفضول والملل لا غير، دون أي هدف تجاري أو ربحي من ورائه، وهو متاح للجميع بشكل مجاني تماماً. لا يحقق هذا الموقع أي عائد إعلاني أو ربح مادي من أي نوع." data-en="This work was made purely for general personal use, out of curiosity and boredom, with no commercial or profit-driven intent whatsoever, and it is made freely available to everyone at no cost. This site does not generate any advertising revenue or financial profit of any kind.">صُنع هذا العمل للاستخدام الشخصي العام فقط، بدافع الفضول والملل لا غير، دون أي هدف تجاري أو ربحي من ورائه، وهو متاح للجميع بشكل مجاني تماماً. لا يحقق هذا الموقع أي عائد إعلاني أو ربح مادي من أي نوع.</p>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s04">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 3 8l9 5 9-5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="素材の引用と使用範囲について" data-ar="نطاق استخدام المواد والاقتباس منها" data-en="Scope of material usage and quotation">نطاق استخدام المواد والاقتباس منها</p>
+</div>
+<p class="disc-text lang-ar" data-ja="以下は、本サイトで使用される素材の性質と範囲についての詳細な説明です。" data-ar="فيما يلي توضيح تفصيلي لطبيعة المواد المستخدمة في هذا الموقع ونطاق الاعتماد على المصدر الرسمي مقابل المواد المستحدثة." data-en="Below is a detailed clarification of the nature of the materials used on this site and the extent of reliance on the official source versus newly created materials.">فيما يلي توضيح تفصيلي لطبيعة المواد المستخدمة في هذا الموقع ونطاق الاعتماد على المصدر الرسمي مقابل المواد المستحدثة.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="使用されている素材（画像、キャラクター名、設定、一部テキスト）は、公式サイトから引用・参照した部分と、個人が新たに作成した部分が混在しています。" data-ar="المواد المستخدمة في هذا الموقع (كالصور، وأسماء الشخصيات، والإعدادات، وبعض النصوص) هي مزيج بين مواد مقتبسة ومرجعية من الموقع الرسمي، وأخرى مستحدثة بالكامل بواسطتي شخصياً." data-en="The materials used on this site (images, character names, settings, and some text) are a mix of parts quoted/referenced from the official site and parts newly created personally by me.">المواد المستخدمة في هذا الموقع (كالصور، وأسماء الشخصيات، والإعدادات، وبعض النصوص) هي مزيج بين مواد مقتبسة ومرجعية من الموقع الرسمي، وأخرى مستحدثة بالكامل بواسطتي شخصياً.</li>
+<li class="lang-ar" data-ja="いかなる引用も、原作の宣伝・紹介・非営利のファン活動の範囲内で行われており、原作の価値を損なう意図は一切ありません。" data-ar="أي اقتباس تم استخدامه هنا جرى ضمن نطاق الترويج للعمل الأصلي والتعريف به كنشاط غير ربحي من إعداد أحد المعجبين، دون أي نية للإضرار بقيمة العمل الأصلي أو التقليل من شأنه." data-en="Any quotation used here falls within the scope of promoting and introducing the original work as a non-profit fan activity, with no intent whatsoever to diminish the value of the original work.">أي اقتباس تم استخدامه هنا جرى ضمن نطاق الترويج للعمل الأصلي والتعريف به كنشاط غير ربحي من إعداد أحد المعجبين، دون أي نية للإضرار بقيمة العمل الأصلي أو التقليل من شأنه.</li>
+<li class="lang-ar" data-ja="オリジナルのテキスト、画像、動画は、その意味を歪めたり、原作やその著作権者に対する評判を損なったりする形で改変されていません。" data-ar="التعديلات التي أُجريت على النصوص أو الصور أو الفيديوهات الأصلية لم تكن بهدف تشويه معناها أو الإساءة لطبيعة العمل الأصلي أو للشركة المالكة له بأي شكل من الأشكال." data-en="Any modifications made to the original text, images, or videos were not intended to distort their meaning or to disparage the nature of the original work or its owning company in any way.">التعديلات التي أُجريت على النصوص أو الصور أو الفيديوهات الأصلية لم تكن بهدف تشويه معناها أو الإساءة لطبيعة العمل الأصلي أو للشركة المالكة له بأي شكل من الأشكال.</li>
+<li class="lang-ar" data-ja="一部のページには、公式のプロモーション素材（キービジュアル、作品ロゴ、キャラクター画像など）からの限定的な抜粋が、紹介目的でのみ含まれている場合があります。" data-ar="قد تحتوي بعض الصفحات على مقتطفات محدودة جداً من المواد الترويجية الرسمية (كالصورة الرئيسية Key Visual، وشعار العمل، وصور الشخصيات) وذلك فقط بغرض العرض والتعريف بالعمل، دون أي استخدام تجاري." data-en="Some pages may contain very limited excerpts from official promotional materials (such as the Key Visual, the work's logo, and character images) solely for display and introductory purposes, with no commercial use.">قد تحتوي بعض الصفحات على مقتطفات محدودة جداً من المواد الترويجية الرسمية (كالصورة الرئيسية Key Visual، وشعار العمل، وصور الشخصيات) وذلك فقط بغرض العرض والتعريف بالعمل، دون أي استخدام تجاري.</li>
+<li class="lang-ar" data-ja="すべての音声・音楽・効果音は、公式作品の一部として使用されている場合、著作権は原著作権者に帰属し、いかなる形でも再配布や再販売は行っておりません。" data-ar="أي مواد صوتية أو موسيقية أو مؤثرات صوتية مستخدمة كجزء من العمل الرسمي تبقى حقوقها محفوظة بالكامل لأصحابها الأصليين، ولا يجري إعادة توزيعها أو بيعها بأي شكل من الأشكال عبر هذا الموقع." data-en="Any audio, music, or sound effects used as part of the official work remain fully copyrighted by their original owners, and are not redistributed or resold in any form through this site.">أي مواد صوتية أو موسيقية أو مؤثرات صوتية مستخدمة كجزء من العمل الرسمي تبقى حقوقها محفوظة بالكامل لأصحابها الأصليين، ولا يجري إعادة توزيعها أو بيعها بأي شكل من الأشكال عبر هذا الموقع.</li>
+<li class="lang-ar" data-ja="この拡張版に、原作に存在しない完全にオリジナルな文章や説明、UIラベルが含まれる場合、それらは筆者自身の創作物です。" data-ar="في حال احتوت هذه النسخة الموسّعة على نصوص أو شروحات أو تسميات واجهة (UI Labels) أصيلة بالكامل وغير موجودة في العمل الأصلي، فإن تلك العناصر تُعد من إبداع كاتب هذا الموقع الشخصي حصراً." data-en="Should this extended version contain fully original text, explanations, or UI labels not present in the original work, those elements are considered the personal creative work of this site's author exclusively.">في حال احتوت هذه النسخة الموسّعة على نصوص أو شروحات أو تسميات واجهة (UI Labels) أصيلة بالكامل وغير موجودة في العمل الأصلي، فإن تلك العناصر تُعد من إبداع كاتب هذا الموقع الشخصي حصراً.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s05">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6"/><path d="M2.75 12h18.5M12 2.75c2.5 2.6 4 5.9 4 9.25s-1.5 6.65-4 9.25c-2.5-2.6-4-5.9-4-9.25s1.5-6.65 4-9.25Z" stroke="currentColor" stroke-width="1.4"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="翻訳の性質について" data-ar="بخصوص طبيعة الترجمة والتعديلات اللغوية" data-en="Regarding the nature of the translation">بخصوص طبيعة الترجمة والتعديلات اللغوية</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本作品の基本的な部分がアラビア語への翻訳であるため、その性質と限界について以下の点を明確にする必要があります。" data-ar="نظراً لأن جزءاً أساسياً من هذا العمل هو الترجمة إلى اللغة العربية، فمن الضروري توضيح النقاط التالية بخصوص طبيعتها وحدودها." data-en="Since a fundamental part of this work is the Arabic translation, it is necessary to clarify the following points regarding its nature and limitations.">نظراً لأن جزءاً أساسياً من هذا العمل هو الترجمة إلى اللغة العربية، فمن الضروري توضيح النقاط التالية بخصوص طبيعتها وحدودها.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="アラビア語への翻訳は、非公式かつ個人的な取り組みであり、公式の翻訳や公式が承認した翻訳ではありません。" data-ar="الترجمة إلى اللغة العربية المقدَّمة في هذا الموقع هي جهد شخصي وغير رسمي بالكامل، ولا تمثل ترجمة رسمية أو معتمدة من الشركة المالكة للعمل الأصلي." data-en="The Arabic translation provided on this site is an entirely personal and unofficial effort, and does not represent an official translation, nor one approved by the company that owns the original work.">الترجمة إلى اللغة العربية المقدَّمة في هذا الموقع هي جهد شخصي وغير رسمي بالكامل، ولا تمثل ترجمة رسمية أو معتمدة من الشركة المالكة للعمل الأصلي.</li>
+<li class="lang-ar" data-ja="翻訳における文体、語彙選択、文の構成は翻訳者個人の解釈に基づいており、原文のニュアンスと完全に一致しない場合があります。" data-ar="أسلوب الترجمة، واختيار المفردات، وصياغة الجمل تعتمد على الاجتهاد الشخصي للمترجم، وقد لا تطابق الفروقات الدقيقة (Nuances) في النص الأصلي بشكل تام في جميع الحالات." data-en="The translation's style, vocabulary choices, and sentence structure are based on the translator's personal interpretation, and may not perfectly match the nuances of the original text in all cases.">أسلوب الترجمة، واختيار المفردات، وصياغة الجمل تعتمد على الاجتهاد الشخصي للمترجم، وقد لا تطابق الفروقات الدقيقة (Nuances) في النص الأصلي بشكل تام في جميع الحالات.</li>
+<li class="lang-ar" data-ja="文化的・言語的な文脈の違いにより、翻訳された意味と原文の意味の間に若干の相違が生じる場合があります。" data-ar="قد يحدث بعض الاختلاف الطفيف بين المعنى المترجَم والمعنى الأصلي، نتيجة للفروقات الثقافية واللغوية القائمة بين اللغتين اليابانية والعربية." data-en="Some slight differences may occur between the translated meaning and the original meaning, due to the cultural and linguistic differences between the Japanese and Arabic languages.">قد يحدث بعض الاختلاف الطفيف بين المعنى المترجَم والمعنى الأصلي، نتيجة للفروقات الثقافية واللغوية القائمة بين اللغتين اليابانية والعربية.</li>
+<li class="lang-ar" data-ja="いかなる誤訳や不正確な表現が発見された場合、それは意図的なものではなく、単純な人為的ミスである可能性が高いです。" data-ar="في حال تم اكتشاف أي خطأ في الترجمة أو تعبير غير دقيق، فإن ذلك لم يكن مقصوداً على الإطلاق، بل هو على الأرجح خطأ بشري بسيط قابل للتصحيح." data-en="Should any mistranslation or imprecise expression be discovered, it was in no way intentional, and is most likely a simple human error that can be corrected.">في حال تم اكتشاف أي خطأ في الترجمة أو تعبير غير دقيق، فإن ذلك لم يكن مقصوداً على الإطلاق، بل هو على الأرجح خطأ بشري بسيط قابل للتصحيح.</li>
+<li class="lang-ar" data-ja="提供される英語翻訳（存在する場合）も同様にこの免責事項の対象となり、これも個人的かつ非公式な取り組みです。" data-ar="الترجمة الإنجليزية المقدَّمة (إن وُجدت) تخضع أيضاً لنفس بنود إخلاء المسؤولية هذه، وهي كذلك جهد شخصي وغير رسمي بالكامل." data-en="The English translation provided (if any) is likewise subject to the same terms of this disclaimer, and is also an entirely personal and unofficial effort.">الترجمة الإنجليزية المقدَّمة (إن وُجدت) تخضع أيضاً لنفس بنود إخلاء المسؤولية هذه، وهي كذلك جهد شخصي وغير رسمي بالكامل.</li>
+<!-- تم إزالة جملة مقترحات الترجمة -->
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s06">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v18M6 7l-3 6a3 3 0 0 0 6 0zM18 7l-3 6a3 3 0 0 0 6 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 21h16M6 7h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="知的財産権と商標の保護" data-ar="حماية الملكية الفكرية والعلامات التجارية" data-en="Intellectual property and trademark protection">حماية الملكية الفكرية والعلامات التجارية</p>
+</div>
+<p class="disc-text lang-ar" data-ja="原作の知的財産権および商標権に関する、本作品の立場についての補足説明です。" data-ar="توضيحاً إضافياً لموقف هذا العمل من حقوق الملكية الفكرية والعلامات التجارية الخاصة بالعمل الأصلي." data-en="As further clarification of this work's position regarding the intellectual property and trademark rights of the original work.">توضيحاً إضافياً لموقف هذا العمل من حقوق الملكية الفكرية والعلامات التجارية الخاصة بالعمل الأصلي.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="「かけ恋」というタイトル、その関連ロゴ、キャラクターデザイン、世界観設定は、株式会社松竹および正式な権利者の独占的な知的財産です。" data-ar="عنوان العمل «Kakekoi» (かけ恋)، وشعاراته المرتبطة به، وتصاميم الشخصيات، وإعدادات عالمه القصصي، هي ملكية فكرية حصرية لشركة Shochiku Co., Ltd. وأصحاب الحقوق الرسميين." data-en="The title &quot;Kakekoi&quot; (かけ恋), its associated logos, character designs, and world-building settings are the exclusive intellectual property of Shochiku Co., Ltd. and the official rights holders.">عنوان العمل «Kakekoi» (かけ恋)، وشعاراته المرتبطة به، وتصاميم الشخصيات، وإعدادات عالمه القصصي، هي ملكية فكرية حصرية لشركة Shochiku Co., Ltd. وأصحاب الحقوق الرسميين.</li>
+<li class="lang-ar" data-ja="本サイトの運営者は、上記の知的財産に対していかなる所有権も主張しておらず、また主張する意図もありません。" data-ar="لا يدّعي مشغّل هذا الموقع أي حق ملكية على الملكية الفكرية المذكورة أعلاه، ولا توجد لديه أي نية للمطالبة بها في الوقت الحالي أو مستقبلاً." data-en="The operator of this site does not claim any ownership over the aforementioned intellectual property, nor is there any intention to claim it now or in the future.">لا يدّعي مشغّل هذا الموقع أي حق ملكية على الملكية الفكرية المذكورة أعلاه، ولا توجد لديه أي نية للمطالبة بها في الوقت الحالي أو مستقبلاً.</li>
+<li class="lang-ar" data-ja="本サイトの名称やドメイン(kakekoi.netlify.app)は、公式ブランドとの混同を意図したものではなく、単に参照上の便宜のために使用されています。" data-ar="اسم ونطاق هذا الموقع (kakekoi.netlify.app) لم يُقصد بهما إحداث أي التباس مع العلامة التجارية الرسمية، بل يُستخدمان فقط لأغراض مرجعية وتسهيلية بحتة." data-en="This site's name and domain (kakekoi.netlify.app) are not intended to cause any confusion with the official brand, and are used purely for referential and practical convenience.">اسم ونطاق هذا الموقع (kakekoi.netlify.app) لم يُقصد بهما إحداث أي التباس مع العلامة التجارية الرسمية، بل يُستخدمان فقط لأغراض مرجعية وتسهيلية بحتة.</li>
+<li class="lang-ar" data-ja="原作のロゴおよび公式ビジュアルの使用は、識別目的のみに限定されており、商標権の侵害を意図するものではありません。" data-ar="استخدام شعار العمل الأصلي والمرئيات الرسمية يقتصر فقط على أغراض التعريف والتمييز، ولا يُقصد منه انتهاك أي حق من حقوق العلامة التجارية بأي شكل." data-en="The use of the original work's logo and official visuals is limited solely to identification purposes, and is not intended to infringe upon any trademark rights in any way.">استخدام شعار العمل الأصلي والمرئيات الرسمية يقتصر فقط على أغراض التعريف والتمييز، ولا يُقصد منه انتهاك أي حق من حقوق العلامة التجارية بأي شكل.</li>
+<li class="lang-ar" data-ja="キャラクター名や作品固有の用語への言及は、非商業的かつ紹介目的でのフェアユース（公正利用）の範囲内にあります。" data-ar="الإشارة إلى أسماء الشخصيات أو المصطلحات الخاصة بالعمل تندرج ضمن نطاق الاستخدام العادل (Fair Use) للأغراض التعريفية وغير التجارية البحتة." data-en="Reference to character names or work-specific terminology falls within the scope of fair use for purely non-commercial and introductory purposes.">الإشارة إلى أسماء الشخصيات أو المصطلحات الخاصة بالعمل تندرج ضمن نطاق الاستخدام العادل (Fair Use) للأغراض التعريفية وغير التجارية البحتة.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s07">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 5.5l13 13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="公式団体との非提携について" data-ar="عدم الانتساب لأي جهة رسمية" data-en="No affiliation with any official entity">عدم الانتساب لأي جهة رسمية</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本作品がいかなる公式団体からも完全に独立していることを、明確に強調しておくことが重要です。" data-ar="من المهم التأكيد بوضوح تام على استقلالية هذا العمل التام عن أي جهة رسمية." data-en="It is important to affirm with complete clarity the total independence of this work from any official entity.">من المهم التأكيد بوضوح تام على استقلالية هذا العمل التام عن أي جهة رسمية.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本サイトは、株式会社松竹、公式製作委員会、または「かけ恋」に関連するいかなる公式団体とも一切提携しておらず、承認も受けていません。" data-ar="هذا الموقع لا ينتسب بأي شكل من الأشكال إلى شركة Shochiku Co., Ltd.، أو لجنة الإنتاج الرسمية، أو أي جهة رسمية أخرى مرتبطة بعمل «Kakekoi»، ولم يحصل على أي اعتماد أو موافقة منها." data-en="This site is not affiliated in any way with Shochiku Co., Ltd., the official production committee, or any other official entity associated with &quot;Kakekoi&quot;, and has not received any endorsement or approval from them.">هذا الموقع لا ينتسب بأي شكل من الأشكال إلى شركة Shochiku Co., Ltd.، أو لجنة الإنتاج الرسمية، أو أي جهة رسمية أخرى مرتبطة بعمل «Kakekoi»، ولم يحصل على أي اعتماد أو موافقة منها.</li>
+<li class="lang-ar" data-ja="原作の声優、制作スタッフ、監督、脚本家など、いかなる関係者とも直接的な連絡や協力関係はありません。" data-ar="لا توجد أي علاقة تواصل مباشر أو تعاون رسمي مع أي من الأطراف المرتبطة بالعمل، كالممثلين الصوتيين (Seiyuu)، وطاقم الإنتاج، والمخرج، وكتّاب السيناريو." data-en="There is no direct communication or official collaborative relationship with any parties associated with the work, such as the voice actors (seiyuu), production staff, director, or screenwriters.">لا توجد أي علاقة تواصل مباشر أو تعاون رسمي مع أي من الأطراف المرتبطة بالعمل، كالممثلين الصوتيين (Seiyuu)، وطاقم الإنتاج، والمخرج، وكتّاب السيناريو.</li>
+<li class="lang-ar" data-ja="本サイト上のいかなる意見、解釈、または創造的な追加要素も、公式の見解や立場を表すものではなく、あくまで個人の見解です。" data-ar="أي رأي أو تفسير أو عنصر إبداعي مضاف على هذا الموقع لا يمثل بأي شكل الرأي أو الموقف الرسمي للشركة المالكة، بل هو وجهة نظر شخصية بحتة من إعداد صاحب الموقع." data-en="Any opinion, interpretation, or creative addition on this site does not in any way represent the owning company's official view or position, but is purely a personal viewpoint prepared by the site's owner.">أي رأي أو تفسير أو عنصر إبداعي مضاف على هذا الموقع لا يمثل بأي شكل الرأي أو الموقف الرسمي للشركة المالكة، بل هو وجهة نظر شخصية بحتة من إعداد صاحب الموقع.</li>
+<li class="lang-ar" data-ja="この作品への言及や引用は、いかなる場合も、原作制作陣がこの拡張版を承認したことを示唆するものではありません。" data-ar="الإشارة إلى العمل أو الاقتباس منه لا يعني بأي حال من الأحوال أن طاقم إنتاج العمل الأصلي قد وافق على هذه النسخة الموسّعة أو أقرّها بأي شكل من الأشكال." data-en="Reference to or quotation from the work does not in any way imply that the original production staff has approved or endorsed this extended version.">الإشارة إلى العمل أو الاقتباس منه لا يعني بأي حال من الأحوال أن طاقم إنتاج العمل الأصلي قد وافق على هذه النسخة الموسّعة أو أقرّها بأي شكل من الأشكال.</li>
+<li class="lang-ar" data-ja="本サイトに追加されたすべての意見、コメント、分析は、制作者個人の意見のみを表しており、いかなる集団的または組織的な見解も代表するものではありません。" data-ar="الآراء والتعليقات والتحليلات المضافة في هذا الموقع تعبّر فقط عن رأي معدّه الشخصي، ولا تمثل رأياً جماعياً أو مؤسسياً من أي نوع." data-en="The opinions, comments, and analyses added on this site express only the personal opinion of its creator, and do not represent any collective or institutional viewpoint of any kind.">الآراء والتعليقات والتحليلات المضافة في هذا الموقع تعبّر فقط عن رأي معدّه الشخصي، ولا تمثل رأياً جماعياً أو مؤسسياً من أي نوع.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s08">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M8 6 2.5 12 8 18M16 6l5.5 6-5.5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="サイト利用規約" data-ar="شروط عامة لاستخدام الموقع" data-en="General terms of site use">شروط عامة لاستخدام الموقع</p>
+</div>
+<p class="disc-text lang-ar" data-ja="以下は、本サイトの利用に関する一般的かつ案内的な規約であり、訪問者が認識しておくべき事項です。" data-ar="فيما يلي بعض الشروط العامة والإرشادية الخاصة باستخدام هذا الموقع، والتي يُفترض أن يكون الزائر على علم بها." data-en="Below are some general, guiding terms for using this site, which visitors are expected to be aware of.">فيما يلي بعض الشروط العامة والإرشادية الخاصة باستخدام هذا الموقع، والتي يُفترض أن يكون الزائر على علم بها.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本サイトの利用は完全に無料であり、いかなる登録、支払い、またはサブスクリプションも必要ありません。" data-ar="استخدام هذا الموقع مجاني بالكامل، ولا يتطلب أي تسجيل، أو دفع، أو اشتراك من أي نوع." data-en="Use of this site is entirely free, and does not require any registration, payment, or subscription of any kind.">استخدام هذا الموقع مجاني بالكامل، ولا يتطلب أي تسجيل، أو دفع، أو اشتراك من أي نوع.</li>
+<li class="lang-ar" data-ja="サイト訪問者は、自国の適用法令に照らして本サイトの利用が適切であることを確認する責任を負います。" data-ar="يتحمّل زوار الموقع مسؤولية التأكد من ملاءمة استخدامهم لهذا الموقع مع القوانين المحلية المعمول بها في بلدانهم." data-en="Site visitors bear the responsibility of ensuring their use of this site is appropriate under the local laws applicable in their countries.">يتحمّل زوار الموقع مسؤولية التأكد من ملاءمة استخدامهم لهذا الموقع مع القوانين المحلية المعمول بها في بلدانهم.</li>
+<li class="lang-ar" data-ja="本サイトのいかなる部分も、原著作権者の事前の許可なく、商業的または営利目的で使用することを固く禁じます。" data-ar="لا يجوز استخدام أي جزء من هذا الموقع لأغراض تجارية أو ربحية دون الحصول على إذن مسبق وصريح من أصحاب الحقوق الأصليين للعمل." data-en="No part of this site may be used for commercial or profit-making purposes without prior, explicit permission from the original rights holders of the work.">لا يجوز استخدام أي جزء من هذا الموقع لأغراض تجارية أو ربحية دون الحصول على إذن مسبق وصريح من أصحاب الحقوق الأصليين للعمل.</li>
+<li class="lang-ar" data-ja="本サイトの機能や体験が完璧であることを保証するものではなく、一部の不具合やレイアウトの乱れが発生する可能性があります。" data-ar="لا يُضمن أن تكون وظائف الموقع أو تجربة الاستخدام فيه خالية تماماً من العيوب، وقد تحدث بعض الأخطاء التقنية أو اضطرابات في التنسيق أحياناً." data-en="It is not guaranteed that the site's functions or user experience will be entirely free of flaws, and some technical errors or layout disruptions may occasionally occur.">لا يُضمن أن تكون وظائف الموقع أو تجربة الاستخدام فيه خالية تماماً من العيوب، وقد تحدث بعض الأخطاء التقنية أو اضطرابات في التنسيق أحياناً.</li>
+<li class="lang-ar" data-ja="最良のユーザー体験を得るために、最新バージョンのブラウザを使用することが推奨されます。" data-ar="يُنصح باستخدام أحدث إصدار متاح من المتصفحات الشائعة للحصول على أفضل تجربة استخدام ممكنة لهذا الموقع." data-en="It is recommended to use the latest available version of popular browsers to obtain the best possible user experience on this site.">يُنصح باستخدام أحدث إصدار متاح من المتصفحات الشائعة للحصول على أفضل تجربة استخدام ممكنة لهذا الموقع.</li>
+<li class="lang-ar" data-ja="非常に古い、または開発元から公式にサポートされていないブラウザでは、本サイトが完全に機能しない場合があります。" data-ar="قد لا يعمل بعض محتوى الموقع بالشكل الأمثل على المتصفحات القديمة جداً، أو تلك غير المدعومة رسمياً من قبل الشركات المطوّرة لها." data-en="Some site content may not function optimally on very old browsers, or those not officially supported by their developing companies.">قد لا يعمل بعض محتوى الموقع بالشكل الأمثل على المتصفحات القديمة جداً، أو تلك غير المدعومة رسمياً من قبل الشركات المطوّرة لها.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s09">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 21.5 20h-19z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9.5v4.5M12 17h.01" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="損害に関する免責事項" data-ar="إخلاء المسؤولية عن الأضرار" data-en="Disclaimer of liability for damages">إخلاء المسؤولية عن الأضرار</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本サイトの利用によって生じる可能性のある損害に対する、運営者の法的責任の範囲についての説明です。" data-ar="توضيحاً لحدود المسؤولية القانونية لمشغّل هذا الموقع تجاه أي ضرر محتمل قد ينتج عن استخدامه." data-en="As clarification of the limits of legal liability for this site's operator regarding any potential damage that may result from its use.">توضيحاً لحدود المسؤولية القانونية لمشغّل هذا الموقع تجاه أي ضرر محتمل قد ينتج عن استخدامه.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本サイトの運営者は、サイトの利用に起因する、または関連するいかなる直接的・間接的・偶発的損害についても責任を負いません。" data-ar="لا يتحمّل مشغّل هذا الموقع أي مسؤولية عن أي ضرر مباشر أو غير مباشر أو عرضي ينتج عن استخدام هذا الموقع أو يرتبط به بأي شكل من الأشكال." data-en="The operator of this site bears no responsibility for any direct, indirect, or incidental damage arising from or related in any way to the use of this site.">لا يتحمّل مشغّل هذا الموقع أي مسؤولية عن أي ضرر مباشر أو غير مباشر أو عرضي ينتج عن استخدام هذا الموقع أو يرتبط به بأي شكل من الأشكال.</li>
+<li class="lang-ar" data-ja="これには、機器の損傷、データの損失、時間の損失、または本サイトの閲覧に関連するその他の不便に対する責任が含まれます。" data-ar="تشمل هذه المسؤولية أي تلف للأجهزة، أو فقدان للبيانات، أو خسارة للوقت، أو أي إزعاج آخر مرتبط بتصفح هذا الموقع." data-en="This includes any damage to devices, data loss, time loss, or any other inconvenience related to browsing this site.">تشمل هذه المسؤولية أي تلف للأجهزة، أو فقدان للبيانات، أو خسارة للوقت، أو أي إزعاج آخر مرتبط بتصفح هذا الموقع.</li>
+<li class="lang-ar" data-ja="この免責事項は、法律で認められる最大限の範囲で適用され、適用法によって明示的に除外できない責任は除外されません。" data-ar="يسري هذا الإخلاء للمسؤولية إلى أقصى حد يسمح به القانون المعمول به، ولا يستثني أي مسؤولية لا يمكن استثناؤها صراحة بموجب القانون الساري." data-en="This disclaimer applies to the fullest extent permitted by applicable law, and does not exclude any liability that cannot be explicitly excluded under the governing law.">يسري هذا الإخلاء للمسؤولية إلى أقصى حد يسمح به القانون المعمول به، ولا يستثني أي مسؤولية لا يمكن استثناؤها صراحة بموجب القانون الساري.</li>
+<li class="lang-ar" data-ja="本サイトは、たとえ公式のものであっても、リンク先の外部コンテンツについていかなる責任も負いません。" data-ar="لا يتحمّل هذا الموقع أي مسؤولية عن محتوى أي روابط خارجية قد يشير إليها، حتى لو كانت تلك الروابط رسمية أو موثوقة." data-en="This site bears no responsibility for the content of any external links it may reference, even if those links are official or trusted.">لا يتحمّل هذا الموقع أي مسؤولية عن محتوى أي روابط خارجية قد يشير إليها، حتى لو كانت تلك الروابط رسمية أو موثوقة.</li>
+<li class="lang-ar" data-ja="本サイトの利用を継続することは、このページに記載されたすべての免責事項に対する完全かつ自動的な同意を意味します。" data-ar="استمرار استخدام هذا الموقع بعد قراءة هذه الصفحة يعني الموافقة الكاملة والتلقائية على جميع بنودها." data-en="Continued use of this site after reading this page constitutes full and automatic agreement to all of its terms.">استمرار استخدام هذا الموقع بعد قراءة هذه الصفحة يعني الموافقة الكاملة والتلقائية على جميع بنودها.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s10">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8M20 12a8 8 0 0 1-13.7 5.7L4 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 4v4h-4M4 20v-4h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="情報の正確性と更新について" data-ar="دقة المعلومات وتحديثها" data-en="Accuracy and updating of information">دقة المعلومات وتحديثها</p>
+</div>
+<p class="disc-text lang-ar" data-ja="この非公式サイトに掲載されている情報の正確性への依存度についてです。" data-ar="بخصوص مدى الاعتماد على دقة المعلومات المنشورة عبر هذا الموقع غير الرسمي." data-en="Regarding the extent to which one can rely on the accuracy of the information published on this unofficial site.">بخصوص مدى الاعتماد على دقة المعلومات المنشورة عبر هذا الموقع غير الرسمي.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本サイトに掲載されている情報は、可能な限り正確であるよう努めていますが、その完全性、正確性、最新性を保証するものではありません。" data-ar="تُبذَل جهود للحرص قدر الإمكان على دقة المعلومات المنشورة في هذا الموقع، إلا أنه لا يوجد ضمان مطلق لاكتمالها أو دقتها أو حداثتها في جميع الأوقات." data-en="Efforts are made as much as possible to ensure the accuracy of the information published on this site, however there is no absolute guarantee of its completeness, accuracy, or currency at all times.">تُبذَل جهود للحرص قدر الإمكان على دقة المعلومات المنشورة في هذا الموقع، إلا أنه لا يوجد ضمان مطلق لاكتمالها أو دقتها أو حداثتها في جميع الأوقات.</li>
+<li class="lang-ar" data-ja="原作に関する最新かつ最も正確な情報を確認するためには、常に公式サイトを参照することをお勧めします。" data-ar="يوصى دائماً بالرجوع إلى الموقع الرسمي أعلاه للتأكد من أحدث وأدق المعلومات المتعلقة بالعمل الأصلي." data-en="It is always recommended to refer to the official site above to confirm the latest and most accurate information regarding the original work.">يوصى دائماً بالرجوع إلى الموقع الرسمي أعلاه للتأكد من أحدث وأدق المعلومات المتعلقة بالعمل الأصلي.</li>
+<li class="lang-ar" data-ja="本サイトには、運営者が作成した追加情報や分析情報が含まれる場合がありますが、それらは公式の事実ではなく、個人的な見解です。" data-ar="قد يتضمن هذا الموقع أحياناً معلومات إضافية أو تحليلية من إعداد صاحبه، وهي تمثل اجتهادات واستنتاجات شخصية وليست حقائق رسمية معتمدة." data-en="This site may sometimes include additional or analytical information prepared by its owner, which represents personal interpretations and conclusions rather than official, verified facts.">قد يتضمن هذا الموقع أحياناً معلومات إضافية أو تحليلية من إعداد صاحبه، وهي تمثل اجتهادات واستنتاجات شخصية وليست حقائق رسمية معتمدة.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s11">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="14" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/><circle cx="10" cy="15" r="1" fill="currentColor"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="プライバシーとクッキーについて" data-ar="الخصوصية وملفات تعريف الارتباط" data-en="Privacy and cookies">الخصوصية وملفات تعريف الارتباط</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本サイトの利用を通じて扱われる可能性のあるデータの性質についての簡単な説明です。" data-ar="توضيح مختصر بخصوص طبيعة أي بيانات قد يتم التعامل معها من خلال استخدام هذا الموقع." data-en="A brief clarification regarding the nature of any data that may be handled through the use of this site.">توضيح مختصر بخصوص طبيعة أي بيانات قد يتم التعامل معها من خلال استخدام هذا الموقع.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本サイトは、訪問者が選択した言語設定を保存するためだけに、シンプルなブラウザ側のストレージ技術（localStorageなど）を使用する場合があります。" data-ar="قد يستخدم هذا الموقع تقنيات تخزين بسيطة من طرف المتصفح (مثل localStorage) فقط لحفظ تفضيل اللغة المختارة من قِبل الزائر بين الزيارات." data-en="This site may use simple browser-side storage technologies (such as localStorage) solely to remember the visitor's chosen language preference between visits.">قد يستخدم هذا الموقع تقنيات تخزين بسيطة من طرف المتصفح (مثل localStorage) فقط لحفظ تفضيل اللغة المختارة من قِبل الزائر بين الزيارات.</li>
+<li class="lang-ar" data-ja="本サイトは、いかなる機密性の高い個人情報も収集しておらず、利用のいかなる段階においても訪問者に識別情報を要求することはありません。" data-ar="هذا الموقع لا يقوم بجمع أي بيانات شخصية حساسة، ولا يطلب أي معلومات تعريفية من زواره في أي مرحلة من مراحل استخدامه." data-en="This site does not collect any sensitive personal data, nor does it request any identifying information from its visitors at any stage of use.">هذا الموقع لا يقوم بجمع أي بيانات شخصية حساسة، ولا يطلب أي معلومات تعريفية من زواره في أي مرحلة من مراحل استخدامه.</li>
+<li class="lang-ar" data-ja="本サイトが外部ホスティングサービス（Netlifyなど）でホストされている場合、ホスティングプロバイダーの独自ポリシーに基づき、基本的な技術利用データが収集される場合があります。" data-ar="نظراً لاستضافة هذا الموقع عبر خدمة استضافة خارجية (مثل Netlify)، فقد تُجمع بعض بيانات الاستخدام التقنية الأساسية من قِبل مزوّد الاستضافة وفقاً لسياسته الخاصة به، بمعزل عن إرادة صاحب الموقع." data-en="Since this site is hosted via an external hosting service (such as Netlify), some basic technical usage data may be collected by the hosting provider according to its own separate policy, independent of the site owner's will.">نظراً لاستضافة هذا الموقع عبر خدمة استضافة خارجية (مثل Netlify)، فقد تُجمع بعض بيانات الاستخدام التقنية الأساسية من قِبل مزوّد الاستضافة وفقاً لسياسته الخاصة به، بمعزل عن إرادة صاحب الموقع.</li>
+<li class="lang-ar" data-ja="本サイトの運営者は、コンテンツ配信に使用されるホスティングプロバイダーやCDNのプライバシーポリシーを完全に管理しているわけではありません。" data-ar="صاحب هذا الموقع لا يمتلك سيطرة كاملة على سياسات الخصوصية الخاصة بمزوّدي الاستضافة أو شبكات توصيل المحتوى (CDN) المستخدمة لعرض هذا الموقع." data-en="This site's owner does not have full control over the privacy policies of the hosting providers or content delivery networks (CDNs) used to display this site.">صاحب هذا الموقع لا يمتلك سيطرة كاملة على سياسات الخصوصية الخاصة بمزوّدي الاستضافة أو شبكات توصيل المحتوى (CDN) المستخدمة لعرض هذا الموقع.</li>
+<li class="lang-ar" data-ja="訪問者は、いつでも自分のブラウザの設定を通じて、クッキーやローカルストレージデータを消去することができます。" data-ar="بإمكان الزوار مسح ملفات تعريف الارتباط أو بيانات التخزين المحلي الخاصة بهذا الموقع في أي وقت يشاؤونه، عبر إعدادات متصفحاتهم الخاصة." data-en="Visitors can clear cookies or local storage data related to this site at any time they wish, through their own browser settings.">بإمكان الزوار مسح ملفات تعريف الارتباط أو بيانات التخزين المحلي الخاصة بهذا الموقع في أي وقت يشاؤونه، عبر إعدادات متصفحاتهم الخاصة.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s12">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="本ページの今後の変更について" data-ar="التعديلات المستقبلية على هذه الصفحة" data-en="Future changes to this page">التعديلات المستقبلية على هذه الصفحة</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本ページの内容が今後更新される可能性についての説明です。" data-ar="توضيح بخصوص إمكانية تحديث محتوى هذه الصفحة لاحقاً." data-en="Clarification regarding the possibility of this page's content being updated at a later time.">توضيح بخصوص إمكانية تحديث محتوى هذه الصفحة لاحقاً.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="この免責事項は、各訪問者への直接的な事前通知なしに、随時更新または修正される場合があります。" data-ar="يخضع هذا الإخلاء للمسؤولية للتحديث أو التعديل بين الحين والآخر، دون الحاجة لتقديم إشعار مسبق ومباشر لكل زائر على حدة." data-en="This disclaimer is subject to updating or amendment from time to time, without the need to provide direct, prior notice to each individual visitor.">يخضع هذا الإخلاء للمسؤولية للتحديث أو التعديل بين الحين والآخر، دون الحاجة لتقديم إشعار مسبق ومباشر لكل زائر على حدة.</li>
+<li class="lang-ar" data-ja="今後発生する可能性のある更新や追加事項を確認するため、このページを定期的に確認することをお勧めします。" data-ar="من المستحسن مراجعة هذه الصفحة بشكل دوري للاطلاع على أي تحديثات أو إضافات جديدة قد تطرأ عليها مستقبلاً." data-en="It is advisable to review this page periodically to stay informed of any updates or new additions that may occur to it in the future.">من المستحسن مراجعة هذه الصفحة بشكل دوري للاطلاع على أي تحديثات أو إضافات جديدة قد تطرأ عليها مستقبلاً.</li>
+<li class="lang-ar" data-ja="本ページの更新後もサイトの利用を継続することは、この免責事項の更新版への黙示の同意とみなされます。" data-ar="استمرار استخدام الموقع بعد أي تحديث يطرأ على هذه الصفحة يُعتبر بمثابة موافقة ضمنية على الصيغة المحدَّثة من هذا الإخلاء للمسؤولية." data-en="Continued use of the site after any update to this page is deemed to constitute implicit consent to the updated version of this disclaimer.">استمرار استخدام الموقع بعد أي تحديث يطرأ على هذه الصفحة يُعتبر بمثابة موافقة ضمنية على الصيغة المحدَّثة من هذا الإخلاء للمسؤولية.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s13">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4" width="17" height="6.5" rx="1.4" stroke="currentColor" stroke-width="1.6"/><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.4" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="7.2" r="0.9" fill="currentColor"/><circle cx="7" cy="16.7" r="0.9" fill="currentColor"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="技術的ホスティング基盤について" data-ar="بنية الاستضافة التقنية" data-en="Technical hosting infrastructure">بنية الاستضافة التقنية</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本サイトのホスティングの性質と、その技術的パフォーマンスに対する運営者の責任範囲についての技術的説明です。" data-ar="توضيح تقني بخصوص طبيعة استضافة هذا الموقع وحدود مسؤولية صاحبه عن أدائه التقني." data-en="Technical clarification regarding the nature of this site's hosting and the limits of its owner's responsibility for its technical performance.">توضيح تقني بخصوص طبيعة استضافة هذا الموقع وحدود مسؤولية صاحبه عن أدائه التقني.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本サイトは、無料の外部ホスティングプラットフォームを通じて公開されており、その基盤インフラは運営者の直接管理下にありません。" data-ar="يُنشر هذا الموقع عبر منصة استضافة خارجية مجانية، ولا تقع بنيته التحتية الأساسية تحت السيطرة المباشرة لمشغّل الموقع الشخصي." data-en="This site is published via a free, external hosting platform, and its underlying infrastructure is not under the direct control of the site's personal operator.">يُنشر هذا الموقع عبر منصة استضافة خارجية مجانية، ولا تقع بنيته التحتية الأساسية تحت السيطرة المباشرة لمشغّل الموقع الشخصي.</li>
+<li class="lang-ar" data-ja="サイトは、運営者の制御を超えた技術的要因により、一時的なダウンタイムや応答の遅延が発生する場合があります。" data-ar="الموقع قد يتعرض أحياناً لفترات توقف مؤقتة أو بطء في الاستجابة، نتيجة لعوامل تقنية خارجة تماماً عن سيطرة صاحبه الشخصية." data-en="The site may occasionally experience temporary downtime or slow response, due to technical factors entirely beyond its owner's personal control.">الموقع قد يتعرض أحياناً لفترات توقف مؤقتة أو بطء في الاستجابة، نتيجة لعوامل تقنية خارجة تماماً عن سيطرة صاحبه الشخصية.</li>
+<li class="lang-ar" data-ja="サイトの運営者は、ホスティングプロバイダー自体の問題に起因するサービス中断について、いかなる責任も負いません。" data-ar="صاحب الموقع لا يتحمّل أي مسؤولية عن أي انقطاع في الخدمة ينتج عن مشاكل تقنية من طرف مزوّد الاستضافة نفسه." data-en="The site's owner bears no responsibility for any service interruption resulting from technical problems on the part of the hosting provider itself.">صاحب الموقع لا يتحمّل أي مسؤولية عن أي انقطاع في الخدمة ينتج عن مشاكل تقنية من طرف مزوّد الاستضافة نفسه.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s14">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M9 4.5h3.2a1.6 1.6 0 0 1 1.6 1.8 1.6 1.6 0 0 0 1.6 1.8H18a1 1 0 0 1 1 1v3.6a1.6 1.6 0 0 0-1.8 1.6 1.6 1.6 0 0 0 1.8 1.6V19a1 1 0 0 1-1 1h-3.6a1.6 1.6 0 0 1-1.6-1.8 1.6 1.6 0 0 0-1.6-1.6 1.6 1.6 0 0 0-1.6 1.6A1.6 1.6 0 0 1 8 20H4.5a1 1 0 0 1-1-1v-3.5a1.6 1.6 0 0 0 1.8-1.6A1.6 1.6 0 0 0 3.5 12.3V8a1 1 0 0 1 1-1H8a1.6 1.6 0 0 0 1.6-1.6A1.6 1.6 0 0 1 9 4.5Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="許可される利用と禁止される利用" data-ar="الاستخدامات المسموحة والممنوعة" data-en="Permitted and prohibited uses">الاستخدامات المسموحة والممنوعة</p>
+</div>
+<p class="disc-subhead lang-ar" data-ja="許可される利用の例：" data-ar="أمثلة على الاستخدامات المسموح بها:" data-en="Examples of permitted uses:">أمثلة على الاستخدامات المسموح بها:</p>
+<ul class="disc-list">
+<li class="lang-ar" data-ja="個人的かつ非商業的な目的で、本サイトのすべてのページとコンテンツを自由かつ完全に無料で閲覧すること。" data-ar="تصفح جميع صفحات ومحتوى هذا الموقع بشكل حر ومجاني تماماً للأغراض الشخصية وغير التجارية." data-en="Browsing all pages and content of this site freely and entirely without charge, for personal and non-commercial purposes.">تصفح جميع صفحات ومحتوى هذا الموقع بشكل حر ومجاني تماماً للأغراض الشخصية وغير التجارية.</li>
+<li class="lang-ar" data-ja="友人や原作に関心のある方々と、SNS上でサイトのリンクを共有すること。" data-ar="مشاركة رابط الموقع مع الأصدقاء أو المهتمين بالعمل الأصلي عبر منصات التواصل الاجتماعي." data-en="Sharing the site's link with friends or those interested in the original work via social media platforms.">مشاركة رابط الموقع مع الأصدقاء أو المهتمين بالعمل الأصلي عبر منصات التواصل الاجتماعي.</li>
+<li class="lang-ar" data-ja="教育的または批評的な目的のために、出典を明記した上でサイトの内容から短い抜粋を引用すること。" data-ar="الاستشهاد بمقتطفات قصيرة من محتوى الموقع مع ذكر المصدر بوضوح لأغراض تعليمية أو نقدية." data-en="Citing brief excerpts from the site's content, with clear attribution to the source, for educational or critical purposes.">الاستشهاد بمقتطفات قصيرة من محتوى الموقع مع ذكر المصدر بوضوح لأغراض تعليمية أو نقدية.</li>
+</ul>
+<p class="disc-subhead lang-ar" data-ja="禁止される利用の例：" data-ar="أمثلة على الاستخدامات الممنوعة:" data-en="Examples of prohibited uses:">أمثلة على الاستخدامات الممنوعة:</p>
+<ul class="disc-list">
+<li class="lang-ar" data-ja="元の出典を示さず、または事前の許可を得ずに、本サイトのコンテンツ全体を他のサイトに再掲載すること。" data-ar="إعادة نشر محتوى هذا الموقع بالكامل على مواقع أخرى دون الإشارة إلى المصدر الأصلي أو الحصول على إذن مسبق." data-en="Republishing this site's content in full on other sites without attributing the original source or obtaining prior permission.">إعادة نشر محتوى هذا الموقع بالكامل على مواقع أخرى دون الإشارة إلى المصدر الأصلي أو الحصول على إذن مسبق.</li>
+<li class="lang-ar" data-ja="本サイトまたはその素材のいかなる部分も、商業的または営利目的で使用すること。" data-ar="استخدام أي جزء من هذا الموقع أو مواده لأغراض تجارية أو ربحية من أي نوع كان." data-en="Using any part of this site or its materials for commercial or profit-making purposes of any kind whatsoever.">استخدام أي جزء من هذا الموقع أو مواده لأغراض تجارية أو ربحية من أي نوع كان.</li>
+<li class="lang-ar" data-ja="公式作品から引用されたオリジナル素材の所有権を主張したり、真の権利者以外に帰属させたりすること。" data-ar="ادّعاء ملكية المواد الأصلية المقتبسة من العمل الرسمي، أو نسبتها لغير أصحابها الحقيقيين." data-en="Claiming ownership of the original materials quoted from the official work, or attributing them to anyone other than their rightful owners.">ادّعاء ملكية المواد الأصلية المقتبسة من العمل الرسمي، أو نسبتها لغير أصحابها الحقيقيين.</li>
+<li class="lang-ar" data-ja="許可なく他のプロジェクトで再利用する目的で、サイトのコンテンツを自動的かつ大量にスクレイピングしようとすること。" data-ar="محاولة استخراج (Scraping) محتوى الموقع بشكل آلي وجماعي بغرض إعادة استخدامه في مشاريع أخرى دون إذن." data-en="Attempting to automatically and systematically scrape the site's content for the purpose of reusing it in other projects without permission.">محاولة استخراج (Scraping) محتوى الموقع بشكل آلي وجماعي بغرض إعادة استخدامه في مشاريع أخرى دون إذن.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s15">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M14 4l6 6M6 12l6 6M3 21l5-5M9 9l6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="正式な要請に基づくコンテンツ削除の手続き" data-ar="إجراءات إزالة المحتوى بناءً على طلب رسمي" data-en="Content removal procedures upon official request">إجراءات إزالة المحتوى بناءً على طلب رسمي</p>
+</div>
+<p class="disc-text lang-ar" data-ja="原作の権利を保有する会社から正式な要請があった場合に取られる手続きについての、より詳細な説明です。" data-ar="توضيحاً أكثر تفصيلاً للإجراء المتّبع في حال ورود طلب رسمي من الشركة المالكة لحقوق العمل الأصلي." data-en="A more detailed clarification of the procedure followed should an official request be received from the company owning the rights to the original work.">توضيحاً أكثر تفصيلاً للإجراء المتّبع في حال ورود طلب رسمي من الشركة المالكة لحقوق العمل الأصلي.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="株式会社松竹または正式な法定代理人からの、正式かつ立証可能な要請を受け取った場合、それは遅滞なく直ちに確認されます。" data-ar="في حال تلقّي طلب رسمي وموثّق من شركة Shochiku Co., Ltd. أو ممثليها القانونيين المعتمدين، ستتم مراجعته والاستجابة له فوراً ودون أي تأخير." data-en="Should an official, verifiable request be received from Shochiku Co., Ltd. or its authorized legal representatives, it will be reviewed and acted upon immediately and without delay.">في حال تلقّي طلب رسمي وموثّق من شركة Shochiku Co., Ltd. أو ممثليها القانونيين المعتمدين، ستتم مراجعته والاستجابة له فوراً ودون أي تأخير.</li>
+<li class="lang-ar" data-ja="要請には、特定のページの削除、テキストの修正、画像の差し替え、または明示的に要求された場合のサイト全体の閉鎖が含まれる場合があります。" data-ar="قد يشمل هذا الطلب إزالة صفحة معينة، أو تعديل نص محدد، أو استبدال صورة، أو حتى إغلاق الموقع بالكامل إن طُلب ذلك صراحةً وبشكل رسمي." data-en="Such a request may include removing a specific page, modifying certain text, replacing an image, or even closing the entire site if explicitly and formally requested.">قد يشمل هذا الطلب إزالة صفحة معينة، أو تعديل نص محدد، أو استبدال صورة، أو حتى إغلاق الموقع بالكامل إن طُلب ذلك صراحةً وبشكل رسمي.</li>
+<li class="lang-ar" data-ja="この種の要請に対応するにあたり、会社またはその代理人に対していかなる条件や見返りも要求されません。" data-ar="لن يُطلب أي شرط أو مقابل من الشركة أو ممثليها القانونيين مقابل الاستجابة الفورية لأي طلب من هذا النوع." data-en="No condition or compensation whatsoever will be requested from the company or its legal representatives in exchange for immediate compliance with any such request.">لن يُطلب أي شرط أو مقابل من الشركة أو ممثليها القانونيين مقابل الاستجابة الفورية لأي طلب من هذا النوع.</li>
+<!-- تم إزالة جملة قناة التواصل المعتمدة -->
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s16">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M5 20c1-3.8 4-5.8 7-5.8s6 2 7 5.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="コンテンツの対象年齢について" data-ar="الفئة العمرية للمحتوى" data-en="Content age appropriateness">الفئة العمرية للمحتوى</p>
+</div>
+<p class="disc-text lang-ar" data-ja="本サイトのコンテンツが様々な年齢層にどの程度適しているかについての説明です。" data-ar="توضيح بخصوص مدى ملاءمة محتوى هذا الموقع للفئات العمرية المختلفة." data-en="Clarification regarding the appropriateness of this site's content for different age groups.">توضيح بخصوص مدى ملاءمة محتوى هذا الموقع للفئات العمرية المختلفة.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本サイトのコンテンツは、原作アニメの対象年齢層に準じており、特別に不適切または成人向けの要素を追加するものではありません。" data-ar="محتوى هذا الموقع يتماشى مع الفئة العمرية المستهدفة من الأنمي الأصلي، ولا يضيف أي عناصر غير لائقة أو موجّهة للبالغين حصراً." data-en="This site's content aligns with the target age group of the original anime, and does not add any inappropriate or exclusively adult-oriented elements.">محتوى هذا الموقع يتماشى مع الفئة العمرية المستهدفة من الأنمي الأصلي، ولا يضيف أي عناصر غير لائقة أو موجّهة للبالغين حصراً.</li>
+<li class="lang-ar" data-ja="原作が特定の年齢層を対象としている場合、本サイトも同じ分類を尊重し、それを超えることはありません。" data-ar="إن كان العمل الأصلي يستهدف فئة عمرية معينة، فإن هذا الموقع يحترم ذات التصنيف العمري ولا يتجاوزه بأي شكل من الأشكال." data-en="If the original work targets a specific age group, this site respects that same age classification and does not exceed it in any way.">إن كان العمل الأصلي يستهدف فئة عمرية معينة، فإن هذا الموقع يحترم ذات التصنيف العمري ولا يتجاوزه بأي شكل من الأشكال.</li>
+<li class="lang-ar" data-ja="保護者の皆様には、ご自身の方針に基づき、本サイトを含むあらゆるウェブサイトのお子様によるご利用を監督されることをお勧めします。" data-ar="يُنصح الآباء والأمهات بالإشراف على استخدام أبنائهم لأي مواقع إلكترونية، بما فيها هذا الموقع، وذلك وفقاً لسياستهم الشخصية الخاصة بهم." data-en="Parents are advised to supervise their children's use of any websites, including this one, in accordance with their own personal policies.">يُنصح الآباء والأمهات بالإشراف على استخدام أبنائهم لأي مواقع إلكترونية، بما فيها هذا الموقع، وذلك وفقاً لسياستهم الشخصية الخاصة بهم.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s17">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5C4.7 20 4 19.3 4 18.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M20 5.5C20 4.7 19.3 4 18.5 4H12v16h6.5c.8 0 1.5-.7 1.5-1.5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="法的枠組みに関する一般的注記" data-ar="ملاحظة عامة حول الإطار القانوني" data-en="General note on the legal framework">ملاحظة عامة حول الإطار القانوني</p>
+</div>
+<p class="disc-text lang-ar" data-ja="サイト訪問者にとっての分かりやすさとシンプルさを重視し、複雑な法的詳細には立ち入らない、一般的な説明的注記です。" data-ar="ملاحظة عامة توضيحية دون الدخول في تفاصيل قانونية معقدة، حرصاً على البساطة والوضوح لزوار الموقع." data-en="A general, clarifying note without delving into complex legal details, in the interest of simplicity and clarity for site visitors.">ملاحظة عامة توضيحية دون الدخول في تفاصيل قانونية معقدة، حرصاً على البساطة والوضوح لزوار الموقع.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="この免責事項は、特定の法域を定めることを目的とせず、単にこの作品の性質とその運営者の責任の範囲を明確にすることのみを目的としています。" data-ar="لا يهدف هذا الإخلاء للمسؤولية إلى تحديد اختصاص قضائي معين، وإنما يُقصد به فقط توضيح طبيعة العمل وحدود مسؤولية صاحبه الشخصية." data-en="This disclaimer does not aim to establish a specific legal jurisdiction, but is intended solely to clarify the nature of this work and the limits of its owner's personal responsibility.">لا يهدف هذا الإخلاء للمسؤولية إلى تحديد اختصاص قضائي معين، وإنما يُقصد به فقط توضيح طبيعة العمل وحدود مسؤولية صاحبه الشخصية.</li>
+<li class="lang-ar" data-ja="知的財産権に関して生じる可能性のある紛争は、原著作権者である会社が登録されている国の適用法に準拠します。" data-ar="يخضع أي نزاع قد ينشأ فيما يتعلق بحقوق الملكية الفكرية للقوانين المعمول بها في البلد الذي تُسجَّل فيه الشركة المالكة الأصلية للعمل." data-en="Any dispute that may arise regarding intellectual property rights is subject to the laws applicable in the country where the original owning company is registered.">يخضع أي نزاع قد ينشأ فيما يتعلق بحقوق الملكية الفكرية للقوانين المعمول بها في البلد الذي تُسجَّل فيه الشركة المالكة الأصلية للعمل.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s18">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.6 5.4 5.9.86-4.25 4.15 1 5.9L12 16.4l-5.25 2.9 1-5.9L3.5 9.26l5.9-.86z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="謝辞" data-ar="شكر وتقدير" data-en="Acknowledgements">شكر وتقدير</p>
+</div>
+<p class="disc-text lang-ar" data-ja="この場をお借りして、株式会社松竹および「かけ恋」制作に関わったすべての皆様に、この素晴らしい作品を生み出してくださったことに深く感謝申し上げます。" data-ar="أغتنم هذه الفرصة لأتقدّم بجزيل الشكر والتقدير لشركة Shochiku Co., Ltd. ولكل من ساهم في صناعة عمل «Kakekoi»، على هذا العمل الرائع الذي قدّموه للجمهور." data-en="I take this opportunity to extend my deepest gratitude and appreciation to Shochiku Co., Ltd. and everyone who contributed to the creation of &quot;Kakekoi&quot;, for this wonderful work they have given to the audience.">أغتنم هذه الفرصة لأتقدّم بجزيل الشكر والتقدير لشركة Shochiku Co., Ltd. ولكل من ساهم في صناعة عمل «Kakekoi»، على هذا العمل الرائع الذي قدّموه للجمهور.</p>
+<p class="disc-text lang-ar" data-ja="本サイトは、この作品とそのキャラクターへの愛なしには作られなかったでしょう。これは、この美しい物語の世界への、一人のファンによるささやかな捧げものです。" data-ar="هذا الموقع لم يكن ليُصنع لولا حب هذا العمل وشخصياته، وهو بمثابة إهداء متواضع من أحد المعجبين لهذا العالم القصصي الجميل." data-en="This site would not have been made without a love for this work and its characters, and stands as a humble tribute from a fan to this beautiful storytelling world.">هذا الموقع لم يكن ليُصنع لولا حب هذا العمل وشخصياته، وهو بمثابة إهداء متواضع من أحد المعجبين لهذا العالم القصصي الجميل.</p>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s19">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l5 5v13H7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="本ページで使用される用語の定義" data-ar="تعريفات المصطلحات المستخدمة في هذه الصفحة" data-en="Definitions of terms used on this page">تعريفات المصطلحات المستخدمة في هذه الصفحة</p>
+</div>
+<p class="disc-text lang-ar" data-ja="理解を容易にするため、本ページ全体で使用される主要な用語の簡潔な定義を以下に示します。" data-ar="لتسهيل الفهم، إليك تعريفاً موجزاً لأبرز المصطلحات المستخدمة على امتداد هذه الصفحة." data-en="For ease of understanding, here is a brief definition of the key terms used throughout this page.">لتسهيل الفهم، إليك تعريفاً موجزاً لأبرز المصطلحات المستخدمة على امتداد هذه الصفحة.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="本ページにおける「権利」とは、著作権、知的財産権、商標権、および法的に認められるその他の関連する権利を指します。" data-ar="يُقصد بكلمة &quot;الحقوق&quot; في هذه الصفحة: حقوق النشر، وحقوق الملكية الفكرية، وحقوق العلامة التجارية، وأي حق مجاور آخر معترف به قانونياً." data-en="The term &quot;rights&quot; in this page refers to: copyrights, intellectual property rights, trademark rights, and any other legally recognized related right.">يُقصد بكلمة "الحقوق" في هذه الصفحة: حقوق النشر، وحقوق الملكية الفكرية، وحقوق العلامة التجارية، وأي حق مجاور آخر معترف به قانونياً.</li>
+<li class="lang-ar" data-ja="「原作」とは、アニメ「かけ恋」を指し、そのすべてのエピソード、キャラクター、音楽、公式プロモーション素材を含みます。" data-ar="يُقصد بعبارة &quot;العمل الأصلي&quot;: أنمي «かけ恋» (Kakekoi) بكل ما يتضمنه من حلقات، وشخصيات، وموسيقى، ومواد ترويجية رسمية." data-en="The term &quot;original work&quot; refers to: the &quot;Kakekoi&quot; (かけ恋) anime with everything it includes — episodes, characters, music, and official promotional materials.">يُقصد بعبارة "العمل الأصلي": أنمي «かけ恋» (Kakekoi) بكل ما يتضمنه من حلقات، وشخصيات، وموسيقى، ومواد ترويجية رسمية.</li>
+<li class="lang-ar" data-ja="「本サイト」または「本版」とは、kakekoi.netlify.appのリンクからアクセス可能な非公式ウェブサイトを指し、そのすべてのページと機能を含みます。" data-ar="يُقصد بعبارة &quot;هذا الموقع&quot; أو &quot;هذه النسخة&quot;: الموقع الإلكتروني غير الرسمي المتاح عبر الرابط kakekoi.netlify.app بكامل صفحاته وميزاته." data-en="The term &quot;this site&quot; or &quot;this version&quot; refers to: the unofficial website available at kakekoi.netlify.app, with all of its pages and features.">يُقصد بعبارة "هذا الموقع" أو "هذه النسخة": الموقع الإلكتروني غير الرسمي المتاح عبر الرابط kakekoi.netlify.app بكامل صفحاته وميزاته.</li>
+<li class="lang-ar" data-ja="「サイト運営者」または「ファン」とは、会社を代表するいかなる立場も持たず、個人的かつ非公式にこの拡張版を作成・開発した人物を指します。" data-ar="يُقصد بعبارة &quot;صاحب الموقع&quot; أو &quot;المعجب&quot;: الشخص الذي أعدّ وطوّر هذه النسخة الموسّعة بشكل شخصي وغير رسمي، دون أي صفة تمثيلية للشركة." data-en="The term &quot;site owner&quot; or &quot;the fan&quot; refers to: the person who personally and unofficially prepared and developed this extended version, without any representative capacity on behalf of the company.">يُقصد بعبارة "صاحب الموقع" أو "المعجب": الشخص الذي أعدّ وطوّر هذه النسخة الموسّعة بشكل شخصي وغير رسمي، دون أي صفة تمثيلية للشركة.</li>
+<li class="lang-ar" data-ja="本セクションに記載されるすべての定義は、このページの条項の理解を容易にするためだけのものであり、その文脈を超えたいかなる追加の法的意味合いも持ちません。" data-ar="التعريفات الواردة في هذا القسم مخصَّصة فقط لتسهيل فهم بنود هذه الصفحة، ولا تحمل أي دلالة قانونية إضافية خارج سياقها المحدد." data-en="The definitions provided in this section are intended solely to facilitate understanding of this page's terms, and carry no additional legal significance beyond their specific context.">التعريفات الواردة في هذا القسم مخصَّصة فقط لتسهيل فهم بنود هذه الصفحة، ولا تحمل أي دلالة قانونية إضافية خارج سياقها المحدد.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s20">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.5-9.5-9C1 8.2 2.6 5 6 5c2 0 3.4 1.1 4.2 2.3C11 6.1 12.4 5 14.4 5c3.4 0 5 3.2 3.5 7-2 4.5-9.5 9-9.5 9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="結びの言葉" data-ar="كلمة ختامية" data-en="Closing note">كلمة ختامية</p>
+</div>
+<p class="disc-text lang-ar" data-ja="これだけ詳しく述べた後でも、根本的な考えはシンプルです。これはファンによって作られた作品であり、純粋な気持ちと、原作の権利者への完全な敬意を持って作られたものです。" data-ar="بعد كل هذا التفصيل، تبقى الفكرة الأساسية بسيطة: هذا عمل من إعداد معجب، صُنع بنيّة صافية، واحتراماً كاملاً لأصحاب العمل الأصلي." data-en="After all this detail, the core idea remains simple: this is a fan-made work, created with pure intent, and full respect for the owners of the original work.">بعد كل هذا التفصيل، تبقى الفكرة الأساسية بسيطة: هذا عمل من إعداد معجب، صُنع بنيّة صافية، واحتراماً كاملاً لأصحاب العمل الأصلي.</p><ul class="disc-list">
+<li class="lang-ar" data-ja="この作品は、そのシンプルさにもかかわらず、原作とその制作者への大きな愛と敬意を持って作られました。その目的は、この美しさをより多くの人々と分かち合うこと以外にありませんでした。" data-ar="هذا العمل، رغم بساطته، صُنع بحب واحترام كبيرين تجاه العمل الأصلي وصنّاعه، ولم يكن الهدف منه يوماً سوى مشاركة هذا الجمال مع جمهور أوسع." data-en="This work, despite its simplicity, was made with great love and respect for the original work and its creators, and its purpose has never been anything other than sharing this beauty with a wider audience.">هذا العمل، رغم بساطته، صُنع بحب واحترام كبيرين تجاه العمل الأصلي وصنّاعه، ولم يكن الهدف منه يوماً سوى مشاركة هذا الجمال مع جمهور أوسع.</li>
+<li class="lang-ar" data-ja="本サイトの運営者は、アラビア語話者である本作品のファンに、楽しく有益な体験を提供できていることを願っています。" data-ar="يأمل صاحب هذا الموقع أن يكون قد نجح في تقديم تجربة ممتعة ومفيدة لمحبي هذا العمل من الناطقين باللغة العربية." data-en="This site's owner hopes to have succeeded in offering an enjoyable and useful experience for Arabic-speaking fans of this work.">يأمل صاحب هذا الموقع أن يكون قد نجح في تقديم تجربة ممتعة ومفيدة لمحبي هذا العمل من الناطقين باللغة العربية.</li>
+<li class="lang-ar" data-ja="このページを最後までお読みいただき、ありがとうございました。この非公式サイトの他の部分でも、楽しい時間をお過ごしください。" data-ar="شكراً لقراءتكم هذه الصفحة بالكامل، ونتمنى لكم تجربة استخدام ممتعة لبقية هذا الموقع غير الرسمي." data-en="Thank you for reading this page in full, and we wish you an enjoyable experience with the rest of this unofficial site.">شكراً لقراءتكم هذه الصفحة بالكامل، ونتمنى لكم تجربة استخدام ممتعة لبقية هذا الموقع غير الرسمي.</li>
+</ul>
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s21">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 6v6c0 5 3.8 8.7 9 10 5.2-1.3 9-5 9-10V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="権利者様へ" data-ar="لأصحاب الحقوق" data-en="For rights holders">لأصحاب الحقوق</p>
+</div>
+<p class="disc-text lang-ar" data-ja="株式会社松竹および正式な権利者の方より、本サイトの内容やコンテンツの一部・全部の削除、修正のご要望があった場合は、速やかに対応いたします。" data-ar="في حال رغبت شركة Shochiku Co., Ltd. أو أي من أصحاب الحقوق الرسميين للعمل بإزالة أو تعديل أي جزء من محتوى هذا الموقع أو الموقع بالكامل، فسيتم الاستجابة لذلك فوراً ودون أي تأخير." data-en="Should Shochiku Co., Ltd. or any official rights holder of the work wish to have any part of this site's content, or the site as a whole, removed or modified, this will be acted upon immediately and without delay.">في حال رغبت شركة Shochiku Co., Ltd. أو أي من أصحاب الحقوق الرسميين للعمل بإزالة أو تعديل أي جزء من محتوى هذا الموقع أو الموقع بالكامل، فسيتم الاستجابة لذلك فوراً ودون أي تأخير.</p>
+<!-- تم إزالة صندوق التواصل -->
+</div>
+
+<hr class="disc-divider"/>
+
+<div class="disc-section" id="s22">
+<div class="disc-section-head">
+<span class="disc-section-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6"/><path d="M9.2 9.3a2.8 2.8 0 0 1 5.4.9c0 1.9-2.5 2.1-2.5 3.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="17.1" r="1.05" fill="currentColor"/></svg></span>
+<p class="disc-section-title lang-ar" data-ja="このサイトのアドレス" data-ar="عنوان هذا الموقع" data-en="This site's address">عنوان هذا الموقع</p>
+</div>
+<p class="disc-text lang-ar" data-ja="このファンメイド拡張版は、以下のアドレスでのみ公開されています。" data-ar="هذه النسخة الموسّعة والمعدّلة (غير الرسمية) متاحة حصراً عبر العنوان التالي." data-en="This unofficial extended/modified fan version is available exclusively at the following address.">هذه النسخة الموسّعة والمعدّلة (غير الرسمية) متاحة حصراً عبر العنوان التالي.</p>
+<div class="disc-linkbox">
+<span class="disc-linkbox-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16M12 4c2.5 2.6 4 5.4 4 8s-1.5 5.4-4 8c-2.5-2.6-4-5.4-4-8s1.5-5.4 4-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+<div class="disc-linkbox-body">
+<p class="disc-linkbox-label lang-ar" data-ja="このサイト" data-ar="هذا الموقع" data-en="This site">هذا الموقع</p>
+<a href="https://kakekoi.netlify.app" target="_blank" rel="noopener">kakekoi.netlify.app</a>
+</div>
+</div>
+</div>
+
+<a class="disc-home-btn" id="disc-home-btn" href="index.html">
+<svg viewBox="0 0 9 15" fill="none"><path fill="currentColor" d="M8.0605.707 1.4141 7.3535 8.0606 14l-.707.707L0 7.3535 7.3535 0z"/></svg>
+<span class="lang-ar" id="disc-home-btn-text" data-ja="トップページへ戻る" data-ar="العودة إلى الصفحة الرئيسية" data-en="Back to the homepage">العودة إلى الصفحة الرئيسية</span>
+</a>
+
+<p class="disc-footnote lang-ar" id="disc-footnote" data-ja="© Shochiku Co., Ltd. 原著作権はすべて権利者に帰属します。本ページはファンによる非公式の拡張版であり、公式とは一切関係ありません。" data-ar="© جميع الحقوق الأصلية محفوظة لشركة Shochiku Co., Ltd. وأصحاب الحقوق الرسميين. هذا العمل توسعة غير رسمية من إعداد أحد المعجبين، ولا علاقة له بالجهة الرسمية إطلاقاً." data-en="© All original rights reserved to Shochiku Co., Ltd. and the official rights holders. This page is an unofficial fan-made extension and is not affiliated with the official party in any way.">© جميع الحقوق الأصلية محفوظة لشركة Shochiku Co., Ltd. وأصحاب الحقوق الرسميين. هذا العمل توسعة غير رسمية من إعداد أحد المعجبين، ولا علاقة له بالجهة الرسمية إطلاقاً.</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var STORAGE_KEY = "kakekoi-lang-pref";
+  var LANGS = ["ja","en","ar"];
+  var currentLang = "ja";
+
+  function applyLang(lang){
+    if (LANGS.indexOf(lang) === -1) lang = "ja";
+    currentLang = lang;
+    var ar = lang === "ar";
+    document.documentElement.setAttribute("lang", lang === "ja" ? "ja" : (ar ? "ar" : "en"));
+    document.documentElement.setAttribute("dir", ar ? "rtl" : "ltr");
+
+    var nodes = document.querySelectorAll("[data-ja][data-ar][data-en]");
+    nodes.forEach(function(el){
+      el.classList.add("is-fading");
+      window.setTimeout(function(){
+        var val = el.getAttribute("data-" + lang);
+        if (val === null) val = el.getAttribute("data-ja");
+        el.textContent = val;
+        el.classList.remove("lang-ja","lang-en","lang-ar");
+        el.classList.add("lang-" + lang);
+        el.classList.remove("is-fading");
+      }, 90);
+    });
+
+    var btn = document.getElementById("disc-lang-btn");
+    if (btn) {
+      btn.classList.toggle("is-en", lang === "en");
+      btn.classList.toggle("is-ar", ar);
+    }
+    var labelJa = document.getElementById("disc-lang-label-ja");
+    var labelEn = document.getElementById("disc-lang-label-en");
+    var labelAr = document.getElementById("disc-lang-label-ar");
+    if (labelJa) labelJa.classList.toggle("is-current", lang === "ja");
+    if (labelEn) labelEn.classList.toggle("is-current", lang === "en");
+    if (labelAr) labelAr.classList.toggle("is-current", ar);
+
+    try { window.localStorage.setItem(STORAGE_KEY, lang); } catch(e) {}
+  }
+
+  function init(){
+    var saved = "ja";
+    try {
+      var stored = window.localStorage.getItem(STORAGE_KEY);
+      if (stored && LANGS.indexOf(stored) !== -1) saved = stored;
+    } catch(e) {}
+    applyLang(saved);
+
+    var btn = document.getElementById("disc-lang-btn");
+    if (btn) {
+      btn.addEventListener("click", function(){
+        var next = LANGS[(LANGS.indexOf(currentLang) + 1) % LANGS.length];
+        applyLang(next);
+      });
+    }
+    var labelJaBtn = document.getElementById("disc-lang-label-ja");
+    var labelEnBtn = document.getElementById("disc-lang-label-en");
+    var labelArBtn = document.getElementById("disc-lang-label-ar");
+    if (labelJaBtn) labelJaBtn.addEventListener("click", function(){ applyLang("ja"); });
+    if (labelEnBtn) labelEnBtn.addEventListener("click", function(){ applyLang("en"); });
+    if (labelArBtn) labelArBtn.addEventListener("click", function(){ applyLang("ar"); });
+
+    var backBtn = document.getElementById("disc-back-btn");
+    if (backBtn) {
+      backBtn.addEventListener("click", function(){
+        if (window.history.length > 1) { window.history.back(); }
+        else { window.location.href = "index.html"; }
+      });
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>
