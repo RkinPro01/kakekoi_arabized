@@ -312,6 +312,270 @@
     .kakekoi-credit-wrap{ bottom:14px; }
     .day-panel{ padding-bottom:56px; }
   }
+
+  /* ==== بطاقات تعريف الشخصيتين (كوهارو / كاكيرو) ==== */
+  /* أي عنصر يحمل data-char-trigger يصبح قابلاً للنقر لفتح بطاقة الشخصية المطابقة،
+     سواء كان أفاتار الدردشة المتكرر لكوهارو، اسمها في الشريط العلوي، أو أفاتار
+     البطل الجديد المضاف بجانبها (لأن كاكيرو لا تظهر له صورة إطلاقاً داخل الفقاعات). */
+  [data-char-trigger]{
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  [data-char-trigger]:active{ opacity:.75; }
+
+  .kakekoi-hero-avatar-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 auto;
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    overflow:hidden;
+    background:#E8E15D;
+    border:1.5px solid rgba(255,255,255,.65);
+    padding:0;
+    margin-inline-start:2px;
+  }
+  .kakekoi-hero-avatar-btn img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:top center;
+  }
+  .kakekoi-header-names{
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .kakekoi-header-sep{
+    color:rgba(255,255,255,.45);
+    font-size:12px;
+    line-height:1;
+    user-select:none;
+  }
+
+  .kakekoi-char-modal{
+    position:fixed;
+    inset:0;
+    z-index:10800;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    visibility:hidden;
+    opacity:0;
+    transition:opacity .22s ease, visibility 0s linear .22s;
+  }
+  .kakekoi-char-modal.is-open{
+    visibility:visible;
+    opacity:1;
+    transition:opacity .22s ease;
+  }
+  @media (min-width:768px){
+    .kakekoi-char-modal{ align-items:center; }
+  }
+  .kakekoi-char-modal-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(15,22,25,.6);
+    backdrop-filter:blur(3px);
+  }
+  .kakekoi-char-card{
+    position:relative;
+    width:100%;
+    max-width:420px;
+    max-height:88vh;
+    max-height:88dvh;
+    background:#F4F8F9;
+    border-radius:22px 22px 0 0;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transform:translateY(24px);
+    transition:transform .28s cubic-bezier(.2,.8,.25,1);
+    box-shadow:0 -10px 40px rgba(0,0,0,.3);
+  }
+  .kakekoi-char-modal.is-open .kakekoi-char-card{ transform:translateY(0); }
+  @media (min-width:768px){
+    .kakekoi-char-card{
+      border-radius:22px;
+      max-height:82vh;
+      transform:translateY(10px) scale(.97);
+    }
+    .kakekoi-char-modal.is-open .kakekoi-char-card{ transform:translateY(0) scale(1); }
+  }
+  .kakekoi-char-card-scroll{
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .kakekoi-char-card-grabber{
+    width:36px;
+    height:4px;
+    border-radius:999px;
+    background:rgba(0,0,0,.18);
+    margin:10px auto 0;
+    flex:0 0 auto;
+  }
+  @media (min-width:768px){ .kakekoi-char-card-grabber{ display:none; } }
+  .kakekoi-char-card-close{
+    position:absolute;
+    top:12px;
+    inset-inline-end:12px;
+    z-index:2;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:none;
+    background:rgba(20,30,35,.45);
+    backdrop-filter:blur(4px);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    padding:0;
+  }
+  .kakekoi-char-card-close svg{ width:13px; height:13px; }
+  .kakekoi-char-card-image{
+    position:relative;
+    width:100%;
+    aspect-ratio:3/4;
+    flex:0 0 auto;
+    background:linear-gradient(150deg,#A5CBD6,#3A5E6E);
+    overflow:hidden;
+  }
+  @media (min-width:768px){
+    .kakekoi-char-card-image{ aspect-ratio:16/12; }
+  }
+  .kakekoi-char-card-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 20%;
+    filter:saturate(1.05);
+    z-index:0;
+  }
+  .kakekoi-char-card-cutout{
+    position:absolute;
+    bottom:0;
+    inset-inline-start:50%;
+    transform:translateX(-50%);
+    height:96%;
+    width:auto;
+    max-width:none;
+    object-fit:contain;
+    object-position:bottom center;
+    filter:drop-shadow(0 14px 18px rgba(10,16,18,.35));
+    z-index:2;
+  }
+  .kakekoi-char-card-image::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(20,32,36,.18);
+    z-index:1;
+  }
+  .kakekoi-char-card-image::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top, rgba(15,22,25,.78) 0%, rgba(15,22,25,0) 46%);
+    z-index:3;
+    pointer-events:none;
+  }
+  .kakekoi-char-card-role{
+    position:absolute;
+    bottom:12px;
+    inset-inline-start:18px;
+    z-index:4;
+    color:#E8E15D;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    font-family:Arial,Helvetica,sans-serif;
+  }
+  .kakekoi-char-card-role[dir="rtl"]{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    text-transform:none;
+    letter-spacing:0;
+  }
+  .kakekoi-char-card-body{
+    padding:16px 20px calc(22px + env(safe-area-inset-bottom,0px));
+  }
+  .kakekoi-char-card-namerow{
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:2px 10px;
+    margin-bottom:2px;
+  }
+  .kakekoi-char-card-name-ja{
+    font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+    font-size:21px;
+    font-weight:700;
+    color:#1E2A2E;
+  }
+  .kakekoi-char-card-name-sub{
+    font-size:13px;
+    color:#6D8189;
+  }
+  .kakekoi-char-card-name-sub.lang-ar{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+  }
+  .kakekoi-char-card-quote{
+    margin:14px 0;
+    padding:10px 14px;
+    border-inline-start:3px solid #E8E15D;
+    background:rgba(58,94,110,.06);
+    border-radius:4px;
+    font-size:13.5px;
+    line-height:1.7;
+    color:#3A5E6E;
+    font-style:italic;
+  }
+  .kakekoi-char-card-quote.lang-ar{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-style:normal;
+  }
+  .kakekoi-char-card-quote.lang-ja{
+    font-style:normal;
+  }
+  .kakekoi-char-card-desc{
+    font-size:13.5px;
+    line-height:1.85;
+    color:#3A4A50;
+    text-align:justify;
+  }
+  .kakekoi-char-card-desc.lang-ar{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    text-align:right;
+    line-height:1.9;
+  }
+  .kakekoi-char-card-cv{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid rgba(0,0,0,.08);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12.5px;
+    color:#6D8189;
+  }
+  .kakekoi-char-card-cv.lang-ar{
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+  }
+  .kakekoi-char-card-cv-label{
+    color:#3A5E6E;
+    font-weight:700;
+  }
+  .kakekoi-char-card-cv-name{
+    font-family:'Zen Kaku Gothic New','Noto Sans JP',sans-serif;
+    color:#1E2A2E;
+    font-weight:500;
+  }
+  body.kakekoi-modal-open{ overflow:hidden; }
 </style>
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
 <!-- This site is optimized with the Yoast SEO plugin v24.3 - https://yoast.com/wordpress/plugins/seo/ -->
@@ -457,7 +721,13 @@
 <div class="w-2 h-auto">
 <img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-back.svg"/>
 </div>
-<p class="font-jp_sans font-medium text-15 leading-none text-white" data-ja="冬月小春" data-ar="كوهارو فويوتسكي" data-en="Koharu Fuyutsuki">冬月小春</p>
+<div class="kakekoi-header-names">
+<p class="font-jp_sans font-medium text-15 leading-none text-white" data-char-trigger="koharu" data-ja="冬月小春" data-ar="كوهارو فويوتسكي" data-en="Koharu Fuyutsuki">冬月小春</p>
+<span class="kakekoi-header-sep" aria-hidden="true">/</span>
+<button aria-label="بطاقة الشخصية" class="kakekoi-hero-avatar-btn" data-char-trigger="kakeru" type="button">
+<img alt="" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-kakeru-cutout.png"/>
+</button>
+</div>
 </div>
 <div class="flex justify-end items-center size-auto gap-x-2.5">
 <div class="w-6 h-auto">
@@ -4538,6 +4808,128 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
   } else {
     init();
   }
+})();
+</script>
+
+<!-- ==== بطاقات تعريف الشخصيتين ==== -->
+<div aria-hidden="true" class="kakekoi-char-modal" id="kakekoi-char-modal">
+<div class="kakekoi-char-modal-backdrop" data-char-close=""></div>
+
+<div class="kakekoi-char-card" data-char-card="koharu" role="dialog" aria-modal="true" aria-labelledby="kakekoi-char-name-koharu">
+<div class="kakekoi-char-card-grabber" aria-hidden="true"></div>
+<button aria-label="إغلاق" class="kakekoi-char-card-close" data-char-close="" type="button">
+<svg fill="none" viewbox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"/></svg>
+</button>
+<div class="kakekoi-char-card-scroll">
+<div class="kakekoi-char-card-image">
+<img alt="" class="kakekoi-char-card-bg" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-koharu-bg.png"/>
+<img alt="冬月小春" class="kakekoi-char-card-cutout" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-koharu-cutout.png"/>
+<p class="kakekoi-char-card-role" data-ja="CHARACTER" data-ar="بطاقة الشخصية" data-en="CHARACTER">CHARACTER</p>
+</div>
+<div class="kakekoi-char-card-body">
+<div class="kakekoi-char-card-namerow">
+<span class="kakekoi-char-card-name-ja" id="kakekoi-char-name-koharu" data-ja="冬月 小春" data-ar="كوهارو فويوتسكي" data-en="Koharu Fuyutsuki">冬月 小春</span>
+<span class="kakekoi-char-card-name-sub" data-ja="Koharu Fuyutsuki" data-ar="冬月 小春" data-en="冬月小春">Koharu Fuyutsuki</span>
+</div>
+<p class="kakekoi-char-card-quote" data-ja="「打ち上げ花火、してみたいんですよね」" data-ar="«أتمنى لو أستطيع يوماً ما، أن أُطلق الألعاب النارية مع أصدقاء»" data-en="&quot;I'd really like to set off fireworks with friends sometime.&quot;">「打ち上げ花火、してみたいんですよね」</p>
+<p class="kakekoi-char-card-desc" data-ja="かけると同じ大学に通う、視覚障がいを持つ女の子。明るく、自分のやりたいことに真っ直ぐな性格。新歓コンパでかけると出会い、彼と過ごす時間の中で、新しい世界を知っていく。" data-ar="فتاة تدرس في الجامعة نفسها التي يدرس فيها كاكيرو، وتعاني من إعاقة بصرية. شخصيتها مشرقة وصريحة، تسعى دوماً خلف ما ترغب في فعله دون تردد. تلتقي بكاكيرو في حفل الترحيب بالطلاب الجدد، ومع الوقت الذي تقضيه معه، تبدأ باكتشاف عالمٍ جديد كلياً." data-en="A girl who attends the same university as Kakeru and has a visual impairment. She's bright and straightforward about the things she wants to do. She meets Kakeru at a club welcome party, and as she spends time with him, she comes to know a new world.">かけると同じ大学に通う、視覚障がいを持つ女の子。明るく、自分のやりたいことに真っ直ぐな性格。新歓コンパでかけると出会い、彼と過ごす時間の中で、新しい世界を知っていく。</p>
+<div class="kakekoi-char-card-cv">
+<span class="kakekoi-char-card-cv-label" data-ja="CV" data-ar="أداء صوتي" data-en="CV">CV</span>
+<span class="kakekoi-char-card-cv-name" data-ja="花澤香菜" data-ar="كانا هانازاوا" data-en="Kana Hanazawa">花澤香菜</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="kakekoi-char-card" data-char-card="kakeru" role="dialog" aria-modal="true" aria-labelledby="kakekoi-char-name-kakeru">
+<div class="kakekoi-char-card-grabber" aria-hidden="true"></div>
+<button aria-label="إغلاق" class="kakekoi-char-card-close" data-char-close="" type="button">
+<svg fill="none" viewbox="0 0 14 14" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"/></svg>
+</button>
+<div class="kakekoi-char-card-scroll">
+<div class="kakekoi-char-card-image">
+<img alt="" class="kakekoi-char-card-bg" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-kakeru-bg.png"/>
+<img alt="空野かける" class="kakekoi-char-card-cutout" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-kakeru-cutout.png"/>
+<p class="kakekoi-char-card-role" data-ja="CHARACTER" data-ar="بطاقة الشخصية" data-en="CHARACTER">CHARACTER</p>
+</div>
+<div class="kakekoi-char-card-body">
+<div class="kakekoi-char-card-namerow">
+<span class="kakekoi-char-card-name-ja" id="kakekoi-char-name-kakeru" data-ja="空野 かける" data-ar="سورانو كاكيرو" data-en="Kakeru Sorano">空野 かける</span>
+<span class="kakekoi-char-card-name-sub" data-ja="Kakeru Sorano" data-ar="空野 かける" data-en="空野かける">Kakeru Sorano</span>
+</div>
+<p class="kakekoi-char-card-quote" data-ja="「見えない冬月が見ている世界はきっと僕とは違うんだろう」" data-ar="«العالم الذي تراه كوهارو، رغم أنها لا تُبصر، لا بد أنه مختلف تماماً عن عالمي»" data-en="&quot;Her blind world is not the same as mine.&quot;">「見えない冬月が見ている世界はきっと僕とは違うんだろう」</p>
+<p class="kakekoi-char-card-desc" data-ja="内気で自分から人と関わることを避けている大学一年生。無理やり連れてこられたサークルの新歓コンパで冬月小春と出会い、冬月と過ごすうちに…自身にはない彼女の前向きで明るい性格に、惹かれていく。" data-ar="طالب جامعي في سنته الأولى، خجول ويتجنّب المبادرة بالتقرب من الآخرين. يُجَرّ رغماً عنه إلى حفل ترحيب أحد الأندية، فيلتقي هناك بكوهارو فويوتسكي. ومع الوقت الذي يقضيه معها، ينجذب شيئاً فشيئاً نحو شخصيتها المشرقة والإيجابية التي يفتقدها في نفسه." data-en="A shy first-year university student who avoids reaching out to others on his own. He's dragged along to a club welcome party, where he meets Koharu Fuyutsuki, and as he spends time with her, he finds himself drawn to her bright, positive personality — something he feels he lacks himself.">内気で自分から人と関わることを避けている大学一年生。無理やり連れてこられたサークルの新歓コンパで冬月小春と出会い、冬月と過ごすうちに…自身にはない彼女の前向きで明るい性格に、惹かれていく。</p>
+<div class="kakekoi-char-card-cv">
+<span class="kakekoi-char-card-cv-label" data-ja="CV" data-ar="أداء صوتي" data-en="CV">CV</span>
+<span class="kakekoi-char-card-cv-name" data-ja="入野自由" data-ar="جيو إيرينو" data-en="Jiro Irino">入野自由</span>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<script>
+(function(){
+  "use strict";
+  // ==== منطق فتح/إغلاق بطاقات تعريف الشخصيتين ====
+  // التفعيل يتم بتفويض الحدث (event delegation) على document بدلاً من ربط كل
+  // أفاتار من التسعين أفاتار المتكررة لكوهارو بمستمع مستقل، فيعمل هذا تلقائياً
+  // حتى مع الرسائل التي تظهر لاحقاً عبر محرك العرض التدريجي لكل يوم. أي عنصر
+  // يحمل data-char-trigger="koharu|kakeru" يفتح البطاقة المطابقة، وأي عنصر آخر
+  // بلا هذه السمة (مثل فقاعات كاكيرو التي لا تملك أفاتار أصلاً) لا يستدعي شيئاً.
+  var modal = document.getElementById("kakekoi-char-modal");
+  if (!modal) return;
+
+  var cards = {
+    koharu: modal.querySelector('[data-char-card="koharu"]'),
+    kakeru: modal.querySelector('[data-char-card="kakeru"]')
+  };
+  var lastFocused = null;
+  var openWho = null;
+
+  function openCard(who){
+    if (!cards[who]) return;
+    openWho = who;
+    cards.koharu.style.display = who === "koharu" ? "" : "none";
+    cards.kakeru.style.display = who === "kakeru" ? "" : "none";
+    lastFocused = document.activeElement;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("kakekoi-modal-open");
+    var closeBtn = cards[who].querySelector(".kakekoi-char-card-close");
+    if (closeBtn) closeBtn.focus({ preventScroll: true });
+  }
+
+  function closeCard(){
+    if (!openWho) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("kakekoi-modal-open");
+    openWho = null;
+    if (lastFocused && typeof lastFocused.focus === "function") lastFocused.focus({ preventScroll: true });
+  }
+
+  document.addEventListener("click", function(ev){
+    var trigger = ev.target.closest ? ev.target.closest("[data-char-trigger]") : null;
+    if (trigger) {
+      openCard(trigger.getAttribute("data-char-trigger"));
+      return;
+    }
+    // أفاتار كوهارو المتكرر داخل فقاعات الدردشة (size-10) لا يحمل السمة بنفسه؛
+    // نتعرّف عليه من صورة الأيقونة المعروفة بداخله بدل تعديل ٩٠ فقاعة يدوياً.
+    var avatar = ev.target.closest ? ev.target.closest(".size-10.rounded-full") : null;
+    if (avatar && avatar.querySelector('img[src*="special-thumb-icon"]')) {
+      openCard("koharu");
+      return;
+    }
+    if (ev.target.closest && ev.target.closest("[data-char-close]")) {
+      closeCard();
+    }
+  });
+
+  document.addEventListener("keydown", function(ev){
+    if (ev.key === "Escape" && openWho) closeCard();
+  });
 })();
 </script>
 </body>
