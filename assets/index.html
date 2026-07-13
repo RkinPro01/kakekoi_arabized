@@ -28,7 +28,7 @@
     position:fixed;
     top:calc(env(safe-area-inset-top,0px) + 10px);
     right:10px;
-    z-index:1000;
+    z-index:10000;
     display:flex;
     align-items:center;
     gap:6px;
@@ -226,7 +226,7 @@
 </svg>
 <div class="effect-loading fixed inset-0 z-[9999] flex justify-center items-center bg-white" x-bind:class="{ 'is-active': action, 'is-complete': complete }" x-data="loading">
 <div class="effect-blur-fadein absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(132/16*1rem)] h-auto z-10" x-cloak="">
-<img alt="透明な夜に駆ける君と、目に見えない恋をした。" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png"/>
+<img alt="透明な夜に駆ける君と、目に見えない恋をした。" class="w-full h-auto" id="kakekoi-loading-logo" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/site-logo.png"/>
 </div>
 </div>
 <div class="lang-toggle-wrap" id="lang-toggle-wrap">
@@ -2043,7 +2043,7 @@
 <div class="talk-share-item w-full h-auto mt-6">
 <a class="link block w-full h-auto bg-white rounded-lg overflow-hidden" href="https://sh-anime.shochiku.co.jp/kakekoi/">
 <div class="w-full h-auto">
-<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
+<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-1" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
 </div>
 <div class="w-full h-auto py-2 text-center">
 <p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»">「かけ恋」アニメ公式サイトへ</p>
@@ -2969,7 +2969,7 @@
 <div class="talk-share-item w-full h-auto mt-6">
 <a class="link block w-full h-auto bg-white rounded-lg overflow-hidden" href="https://sh-anime.shochiku.co.jp/kakekoi/">
 <div class="w-full h-auto">
-<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
+<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-2" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
 </div>
 <div class="w-full h-auto py-2 text-center">
 <p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»">「かけ恋」アニメ公式サイトへ</p>
@@ -3798,7 +3798,7 @@
 <div class="talk-share-item w-full h-auto mt-6">
 <a class="link block w-full h-auto bg-white rounded-lg overflow-hidden" href="https://sh-anime.shochiku.co.jp/kakekoi/">
 <div class="w-full h-auto">
-<img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
+<img alt="" class="w-full h-auto kakekoi-banner-img" id="kakekoi-banner-img-3" data-ja-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png" data-ar-src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner-ar.png" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-banner.png"/>
 </div>
 <div class="w-full h-auto py-2 text-center">
 <p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»">「かけ恋」アニメ公式サイトへ</p>
@@ -3874,6 +3874,13 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
     if (labelJa) labelJa.classList.toggle("is-current", !ar);
     if (labelAr) labelAr.classList.toggle("is-current", ar);
 
+    // 4) الصور التي لها نسخة عربية مخصصة (شعار شاشة التحميل، بانر الموقع الرسمي)
+    var swappableImgs = document.querySelectorAll("[data-ja-src][data-ar-src]");
+    swappableImgs.forEach(function(img){
+      var wanted = ar ? img.getAttribute("data-ar-src") : img.getAttribute("data-ja-src");
+      if (wanted && img.getAttribute("src") !== wanted) img.setAttribute("src", wanted);
+    });
+
     try { window.localStorage.setItem(STORAGE_KEY, ar ? "ar" : "ja"); } catch(e) {}
   }
 
@@ -3906,6 +3913,22 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
   var showAll = false; // الحالة العامة لميزة "عرض الكل دفعة واحدة"
   var revealed = { "1": true, "2": false, "3": false };
   var revealTimers = {}; // لتخزين مؤقتات setTimeout الجارية لكل يوم (لإلغائها عند الحاجة)
+
+  // ---- تعطيل التمرير التلقائي المدمج أصلاً في محرك اليوم الأول (Alpine) ----
+  // المحرك الأصلي (المضمّن في ملف build المصغّر) ينهي كتابة رسائله ثم يستدعي
+  // scrollTo({top:scrollHeight}) بنفسه لينزل للأسفل تلقائياً، بمعزل تام عن حالة
+  // "عرض الكل دفعة واحدة" لدينا. لا يمكننا تعديل ذلك الملف المصغّر مباشرة، لذا
+  // نعترض استدعاء scrollTo على لوحة اليوم الأول تحديداً ونتجاهله فقط أثناء تفعيل
+  // وضع العرض الكل، حتى يبقى موضع التمرير بيد المستخدم كما طلب تماماً.
+  function suppressAutoScrollFor(panel){
+    if (!panel || panel.__kakekoiScrollPatched) return;
+    panel.__kakekoiScrollPatched = true;
+    var nativeScrollTo = panel.scrollTo.bind(panel);
+    panel.scrollTo = function(opts){
+      if (showAll) return; // نتجاهل أي نداء تمرير تلقائي أثناء "عرض الكل دفعة واحدة"
+      return nativeScrollTo(opts);
+    };
+  }
 
   function qs(sel, ctx){ return (ctx||document).querySelector(sel); }
   function qsa(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); }
@@ -4016,6 +4039,7 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
   function forceShowDay1(){
     var panel = qs('.day-panel[data-day-panel="1"]');
     if (!panel) return;
+    suppressAutoScrollFor(panel);
     var items = qsa(".talk-message, .talk-share-item", panel);
     items.forEach(function(el){
       el.style.transition = "none";
@@ -4102,6 +4126,8 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
   }
 
   function init(){
+    var day1Panel = qs('.day-panel[data-day-panel="1"]');
+    if (day1Panel) suppressAutoScrollFor(day1Panel);
     qsa(".kakekoi-day-tab").forEach(function(btn){
       btn.addEventListener("click", function(){
         switchToDay(btn.getAttribute("data-day-btn"));
