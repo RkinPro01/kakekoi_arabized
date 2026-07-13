@@ -121,6 +121,95 @@
   .lang-toggle-wrap{ display:none; }
   body.kakekoi-lang-chosen .lang-toggle-wrap{ display:flex; }
 
+  /* ==== زر تبديل منظور كوهارو (وضع القراءة الآلية للمكفوفين) ====
+     على الهاتف: زر دائري عائم أسفل يمين الشاشة، بعيداً عن أي عنصر آخر،
+     ويمكن سحبه لأي موضع يفضله المستخدم (يُحفظ موضعه بعد الإفلات).
+     على الحاسوب/التاب: يبقى مرسواً بجانب مفتاح اللغة كما كان. */
+  .pov-toggle-wrap{
+    position:fixed;
+    right:16px;
+    bottom:calc(env(safe-area-inset-bottom,0px) + 84px);
+    left:auto;
+    top:auto;
+    z-index:10000;
+    display:none;
+    align-items:center;
+    gap:6px;
+    touch-action:none;
+    user-select:none;
+  }
+  body.kakekoi-lang-chosen .pov-toggle-wrap{ display:flex; }
+  .pov-toggle-wrap.is-dragging{ transition:none !important; }
+  .pov-toggle-label{
+    display:none;
+    color:#fff;
+    font-size:10px;
+    letter-spacing:.02em;
+    user-select:none;
+    white-space:nowrap;
+    background:rgba(20,30,35,.72);
+    backdrop-filter:blur(6px);
+    border-radius:999px;
+    padding:5px 10px;
+  }
+  .pov-toggle-btn{
+    position:relative;
+    flex:0 0 auto;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    border:none;
+    padding:0;
+    cursor:grab;
+    background:rgba(20,30,35,.78);
+    backdrop-filter:blur(6px);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 4px 14px rgba(0,0,0,.3);
+    transition:background .25s ease;
+  }
+  .pov-toggle-btn svg{ width:20px; height:20px; }
+  .pov-toggle-btn.is-koharu{ background:rgba(58,94,110,.9); }
+  .pov-toggle-btn:active{ cursor:grabbing; }
+  @media (min-width:768px){
+    .pov-toggle-wrap{
+      top:auto;
+      bottom:32px;
+      right:32px;
+      left:auto;
+      transform:none;
+      flex-direction:column;
+      gap:8px;
+      touch-action:auto;
+    }
+    .pov-toggle-label{ display:block; font-size:13px; }
+    .pov-toggle-btn{ width:30px; height:30px; cursor:pointer; }
+    .pov-toggle-btn svg{ width:15px; height:15px; }
+  }
+  /* ==== انعكاس اتجاه المحادثة أثناء منظور كوهارو ====
+     يُنفَّذ التبديل الفعلي عبر JavaScript (انظر تبديلProfileSide في السكربت)
+     لأنه يتطلب نقل عنصر الأفاتار نفسه بين الرسائل، لا مجرد قلب بصري. */
+  /* شارة صغيرة تظهر أعلى فقاعة الرسالة أثناء نطقها آلياً بصوت القارئ */
+  .pov-tts-speaking{ position:relative; }
+  .pov-tts-speaking::after{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:inherit;
+    box-shadow:0 0 0 2px rgba(58,94,110,.55);
+    pointer-events:none;
+    animation:pov-tts-pulse 1.1s ease-in-out infinite;
+  }
+  @keyframes pov-tts-pulse{
+    0%,100%{ opacity:.45; }
+    50%{ opacity:1; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .pov-tts-speaking::after{ animation:none; opacity:.8; }
+  }
+
   /* ==== شاشة اختيار اللغة قبل بدء الواجهة ==== */
   .kakekoi-lang-gate{
     position:fixed;
@@ -464,7 +553,7 @@
     position:absolute;
     top:12px;
     inset-inline-end:12px;
-    z-index:2;
+    z-index:10;
     width:30px;
     height:30px;
     border-radius:50%;
@@ -875,6 +964,12 @@
 <span class="lang-toggle-label lang-toggle-label-en" id="lang-toggle-label-en">English</span>
 <span class="lang-toggle-label lang-toggle-label-ar" id="lang-toggle-label-ar">العربية</span>
 </div>
+<div class="pov-toggle-wrap" id="pov-toggle-wrap">
+<span class="pov-toggle-label" data-ja="小春の視点" data-ar="منظور كوهارو" data-en="Koharu's view" id="pov-toggle-label">小春の視点</span>
+<button aria-label="تفعيل منظور كوهارو (قراءة آلية للرسائل)" aria-pressed="false" class="pov-toggle-btn" id="pov-toggle-btn" type="button">
+<svg fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 5c2-2.2 4.4-3.3 7-3.3S13.8 2.8 15.8 5c1 1.1 1.9 2.3 2.2 3-.3.7-1.2 1.9-2.2 3-2 2.2-4.4 3.3-7 3.3S3.8 13.2 1.8 11c-1-1.1-1.9-2.3-2.2-3 .3-.7 1.2-1.9 2.2-3z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" transform="translate(3 3)"></path><circle cx="12" cy="8" fill="currentColor" r="2"></circle><line stroke="currentColor" stroke-linecap="round" stroke-width="1.6" x1="3" x2="21" y1="21" y2="3"></line></svg>
+</button>
+</div>
 <audio id="kakekoi-bg-music" loop="" preload="auto" src="bg-music.mp3"></audio>
 <div class="kakekoi-credit-wrap kakekoi-ui" id="kakekoi-credit-wrap">
 <p class="kakekoi-credit-text" data-ja="この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です" data-ar="هذا العمل موسّع بواسطة هيوكا ناتسومي - Hyouka Natsume" data-en="This work is an extended/modified version by Hyouka Natsume">この作品は 氷菓 夏目（Hyouka Natsume）による拡張・改変版です</p>
@@ -940,12 +1035,16 @@
 <div class="w-2 h-auto">
 <img alt="" class="w-full h-auto" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/icon-back.svg"/>
 </div>
-<div class="kakekoi-header-names">
-<p class="font-jp_sans font-medium text-15 leading-none text-white" data-char-trigger="koharu" data-ja="冬月小春" data-ar="كوهارو فويوتسكي" data-en="Koharu Fuyutsuki">冬月小春</p>
-<span class="kakekoi-header-sep" aria-hidden="true">/</span>
-<button aria-label="بطاقة الشخصية" class="kakekoi-hero-avatar-btn" data-char-trigger="kakeru" type="button">
-<img alt="" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/char-card-kakeru-cutout.png"/>
+<div class="kakekoi-header-names" id="kakekoi-header-names">
+<p class="font-jp_sans font-medium text-15 leading-none text-white" data-char-trigger="koharu" data-ja="冬月小春" data-ar="كوهارو فويوتسكي" data-en="Koharu Fuyutsuki" id="kakekoi-pov-name-koharu">冬月小春</p>
+<span class="kakekoi-header-sep" aria-hidden="true" id="kakekoi-pov-sep">/</span>
+<button aria-label="بطاقة الشخصية" class="kakekoi-hero-avatar-btn" data-char-trigger="kakeru" id="kakekoi-pov-avatar-kakeru" type="button">
+<img alt="" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/ka-icon.png"/>
 </button>
+<button aria-label="بطاقة الشخصية" class="kakekoi-hero-avatar-btn" data-char-trigger="koharu" id="kakekoi-pov-avatar-koharu" style="display:none;" type="button">
+<img alt="" src="kakekoi/wp-content/themes/kakekoi_lp/assets/images/special-thumb-icon.png"/>
+</button>
+<p class="font-jp_sans font-medium text-15 leading-none text-white" data-char-trigger="kakeru" data-ja="空野かける" data-ar="سورانو كاكيرو" data-en="Kakeru Sorano" id="kakekoi-pov-name-kakeru" style="display:none;">空野かける</p>
 </div>
 </div>
 <div class="flex justify-end items-center size-auto gap-x-2.5">
@@ -5028,6 +5127,393 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
     });
     var showAllBtn = document.getElementById("kakekoi-showall-btn");
     if (showAllBtn) showAllBtn.addEventListener("click", onShowAllClick);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>
+(function(){
+  "use strict";
+  // ==== وضع منظور كوهارو (قراءة آلية للرسائل عبر قارئ شاشة الهاتف) ====
+  // كوهارو كفيفة، فحين يتحول المستخدم لمنظورها، يعرض الشريط العلوي اسم وأيقونة
+  // كاكيرو بدلاً منها (لأنها الآن "أنتِ")، وتُقرأ كل رسالة تظهر في المحادثة
+  // بصوت عالٍ فور ظهورها، باستخدام Web Speech API المدمجة في المتصفح/الهاتف
+  // (window.speechSynthesis) بدلاً من أي ملف صوتي مُسجَّل مسبقاً، حتى تعمل بأي
+  // لغة نصية متاحة في الصفحة (يابانية/إنجليزية/عربية) تلقائياً بحسب صوت الجهاز
+  // المتوفر لتلك اللغة.
+  //
+  // آلية الرصد: بدل الاشتباك مع محرك العرض التدريجي (المدمج أو المخصص)، نراقب
+  // بشكل عام أي عنصر ".talk-message" يتحول من opacity:0 إلى opacity:1 عبر
+  // MutationObserver على السمة style، فهذا يعمل بصرف النظر عن أي من المسارات
+  // الثلاثة (Alpine الأصلي، محرك اليوم 2/3 المخصص، أو "عرض الكل دفعة واحدة")
+  // هو من أظهر الرسالة فعلياً.
+
+  var STORAGE_KEY = "kakekoi-pov-koharu";
+  var povActive = false;
+  var spokenMsgs = new WeakSet(); // كل فقاعة تُقرأ مرة واحدة فقط، مهما تكرر تعديل style عليها
+  var speechQueue = [];
+  var speaking = false;
+
+  function qs(sel, ctx){ return (ctx||document).querySelector(sel); }
+  function qsa(sel, ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(sel)); }
+
+  // ---- تحديد اللغة الحالية المعروضة في الصفحة، لاختيار نص القراءة المطابق ولغة الصوت ----
+  function getCurrentLang(){
+    if (qs("#lang-toggle-label-en.is-current")) return "en";
+    if (qs("#lang-toggle-label-ar.is-current")) return "ar";
+    return "ja";
+  }
+  var SPEECH_LOCALE = { ja: "ja-JP", en: "en-US", ar: "ar-SA" };
+
+  // ---- استخراج نص فقاعة الرسالة بنفس لغة الواجهة الحالية ----
+  function getMessageText(msg){
+    var p = qs("p[data-ja]", msg);
+    if (!p) return "";
+    var lang = getCurrentLang();
+    var val = p.getAttribute("data-" + lang);
+    if (val === null) val = p.getAttribute("data-ja");
+    return (val || "").trim();
+  }
+
+  function isKoharuMessage(msg){
+    return /\bpl-5\b/.test(msg.className); // فقاعات كوهارو يسارية (لها أفاتار)، فقاعات كاكيرو يمينية
+  }
+
+  // ---- قراءة صوتية عبر قارئ الجهاز، بترتيب متسلسل (رسالة تلو الأخرى دون تداخل) ----
+  function speakNext(){
+    if (speaking || !speechQueue.length) return;
+    if (!("speechSynthesis" in window)) { speechQueue.length = 0; return; }
+    var item = speechQueue.shift();
+    var text = item.text, msgEl = item.el;
+    if (!text) { speakNext(); return; }
+
+    speaking = true;
+    if (msgEl) msgEl.classList.add("pov-tts-speaking");
+
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.lang = SPEECH_LOCALE[getCurrentLang()] || "ja-JP";
+    utter.rate = 1;
+    utter.volume = 0.7;
+    utter.pitch = 1;
+
+    function finish(){
+      speaking = false;
+      if (msgEl) msgEl.classList.remove("pov-tts-speaking");
+      speakNext();
+    }
+    utter.addEventListener("end", finish);
+    utter.addEventListener("error", finish);
+    window.speechSynthesis.speak(utter);
+  }
+
+  function enqueueMessage(msg){
+    if (!povActive) return;
+    if (spokenMsgs.has(msg)) return;
+    var text = getMessageText(msg);
+    if (!text) return;
+    spokenMsgs.add(msg);
+    speechQueue.push({ text: text, el: msg });
+    speakNext();
+  }
+
+  // ---- مراقبة ظهور الرسائل: أي ".talk-message" ينتقل إلى opacity غير صفرية يُعتبر "ظهر الآن" ----
+  function isVisibleNow(msg){
+    var op = msg.style.opacity;
+    return op === "" || op === "1" || parseFloat(op) > 0.05;
+  }
+
+  function scanExistingVisible(root){
+    qsa(".talk-message", root || document).forEach(function(msg){
+      if (isVisibleNow(msg)) enqueueMessage(msg);
+    });
+  }
+
+  var styleObserver = new MutationObserver(function(mutations){
+    if (!povActive) return;
+    mutations.forEach(function(m){
+      var el = m.target;
+      if (el.nodeType === 1 && el.classList && el.classList.contains("talk-message") && isVisibleNow(el)) {
+        enqueueMessage(el);
+      }
+    });
+  });
+
+  var addObserver = new MutationObserver(function(mutations){
+    if (!povActive) return;
+    mutations.forEach(function(m){
+      m.addedNodes && m.addedNodes.forEach(function(node){
+        if (node.nodeType !== 1) return;
+        if (node.classList && node.classList.contains("talk-message") && isVisibleNow(node)) {
+          enqueueMessage(node);
+        }
+        qsa(".talk-message", node).forEach(function(msg){
+          if (isVisibleNow(msg)) enqueueMessage(msg);
+        });
+      });
+    });
+  });
+
+  function observeAllPanels(){
+    qsa(".talk-message").forEach(function(msg){
+      styleObserver.observe(msg, { attributes: true, attributeFilter: ["style"] });
+    });
+    qsa(".day-panel").forEach(function(panel){
+      addObserver.observe(panel, { childList: true, subtree: true });
+    });
+  }
+
+  // ---- تبديل هوية فقاعات المحادثة: كوهارو بلا أيقونة ولون أصفر (فهذا هاتفها)،
+  // كاكيرو بالأيقونة ولون أبيض. تبديل حقيقي بنقل عنصر الأفاتار نفسه بين الرسائل
+  // وقلب كل خصائص الفقاعة (الجهة، اللون، ذيل الفقاعة، صف "تمت القراءة")، وليس
+  // مجرد قلب بصري بـ CSS، لأن رسائل كاكيرو الأصلية لا تحتوي عنصر أفاتار إطلاقاً.
+  var SENDER_BG = "bg-[#E8E15D]";
+  var RECEIVER_BG = "bg-white";
+  var SENDER_TAIL_TEXT = "text-[#E8E15D]";
+  var RECEIVER_TAIL_TEXT = "text-white";
+
+  function swapTalkMessage(msg, toKoharuAsSender){
+    var outerIsLeft = /\bpl-5\b/.test(msg.className);
+    // toKoharuAsSender=true يعني: هذه الرسالة أصلاً لكوهارو (كانت يسارية بأفاتار)
+    // ويجب أن تصبح يمينية صفراء بلا أفاتار. otherwise العكس بالضبط.
+    var row = msg.querySelector(":scope > div");
+    if (!row) return;
+    var bubbleWrap = row.querySelector(":scope > .relative");
+    if (!bubbleWrap) return;
+    var tailWrap = bubbleWrap.querySelector(":scope > .absolute");
+    var tailSvg = tailWrap ? tailWrap.querySelector("svg") : null;
+    var bubble = bubbleWrap.querySelector(":scope > div:not(.absolute)");
+    var receipt = bubbleWrap.querySelector(":scope > .flex.items-center");
+    var avatar = row.querySelector(":scope > .size-10");
+
+    if (toKoharuAsSender) {
+      // كانت يسارية بأفاتار أبيض -> تصبح يمينية صفراء بلا أفاتار
+      msg.classList.remove("pl-5"); msg.classList.add("pr-5");
+      row.classList.remove("justify-start"); row.classList.add("justify-end");
+      bubbleWrap.classList.remove("pl-1"); bubbleWrap.classList.add("pr-1");
+      if (tailWrap) { tailWrap.classList.remove("left-0"); tailWrap.classList.add("right-0"); }
+      if (tailSvg) {
+        tailSvg.classList.remove(RECEIVER_TAIL_TEXT); tailSvg.classList.add(SENDER_TAIL_TEXT);
+        tailSvg.classList.add("-scale-x-100");
+      }
+      if (bubble) { bubble.classList.remove(RECEIVER_BG); bubble.classList.add(SENDER_BG); }
+      if (receipt) {
+        receipt.classList.remove("justify-end", "pr-2");
+        receipt.classList.add("justify-start", "pl-2");
+      }
+      if (avatar && avatar.parentNode) {
+        msg.setAttribute("data-pov-avatar-removed", "1");
+        avatar.setAttribute("data-pov-parked", "1");
+        avatar.style.display = "none";
+        // نُبقيه ضمن نفس الصف بلا ظهور (بدل حذفه) لضمان استعادته بسهولة تامة عند الإيقاف
+      }
+    } else {
+      // كانت يمينية صفراء بلا أفاتار -> تصبح يسارية بيضاء بأفاتار كوهارو
+      msg.classList.remove("pr-5"); msg.classList.add("pl-5");
+      row.classList.remove("justify-end"); row.classList.add("justify-start");
+      bubbleWrap.classList.remove("pr-1"); bubbleWrap.classList.add("pl-1");
+      if (tailWrap) { tailWrap.classList.remove("right-0"); tailWrap.classList.add("left-0"); }
+      if (tailSvg) {
+        tailSvg.classList.remove(SENDER_TAIL_TEXT); tailSvg.classList.add(RECEIVER_TAIL_TEXT);
+        tailSvg.classList.remove("-scale-x-100");
+      }
+      if (bubble) { bubble.classList.remove(SENDER_BG); bubble.classList.add(RECEIVER_BG); }
+      if (receipt) {
+        receipt.classList.remove("justify-start", "pl-2");
+        receipt.classList.add("justify-end", "pr-2");
+      }
+      if (!avatar) {
+        // هذه رسالة كاكيرو الأصلية، لم تملك أفاتار قط: نُدرج أفاتاره الآن في مقدمة الصف
+        var img = document.createElement("img");
+        img.className = "size-full object-cover";
+        img.alt = "";
+        img.src = "kakekoi/wp-content/themes/kakekoi_lp/assets/images/ka-icon.png";
+        var wrap = document.createElement("div");
+        wrap.className = "size-10 rounded-full overflow-hidden";
+        wrap.setAttribute("data-pov-inserted", "1");
+        wrap.appendChild(img);
+        row.insertBefore(wrap, row.firstChild);
+      } else if (avatar.getAttribute("data-pov-parked") === "1") {
+        avatar.style.display = "";
+        avatar.removeAttribute("data-pov-parked");
+        msg.removeAttribute("data-pov-avatar-removed");
+      }
+    }
+  }
+
+  function applyChatSideSwap(active){
+    qsa(".talk-message").forEach(function(msg){
+      var isKoharu = /\bpl-5\b/.test(msg.className) || msg.hasAttribute("data-pov-avatar-removed");
+      // نحدد الهوية الأصلية مرة واحدة ونخزنها، لأن الفحص بعد أول تبديل يصبح غير موثوق
+      if (!msg.hasAttribute("data-pov-orig")) {
+        msg.setAttribute("data-pov-orig", isKoharu ? "koharu" : "kakeru");
+      }
+      var orig = msg.getAttribute("data-pov-orig");
+      var alreadySwapped = msg.getAttribute("data-pov-swapped") === "1";
+      if (active && !alreadySwapped) {
+        swapTalkMessage(msg, orig === "koharu");
+        msg.setAttribute("data-pov-swapped", "1");
+      } else if (!active && alreadySwapped) {
+        swapTalkMessage(msg, orig !== "koharu");
+        msg.removeAttribute("data-pov-swapped");
+        var inserted = msg.querySelector('[data-pov-inserted="1"]');
+        if (inserted && inserted.parentNode) inserted.parentNode.removeChild(inserted);
+      }
+    });
+  }
+
+  // ---- تبديل الشريط العلوي: عرض اسم/أيقونة كاكيرو بدل كوهارو أثناء تفعيل منظورها ----
+  function applyHeaderSwap(active){
+    var nameKoharu = document.getElementById("kakekoi-pov-name-koharu");
+    var nameKakeru = document.getElementById("kakekoi-pov-name-kakeru");
+    var avatarKakeru = document.getElementById("kakekoi-pov-avatar-kakeru");
+    var avatarKoharu = document.getElementById("kakekoi-pov-avatar-koharu");
+    if (nameKoharu) nameKoharu.style.display = active ? "none" : "";
+    if (nameKakeru) nameKakeru.style.display = active ? "" : "none";
+    if (avatarKakeru) avatarKakeru.style.display = active ? "none" : "";
+    if (avatarKoharu) avatarKoharu.style.display = active ? "" : "none";
+  }
+
+  // ---- فتح صلاحية الصوت (speechSynthesis) عند أول نقرة فعلية من المستخدم ----
+  // بعض متصفحات الهاتف (خصوصاً Safari/WebView على iOS) تمنع أي صوت من التشغيل
+  // إلى أن يحدث نطق فعلي بصوت غير صامت داخل نفس الحدث المباشر لنقرة المستخدم
+  // (click) لأول مرة في الجلسة. قبل هذا الإصلاح كانت الصفحة تعتمد بالخطأ على أن
+  // المستخدم يضغط زر الموسيقى أولاً (لأن تشغيل <audio> هناك كان يفتح صلاحية
+  // الصوت للصفحة كاملة، ومنها speechSynthesis)؛ الآن زر منظور كوهارو نفسه يفتح
+  // هذه الصلاحية مباشرة عند أول ضغطة عليه، فيعمل النطق الآلي دون أي علاقة
+  // بزر الموسيقى إطلاقاً.
+  var speechUnlocked = false;
+  function unlockSpeechSynthesis(){
+    if (speechUnlocked || !("speechSynthesis" in window)) return;
+    speechUnlocked = true;
+    try {
+      var warmup = new SpeechSynthesisUtterance(" ");
+      warmup.volume = 0; // صامت تماماً، غرضه فقط فتح الصلاحية لا إسماع شيء
+      window.speechSynthesis.speak(warmup);
+      window.speechSynthesis.cancel();
+    } catch(e) {}
+  }
+
+  function setPov(active){
+    povActive = active;
+    var btn = document.getElementById("pov-toggle-btn");
+    var label = document.getElementById("pov-toggle-label");
+    if (btn) {
+      btn.classList.toggle("is-koharu", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+      btn.setAttribute("aria-label", active ? "إيقاف منظور كوهارو" : "تفعيل منظور كوهارو (قراءة آلية للرسائل)");
+    }
+    if (label) {
+      label.setAttribute("data-ja", active ? "小春の視点：ON" : "小春の視点");
+      label.setAttribute("data-en", active ? "Koharu's view: ON" : "Koharu's view");
+      label.setAttribute("data-ar", active ? "منظور كوهارو: مفعّل" : "منظور كوهارو");
+      var lang = getCurrentLang();
+      label.textContent = label.getAttribute("data-" + lang) || label.getAttribute("data-ja");
+    }
+    applyHeaderSwap(active);
+    applyChatSideSwap(active);
+
+    if (active) {
+      observeAllPanels();
+      scanExistingVisible(); // اقرأ فوراً أي رسائل ظاهرة مسبقاً قبل التفعيل
+    } else {
+      styleObserver.disconnect();
+      addObserver.disconnect();
+      speechQueue.length = 0;
+      if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+      speaking = false;
+      qsa(".pov-tts-speaking").forEach(function(el){ el.classList.remove("pov-tts-speaking"); });
+    }
+
+    try { window.localStorage.setItem(STORAGE_KEY, active ? "1" : "0"); } catch(e) {}
+  }
+
+  function init(){
+    var wrap = document.getElementById("pov-toggle-wrap");
+    var btn = document.getElementById("pov-toggle-btn");
+
+    // ---- سحب الزر العائم لأي موضع على الهاتف (لا يعمل على الحاسوب حيث الزر مرسوٌ) ----
+    var POS_KEY = "kakekoi-pov-pos";
+    var dragging = false, moved = false, startX, startY, startRight, startBottom;
+
+    function isMobileLayout(){ return window.matchMedia("(max-width: 767px)").matches; }
+
+    function restorePos(){
+      if (!wrap || !isMobileLayout()) return;
+      try {
+        var saved = JSON.parse(window.localStorage.getItem(POS_KEY) || "null");
+        if (saved && typeof saved.right === "number" && typeof saved.bottom === "number") {
+          wrap.style.right = saved.right + "px";
+          wrap.style.bottom = saved.bottom + "px";
+        }
+      } catch(e) {}
+    }
+
+    function clampToViewport(){
+      var r = wrap.getBoundingClientRect();
+      var maxRight = window.innerWidth - r.width - 4;
+      var maxBottom = window.innerHeight - r.height - 4;
+      var curRight = parseFloat(wrap.style.right) || 0;
+      var curBottom = parseFloat(wrap.style.bottom) || 0;
+      wrap.style.right = Math.min(Math.max(curRight, 4), Math.max(maxRight, 4)) + "px";
+      wrap.style.bottom = Math.min(Math.max(curBottom, 4), Math.max(maxBottom, 4)) + "px";
+    }
+
+    if (wrap && btn) {
+      btn.addEventListener("pointerdown", function(ev){
+        if (!isMobileLayout()) return;
+        dragging = true; moved = false;
+        startX = ev.clientX; startY = ev.clientY;
+        startRight = parseFloat(getComputedStyle(wrap).right) || 16;
+        startBottom = parseFloat(getComputedStyle(wrap).bottom) || 84;
+        wrap.classList.add("is-dragging");
+        btn.setPointerCapture(ev.pointerId);
+      });
+      btn.addEventListener("pointermove", function(ev){
+        if (!dragging) return;
+        var dx = ev.clientX - startX, dy = ev.clientY - startY;
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) moved = true;
+        wrap.style.right = (startRight - dx) + "px";
+        wrap.style.bottom = (startBottom - dy) + "px";
+      });
+      function endDrag(ev){
+        if (!dragging) return;
+        dragging = false;
+        wrap.classList.remove("is-dragging");
+        clampToViewport();
+        try {
+          window.localStorage.setItem(POS_KEY, JSON.stringify({
+            right: parseFloat(wrap.style.right) || 16,
+            bottom: parseFloat(wrap.style.bottom) || 84
+          }));
+        } catch(e) {}
+      }
+      btn.addEventListener("pointerup", endDrag);
+      btn.addEventListener("pointercancel", endDrag);
+      // نمنع نقرة التفعيل من الانطلاق إذا كانت الحركة سحباً فعلياً وليست ضغطة بسيطة
+      btn.addEventListener("click", function(ev){
+        if (moved) { ev.stopPropagation(); ev.preventDefault(); moved = false; }
+      }, true);
+      restorePos();
+      window.addEventListener("resize", function(){ if (isMobileLayout()) clampToViewport(); });
+    }
+
+    if (btn) {
+      btn.addEventListener("click", function(){
+        unlockSpeechSynthesis();
+        setPov(!povActive);
+      });
+    }
+    // إعادة قراءة تسمية الزر عند تبديل لغة الواجهة، حتى تبقى متزامنة مع اليابانية/الإنجليزية/العربية
+    ["lang-toggle-btn","lang-toggle-label-ja","lang-toggle-label-en","lang-toggle-label-ar"].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.addEventListener("click", function(){ setPov(povActive); });
+    });
   }
 
   if (document.readyState === "loading") {
