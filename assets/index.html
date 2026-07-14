@@ -401,9 +401,11 @@
     width:max-content;
     max-width:min(420px,96vw);
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     align-items:center;
-    gap:4px;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
   }
   .kakekoi-credit-text{
     color:#fff;
@@ -413,6 +415,8 @@
     white-space:normal;
     word-break:break-word;
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    margin:0;
+    flex:0 0 auto;
   }
   .kakekoi-credit-ig{
     display:flex;
@@ -423,6 +427,7 @@
     font-size:10.5px;
     line-height:1;
     font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    flex:0 0 auto;
   }
   .kakekoi-credit-ig-icon{
     width:11px;
@@ -437,6 +442,37 @@
     .kakekoi-credit-wrap{ bottom:14px; }
     .day-panel{ padding-bottom:56px; }
   }
+
+  /* ==== زر إخلاء المسؤولية ==== */
+  .kakekoi-disclaimer-link{
+    color:#E8E15D;
+    text-decoration:underline;
+    text-underline-offset:2px;
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:10px;
+    opacity:.9;
+    flex:0 0 auto;
+    white-space:nowrap;
+  }
+  .kakekoi-disclaimer-link:active{ opacity:.6; }
+  .talk-disclaimer-item{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    margin-top:14px;
+    color:rgba(30,42,46,.55);
+    font-family:'Cairo','Tajawal',Tahoma,Arial,sans-serif;
+    font-size:10.5px;
+  }
+  .talk-disclaimer-item svg{ width:11px; height:11px; flex:0 0 auto; opacity:.7; }
+  .talk-disclaimer-item a{
+    color:#3A5E6E;
+    text-decoration:underline;
+    text-underline-offset:2px;
+    font-weight:700;
+  }
+  .talk-disclaimer-item a:active{ opacity:.65; }
 
   /* ==== بطاقات تعريف الشخصيتين (كوهارو / كاكيرو) ==== */
   /* أي عنصر يحمل data-char-trigger يصبح قابلاً للنقر لفتح بطاقة الشخصية المطابقة،
@@ -981,6 +1017,7 @@
 </svg>
 <span>@hyouka_ns</span>
 </a>
+<a class="kakekoi-disclaimer-link" href="disclaimer.html" target="_blank" rel="noopener" data-ja="免責事項" data-ar="إخلاء المسؤولية" data-en="Disclaimer">إخلاء المسؤولية</a>
 </div>
 
 <main>
@@ -2795,6 +2832,10 @@
 </div>
 </a>
 </div>
+<div class="talk-disclaimer-item">
+<svg viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1.05" fill="currentColor"/></svg>
+<a href="disclaimer.html" target="_blank" rel="noopener" data-ja="إخلاء المسؤولية" data-ar="إخلاء المسؤولية" data-en="Disclaimer">إخلاء المسؤولية</a>
+</div>
 </div>
 </div>
 <div class="day-panel size-full overflow-y-scroll" data-lenis-prevent="" data-day-panel="2" style="display:none">
@@ -3721,6 +3762,10 @@
 </div>
 </a>
 </div>
+<div class="talk-disclaimer-item">
+<svg viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1.05" fill="currentColor"/></svg>
+<a href="disclaimer.html" target="_blank" rel="noopener" data-ja="إخلاء المسؤولية" data-ar="إخلاء المسؤولية" data-en="Disclaimer">إخلاء المسؤولية</a>
+</div>
 </div>
 <div class="w-full h-auto py-8"></div>
 </div>
@@ -4549,6 +4594,10 @@
 <p class="font-jp_sans font-medium text-12 leading-[140%]" data-ja="「かけ恋」アニメ公式サイトへ" data-ar="إلى الموقع الرسمي للأنمي «كاكيكوي»" data-en="Go to the &quot;Kakekoi&quot; official anime site">「かけ恋」アニメ公式サイトへ</p>
 </div>
 </a>
+</div>
+<div class="talk-disclaimer-item">
+<svg viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="7.8" r="1.05" fill="currentColor"/></svg>
+<a href="disclaimer.html" target="_blank" rel="noopener" data-ja="إخلاء المسؤولية" data-ar="إخلاء المسؤولية" data-en="Disclaimer">إخلاء المسؤولية</a>
 </div>
 </div>
 <div class="w-full h-auto py-8"></div>
@@ -5557,8 +5606,8 @@ const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(
 </div>
 <p class="kakekoi-char-card-desc" data-ja="かけると同じ大学に通う、視覚障がいを持つ女の子。明るく、自分のやりたいことに真っ直ぐな性格。新歓コンパでかけると出会い、彼と過ごす時間の中で、新しい世界を知っていく。" data-ar="فتاة تدرس في الجامعة نفسها التي يدرس فيها كاكيرو، وتعاني من إعاقة بصرية. شخصيتها مشرقة وصريحة، تسعى دوماً خلف ما ترغب في فعله دون تردد. تلتقي بكاكيرو في حفل الترحيب بالطلاب الجدد، ومع الوقت الذي تقضيه معه، تبدأ باكتشاف عالمٍ جديد كلياً." data-en="A girl who attends the same university as Kakeru and has a visual impairment. She's bright and straightforward about the things she wants to do. She meets Kakeru at a club welcome party, and as she spends time with him, she comes to know a new world.">かけると同じ大学に通う、視覚障がいを持つ女の子。明るく、自分のやりたいことに真っ直ぐな性格。新歓コンパでかけると出会い、彼と過ごす時間の中で、新しい世界を知っていく。</p>
 <div class="kakekoi-char-card-cv">
-<span class="kakekoi-char-card-cv-label" data-ja="CV" data-ar="أداء صوتي" data-en="CV">CV</span>
-<span class="kakekoi-char-card-cv-name" data-ja="早見沙織" data-ar="ساوري هايامي" data-en="Saori Hayami">早見沙織</span>
+  <span class="kakekoi-char-card-cv-label" data-ja="CV" data-ar="أداء صوتي" data-en="CV">CV</span>
+  <span class="kakekoi-char-card-cv-name" data-ja="早見沙織" data-ar="ساوري هايامي" data-en="Saori Hayami">早見沙織</span>
 </div>
 </div>
 </div>
